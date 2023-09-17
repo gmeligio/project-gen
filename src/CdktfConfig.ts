@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import path from 'path';
+import * as path from 'path';
 import { Component, JsonFile, Project } from 'projen';
 import { v4 as uuidv4 } from 'uuid';
 
-interface TerraformDependencyConstraint {
+export interface TerraformDependencyConstraint {
   /**
    * Name of the module / provider
    */

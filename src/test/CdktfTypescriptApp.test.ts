@@ -1,10 +1,10 @@
 import { Language } from '../CdktfConfig';
-import { CdktTypeScriptfApp } from '../CdktfTypescriptApp';
+import { CdktTypeScriptApp } from '../CdktfTypescriptApp';
 
 describe('CdktfApp', () => {
   describe('app', () => {
     test('should use `ts-node` by default', () => {
-      const app = new CdktTypeScriptfApp({
+      const app = new CdktTypeScriptApp({
         name: 'test_project',
         defaultReleaseBranch: 'main',
         cdktfVersion: '0.0.0',
@@ -17,7 +17,7 @@ describe('CdktfApp', () => {
     test('can be overriden with custom command', () => {
       const command = 'npx ts-node --swc src/main.ts';
 
-      const app = new CdktTypeScriptfApp({
+      const app = new CdktTypeScriptApp({
         name: 'test_project',
         defaultReleaseBranch: 'main',
         cdktfVersion: '0.0.0',
@@ -33,7 +33,7 @@ describe('CdktfApp', () => {
 
   describe('language', () => {
     test('should use `typescript` language', () => {
-      const app = new CdktTypeScriptfApp({
+      const app = new CdktTypeScriptApp({
         name: 'test_project',
         defaultReleaseBranch: 'main',
         cdktfVersion: '0.0.0',
@@ -45,7 +45,7 @@ describe('CdktfApp', () => {
 
     test('should throw if not using `typescript`', () => {
       const createCdktfApp = () =>
-        new CdktTypeScriptfApp({
+        new CdktTypeScriptApp({
           name: 'test_project',
           defaultReleaseBranch: 'main',
           cdktfVersion: '0.0.0',
@@ -63,7 +63,7 @@ describe('CdktfApp', () => {
     test('should throw an error if cdktfVersion is not specified', () => {
       const createCdktfApp = () =>
         // @ts-ignore
-        new CdktTypeScriptfApp({
+        new CdktTypeScriptApp({
           name: 'test_project',
           defaultReleaseBranch: 'main',
           constructsVersion: '0.0.0',
@@ -74,7 +74,7 @@ describe('CdktfApp', () => {
     test('should throw an error if cdktfVersion is not specified', () => {
       const createCdktfApp = () =>
         // @ts-ignore
-        new CdktTypeScriptfApp({
+        new CdktTypeScriptApp({
           name: 'test_project',
           defaultReleaseBranch: 'main',
           cdktfVersion: '0.0.0',

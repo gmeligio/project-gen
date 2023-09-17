@@ -24,7 +24,7 @@ export interface CdktfTypeScriptAppOptions extends typescript.TypeScriptProjectO
   readonly constructsVersion: string;
 }
 
-export class CdktTypeScriptfApp extends TypeScriptAppProject {
+export class CdktTypeScriptApp extends TypeScriptAppProject {
   /**
    * The CDKTF CLI options
    */

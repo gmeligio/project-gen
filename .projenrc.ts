@@ -1,13 +1,28 @@
+import { Project } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
-import { JestReporter, NodePackageManager, TrailingComma, Transform, UpdateSnapshot } from 'projen/lib/javascript';
-import { ReleaseTrigger } from 'projen/lib/release';
+import {
+  JestReporter,
+  NodePackageManager,
+  NodeProject,
+  TrailingComma,
+  Transform,
+  UpdateSnapshot,
+} from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 
 /**
  * Configure the .gitignore file
  */
-function configureGitignore(project: JsiiProject, ignorePatterns: string[]) {
+function configureGitignore(project: Project, ignorePatterns: string[]) {
   ignorePatterns.forEach((ignorePattern) => project.addGitIgnore(ignorePattern));
+}
+
+/**
+ * Configure the NPM CLI
+ */
+function configureNpm(project: NodeProject) {
+  project.npmrc.addConfig('engine-strict', 'true');
+  project.npmrc.addConfig(`//registry.npmjs.org/:_authToken`, '${NPM_TOKEN}');
 }
 
 const repositoryOrg = 'gmeligio';
@@ -35,9 +50,17 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
 
 const buildOptions: Pick<
   JsiiProjectOptions,
-  'packageManager' | 'jsiiVersion' | 'package' | 'projenrcTs' | 'projenrcTsOptions'
+  | 'excludeTypescript'
+  | 'minNodeVersion'
+  | 'jsiiVersion'
+  | 'package'
+  | 'packageManager'
+  | 'projenrcTs'
+  | 'projenrcTsOptions'
 > = {
+  excludeTypescript: ['src/**/*.test.ts'],
   jsiiVersion: '~5.0.0',
+  minNodeVersion: '18.17.0',
   package: false,
   packageManager: NodePackageManager.NPM,
   projenrcTs: true,
@@ -46,7 +69,7 @@ const buildOptions: Pick<
   //   },
 };
 
-const projenDevDeps = ['publib', '@types/uuid'];
+const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
 const projenDeps = ['uuid', 'cdktf'];
 
 const jestDeps = ['mock-fs'];
@@ -64,19 +87,12 @@ const dependencyOptions: Pick<TypeScriptProjectOptions, 'devDeps' | 'peerDeps' |
 
 const releaseOptions: Pick<
   TypeScriptProjectOptions,
-  | 'defaultReleaseBranch'
-  | 'npmRegistryUrl'
-  | 'publishTasks'
-  | 'release'
-  | 'releaseToNpm'
-  | 'releaseTrigger'
-  | 'versionrcOptions'
+  'defaultReleaseBranch' | 'publishTasks' | 'release' | 'releaseToNpm'
 > = {
   defaultReleaseBranch: 'main',
   publishTasks: true,
   release: true,
   releaseToNpm: true,
-  releaseTrigger: ReleaseTrigger.manual(),
 };
 
 const formatOptions: Pick<TypeScriptProjectOptions, 'prettier' | 'prettierOptions'> = {
@@ -153,6 +169,7 @@ const project = new JsiiProject({
   ...testOptions,
 });
 
-configureGitignore(project, [reportsDirectory]);
+configureGitignore(project, [reportsDirectory, '.vscode', '.env']);
+configureNpm(project);
 
 project.synth();
