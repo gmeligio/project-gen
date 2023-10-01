@@ -1,41 +1,22 @@
-import { Project } from 'projen';
-import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
-import {
-  JestReporter,
-  NodePackageManager,
-  NodeProject,
-  TrailingComma,
-  Transform,
-  UpdateSnapshot,
-} from 'projen/lib/javascript';
+import { JsiiProjectOptions } from 'projen/lib/cdk';
+import { JestReporter, NodePackageManager, TrailingComma, Transform, UpdateSnapshot } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
-
-/**
- * Configure the .gitignore file
- */
-function configureGitignore(project: Project, ignorePatterns: string[]) {
-  ignorePatterns.forEach((ignorePattern) => project.addGitIgnore(ignorePattern));
-}
-
-/**
- * Configure the NPM CLI
- */
-function configureNpm(project: NodeProject) {
-  project.npmrc.addConfig('engine-strict', 'true');
-  project.npmrc.addConfig(`//registry.npmjs.org/:_authToken`, '${NPM_TOKEN}');
-}
+import { JsiiProjectPatch, JsiiProjectPatchOptions } from './src/patch';
 
 const repositoryOrg = 'gmeligio';
 const repositoryPath = `${repositoryOrg}/project-gen`;
 const name = `@${repositoryPath}`;
+const reportsDirectory = 'test_report';
+const coverageDirectory = 'coverage_report';
 
 const metadataOptions: Pick<
   JsiiProjectOptions,
-  'author' | 'authorAddress' | 'description' | 'name' | 'license' | 'repositoryUrl'
+  'author' | 'authorAddress' | 'description' | 'gitignore' | 'name' | 'license' | 'repositoryUrl'
 > = {
   author: 'Eligio Alejandro Mariño Garcés',
   authorAddress: '22875166+gmeligio@users.noreply.github.com',
   description: 'Project types for Projen',
+  gitignore: [reportsDirectory, '.vscode', '.env'],
   license: 'MIT',
   name,
   repositoryUrl: `https://github.com/${repositoryPath}.git`,
@@ -49,9 +30,10 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
 };
 
 const buildOptions: Pick<
-  JsiiProjectOptions,
+  JsiiProjectPatchOptions,
   | 'excludeTypescript'
   | 'minNodeVersion'
+  | 'npmrcOptions'
   | 'jsiiVersion'
   | 'package'
   | 'packageManager'
@@ -61,7 +43,17 @@ const buildOptions: Pick<
   excludeTypescript: ['src/**/*.test.ts'],
   jsiiVersion: '~5.0.0',
   minNodeVersion: '18.17.0',
-  package: false,
+  npmrcOptions: [
+    {
+      name: 'engine-strict',
+      value: 'true',
+    },
+    {
+      name: `//registry.npmjs.org/:_authToken`,
+      value: '${NPM_TOKEN}',
+    },
+  ],
+  package: true,
   packageManager: NodePackageManager.NPM,
   projenrcTs: true,
   //   projenrcTsOptions: {
@@ -70,7 +62,7 @@ const buildOptions: Pick<
 };
 
 const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
-const projenDeps = ['uuid', 'cdktf'];
+const projenDeps = ['uuid', 'cdktf', 'yaml'];
 
 const jestDeps = ['mock-fs'];
 const jestDevDeps = ['@swc/jest', 'jest-junit', '@types/mock-fs'];
@@ -116,12 +108,11 @@ const formatOptions: Pick<TypeScriptProjectOptions, 'prettier' | 'prettierOption
   },
 };
 
-const pipelineOptions: Pick<TypeScriptProjectOptions, 'github'> = {
-  github: false,
+const pipelineOptions: Pick<TypeScriptProjectOptions, 'github' | 'githubOptions' | 'renovatebot'> = {
+  github: true,
+  githubOptions: { pullRequestLint: false },
+  renovatebot: true,
 };
-
-const reportsDirectory = 'test_report';
-const coverageDirectory = 'coverage_report';
 
 const jestJunitReporter = new JestReporter('jest-junit', {
   outputDirectory: reportsDirectory,
@@ -158,7 +149,7 @@ const testOptions: TestOptions = {
   },
 };
 
-const project = new JsiiProject({
+const project = new JsiiProjectPatch({
   ...buildOptions,
   ...dependencyOptions,
   ...documentationOptions,
@@ -168,8 +159,5 @@ const project = new JsiiProject({
   ...releaseOptions,
   ...testOptions,
 });
-
-configureGitignore(project, [reportsDirectory, '.vscode', '.env']);
-configureNpm(project);
 
 project.synth();

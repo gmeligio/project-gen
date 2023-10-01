@@ -133,6 +133,10 @@
       "type": "bundled"
     },
     {
+      "name": "yaml",
+      "type": "bundled"
+    },
+    {
       "name": "projen",
       "type": "peer"
     }

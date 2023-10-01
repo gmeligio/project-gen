@@ -21,6 +21,8 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
+    "publish:github": "npx projen publish:github",
+    "publish:npm": "npx projen publish:npm",
     "release": "npx projen release",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
@@ -71,12 +73,14 @@
   "dependencies": {
     "cdktf": "^0.18.0",
     "mock-fs": "^5.2.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yaml": "^2.3.2"
   },
   "bundledDependencies": [
     "cdktf",
     "mock-fs",
-    "uuid"
+    "uuid",
+    "yaml"
   ],
   "engines": {
     "node": ">= 18.17.0"
