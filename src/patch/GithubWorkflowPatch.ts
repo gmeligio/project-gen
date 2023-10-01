@@ -153,7 +153,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsUploadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     const selfMutationJobTree = new VersionTree({ path: ['jobs', 'self-mutation'] });
     const selfMutationJobVersions = selfMutationJobTree
@@ -174,7 +174,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsDownloadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     const packageJsJobTree = new VersionTree({ path: ['jobs', 'package-js'] });
     const packageJsJobVersions = packageJsJobTree
@@ -195,7 +195,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsDownloadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     return this.configure({
       path: options.path,
@@ -232,7 +232,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsUploadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     const releaseGithubJobTree = new VersionTree({ path: ['jobs', 'release_github'] });
     const releaseGithubJobVersions = releaseGithubJobTree
@@ -253,7 +253,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsDownloadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     const releaseNpmJobTree = new VersionTree({ path: ['jobs', 'release_npm'] });
     const releaseNpmJobVersions = releaseNpmJobTree
@@ -274,7 +274,7 @@ export class GithubWorkflowPatch extends Component {
           version: options.actions.actionsDownloadArtifact,
         },
       ])
-      .getVersions();
+      .createVersions();
 
     return this.configure({
       path: options.path,

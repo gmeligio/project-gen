@@ -87,7 +87,7 @@ export class VersionTree {
    * Get the versions in the tree.
    * @returns The versions in the tree.
    */
-  getVersions() {
+  createVersions() {
     return this.children;
   }
 }

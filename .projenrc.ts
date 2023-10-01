@@ -11,12 +11,11 @@ const coverageDirectory = 'coverage_report';
 
 const metadataOptions: Pick<
   JsiiProjectOptions,
-  'author' | 'authorAddress' | 'description' | 'gitignore' | 'name' | 'license' | 'repositoryUrl'
+  'author' | 'authorAddress' | 'description' | 'name' | 'license' | 'repositoryUrl'
 > = {
   author: 'Eligio Alejandro Mariño Garcés',
   authorAddress: '22875166+gmeligio@users.noreply.github.com',
   description: 'Project types for Projen',
-  gitignore: [reportsDirectory, '.vscode', '.env'],
   license: 'MIT',
   name,
   repositoryUrl: `https://github.com/${repositoryPath}.git`,
@@ -32,6 +31,7 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
 const buildOptions: Pick<
   JsiiProjectPatchOptions,
   | 'excludeTypescript'
+  | 'gitignore'
   | 'minNodeVersion'
   | 'npmrcOptions'
   | 'jsiiVersion'
@@ -41,6 +41,7 @@ const buildOptions: Pick<
   | 'projenrcTsOptions'
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
+  gitignore: [reportsDirectory, '.vscode', '.env'],
   jsiiVersion: '~5.0.0',
   minNodeVersion: '18.17.0',
   npmrcOptions: [

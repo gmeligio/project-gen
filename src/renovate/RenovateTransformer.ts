@@ -5,7 +5,7 @@ import { VersionElement } from './VersionTree';
 /**
  * The options of the RenovateTransformer constructor.
  */
-interface RenovateTransformerOptions {
+export interface RenovateTransformerOptions {
   /**
    * The path to the file to be transformed.
    */
