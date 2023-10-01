@@ -1,5 +1,6 @@
 import { Component /*TextFile*/, TextFile } from 'projen';
-import { RenovateTransformer, Version, VersionElement, VersionTree } from '../renovate';
+import { NodeProject } from 'projen/lib/javascript';
+import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
 // import { RenovateTransformer, Version, VersionElement, VersionTree } from './renovate';
 
 // /**
@@ -42,7 +43,7 @@ import { RenovateTransformer, Version, VersionElement, VersionTree } from '../re
 
 type Action = 'actionsCheckout' | 'actionsSetupNode' | 'actionsUploadArtifact' | 'actionsDownloadArtifact';
 
-type ActionVersions = Record<Action, Version>;
+type ActionVersions = Record<Action, Element>;
 
 interface GithubWorkflowOptions {
   /**
@@ -53,7 +54,7 @@ interface GithubWorkflowOptions {
   /**
    * The version of the runner OS
    */
-  readonly runner: Version;
+  readonly runner: Element;
 
   /**
    * The versions of the actions
@@ -62,14 +63,24 @@ interface GithubWorkflowOptions {
 }
 
 export class GithubWorkflowPatch extends Component {
-  preSynthesize() {
+  constructor(project: NodeProject) {
+    super(project);
+
     const upgradePath = '.github/workflows/upgrade-main.yml';
     this.project.tryRemoveFile(upgradePath);
 
+    // const releaseWorkflowPath = '.github/workflows/release.yml';
+
+    // const releaseWorkflow = this.project.tryFindObjectFile(releaseWorkflowPath);
+    // // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
+    // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
+  }
+
+  preSynthesize() {
     // const buildWorkflow = project.tryFindObjectFile('.github/workflows/build.yml');
     // buildWorkflow?.addOverride('jobs.build.runs-on', 'ubuntu-22.04');
 
-    const runner: Version = { value: 'ubuntu-22.04' };
+    const runner: Element = { value: 'ubuntu-22.04' };
     const actions: ActionVersions = {
       actionsCheckout: {
         value: 'actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac',
@@ -103,10 +114,10 @@ export class GithubWorkflowPatch extends Component {
    * @param project The project to configure
    * @param options The options to configure the workflow
    */
-  private configure(options: { path: string; transformations: VersionElement[] }) {
+  private configure(options: { path: string; transformations: YamlElement[] }) {
     // TODO: Convert into RenovateAwareProject to format everything inside the project
     // TODO: Or add a formatter as an Aspect of the project
-    const transformer = new RenovateTransformer({ path: options.path });
+    const transformer = new YamlTransformer({ path: options.path });
 
     const transformed = transformer.apply(options.transformations);
 
@@ -126,76 +137,76 @@ export class GithubWorkflowPatch extends Component {
    * @param path The path to the workflow file
    */
   private configureBuild(options: GithubWorkflowOptions) {
-    const buildJobTree = new VersionTree({ path: ['jobs', 'build'] });
+    const buildJobTree = new YamlTree({ path: ['jobs', 'build'] });
     const buildJobVersions = buildJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsCheckout,
+          element: options.actions.actionsCheckout,
         },
         {
           path: [1, 'uses'],
-          version: options.actions.actionsSetupNode,
+          element: options.actions.actionsSetupNode,
         },
         {
           path: [5, 'uses'],
-          version: options.actions.actionsUploadArtifact,
+          element: options.actions.actionsUploadArtifact,
         },
         {
           path: [8, 'uses'],
-          version: options.actions.actionsUploadArtifact,
+          element: options.actions.actionsUploadArtifact,
         },
       ])
-      .createVersions();
+      .createTransformations();
 
-    const selfMutationJobTree = new VersionTree({ path: ['jobs', 'self-mutation'] });
+    const selfMutationJobTree = new YamlTree({ path: ['jobs', 'self-mutation'] });
     const selfMutationJobVersions = selfMutationJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsCheckout,
+          element: options.actions.actionsCheckout,
         },
         {
           path: [1, 'uses'],
-          version: options.actions.actionsDownloadArtifact,
+          element: options.actions.actionsDownloadArtifact,
         },
       ])
-      .createVersions();
+      .createTransformations();
 
-    const packageJsJobTree = new VersionTree({ path: ['jobs', 'package-js'] });
+    const packageJsJobTree = new YamlTree({ path: ['jobs', 'package-js'] });
     const packageJsJobVersions = packageJsJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsSetupNode,
+          element: options.actions.actionsSetupNode,
         },
         {
           path: [1, 'uses'],
-          version: options.actions.actionsDownloadArtifact,
+          element: options.actions.actionsDownloadArtifact,
         },
       ])
-      .createVersions();
+      .createTransformations();
 
     return this.configure({
       path: options.path,
@@ -209,72 +220,77 @@ export class GithubWorkflowPatch extends Component {
    * @param project The project to configure
    */
   private configureRelease(options: GithubWorkflowOptions) {
-    const releaseJobTree = new VersionTree({ path: ['jobs', 'release'] });
+    const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
     const releaseJobVersions = releaseJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsCheckout,
+          element: options.actions.actionsCheckout,
         },
         {
           path: [2, 'uses'],
-          version: options.actions.actionsSetupNode,
+          element: options.actions.actionsSetupNode,
         },
         {
           path: [7, 'uses'],
-          version: options.actions.actionsUploadArtifact,
+          element: options.actions.actionsUploadArtifact,
         },
       ])
-      .createVersions();
+      .createTransformations();
 
-    const releaseGithubJobTree = new VersionTree({ path: ['jobs', 'release_github'] });
+    const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
     const releaseGithubJobVersions = releaseGithubJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsSetupNode,
+          element: options.actions.actionsSetupNode,
         },
         {
           path: [1, 'uses'],
-          version: options.actions.actionsDownloadArtifact,
+          element: options.actions.actionsDownloadArtifact,
         },
       ])
-      .createVersions();
+      .createTransformations();
 
-    const releaseNpmJobTree = new VersionTree({ path: ['jobs', 'release_npm'] });
+    const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
     const releaseNpmJobVersions = releaseNpmJobTree
       .addChildren([
         {
           path: ['runs-on'],
-          version: options.runner,
+          element: options.runner,
         },
       ])
       .descendTo(['steps'])
       .addChildren([
         {
           path: [0, 'uses'],
-          version: options.actions.actionsSetupNode,
+          element: options.actions.actionsSetupNode,
         },
         {
           path: [1, 'uses'],
-          version: options.actions.actionsDownloadArtifact,
+          element: options.actions.actionsDownloadArtifact,
+        },
+        {
+          // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
+          path: [7, 'uses', 'env', 'NPM_DIST_TAG'],
+          element: { value: 'asdas' },
         },
       ])
-      .createVersions();
+      .createTransformations();
 
     return this.configure({
       path: options.path,

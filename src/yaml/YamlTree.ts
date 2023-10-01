@@ -1,24 +1,24 @@
 /**
  * An element to apply transformations to.
  */
-export interface VersionElement {
+export interface YamlElement {
   /**
    * The YAML path to the element to be updated.
    */
   readonly path: PathSegment[];
 
   /**
-   * The new version to set.
+   * The new element to set.
    */
-  readonly version: Version;
+  readonly element: Element;
 }
 
 /**
- * The schema of a Renovate version.
+ * The schema of a Yaml element.
  */
-export interface Version {
+export interface Element {
   /**
-   * The new version value to set.
+   * The new value to set.
    */
   readonly value: string;
 
@@ -32,27 +32,27 @@ export interface Version {
 type PathSegment = string | number;
 
 /**
- * The VersionCollection options
+ * The YamlTree options
  */
-export interface VersionTreeOptions {
+export interface YamlTreeOptions {
   /**
-   * The path to the element where the versions will be transformed.
+   * The path to the element where the elements will be transformed.
    */
   readonly path: PathSegment[];
 }
 
 /**
- * A tree of versions to be updated.
+ * The YAML tree of transformations.
  */
-export class VersionTree {
+export class YamlTree {
   /**
    * The path segments.
    */
   private segments: PathSegment[];
 
-  private children: VersionElement[];
+  private children: YamlElement[];
 
-  constructor(options: VersionTreeOptions) {
+  constructor(options: YamlTreeOptions) {
     // Initially there are no children in the tree.
     this.children = [];
 
@@ -60,13 +60,13 @@ export class VersionTree {
   }
 
   /**
-   * Add an array of versions to the tree.
-   * @param children The versions to add.
-   * @returns The current tree.
+   * Add an array of childre to the tree.
+   * @param children The children to add.
+   * @returns The tree with the children added.
    */
-  addChildren(children: VersionElement[]) {
+  addChildren(children: YamlElement[]) {
     children.forEach((child) =>
-      this.children.push({ path: [...this.segments, ...child.path], version: child.version })
+      this.children.push({ path: [...this.segments, ...child.path], element: child.element })
     );
 
     return this;
@@ -84,10 +84,10 @@ export class VersionTree {
   }
 
   /**
-   * Get the versions in the tree.
-   * @returns The versions in the tree.
+   * Get the transformations from the tree.
+   * @returns The transformations in the tree.
    */
-  createVersions() {
+  createTransformations() {
     return this.children;
   }
 }

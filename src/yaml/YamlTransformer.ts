@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as yaml from 'yaml';
-import { VersionElement } from './VersionTree';
+import { YamlElement } from './YamlTree';
 
 /**
  * The options of the RenovateTransformer constructor.
  */
-export interface RenovateTransformerOptions {
+export interface YamlTransformerOptions {
   /**
    * The path to the file to be transformed.
    */
@@ -13,15 +13,15 @@ export interface RenovateTransformerOptions {
 }
 
 /**
- * A transformer of Renovate-compatible versions for GitHub workflows.
+ * A transformer of YAML.
  */
-export class RenovateTransformer {
+export class YamlTransformer {
   private doc: yaml.Document;
 
   // lineWidth is a large enough value to prevent wrapping of long lines when converting the YAML document to string.
   private lineWidth = 200;
 
-  constructor(options: RenovateTransformerOptions) {
+  constructor(options: YamlTransformerOptions) {
     const file = fs.readFileSync(options.path, 'utf-8');
 
     this.doc = yaml.parseDocument(file);
@@ -32,14 +32,17 @@ export class RenovateTransformer {
    * @param transformations The transformations to apply to the document.
    * @returns The transformed document as a string.
    */
-  public apply(transformations: VersionElement[]): string {
-    // versions;
+  public apply(transformations: YamlElement[]): string {
     transformations.forEach((t) => {
-      this.doc.setIn(t.path, t.version.value);
+      if (this.doc.hasIn(t.path)) {
+        this.doc.setIn(t.path, t.element.value);
+      } else {
+        this.doc.addIn(t.path, t.element.value);
+      }
 
-      if (t.version.comment) {
+      if (t.element.comment) {
         const element = this.doc.getIn(t.path, true) as any;
-        element.comment = t.version.comment;
+        element.comment = t.element.comment;
       }
     });
 
