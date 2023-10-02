@@ -58,7 +58,7 @@ export class JsiiProjectPatch extends JsiiProject {
     const runner: Element = { value: 'ubuntu-22.04' };
     const actions: ActionVersions = {
       actionsCheckout: {
-        value: 'actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac',
+        value: 'actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608',
         comment: ' v4',
       },
       actionsSetupNode: {
