@@ -29,7 +29,6 @@
     "eslint",
     "jsii-rosetta",
     "jsii",
-    "npm-check-updates",
     "standard-version",
     "projen"
   ]

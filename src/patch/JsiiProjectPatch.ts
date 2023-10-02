@@ -42,12 +42,6 @@ export class JsiiProjectPatch extends JsiiProject {
     // Create .npmrc that is not being created by default by projen.
     options.npmrcOptions.forEach((o) => this.npmrc.addConfig(o.name, o.value));
 
-    // Update Github Workflow for custom configuration and best practices.
-    // new GithubWorkflowPatch(this);
-
-    const upgradePath = '.github/workflows/upgrade-main.yml';
-    this.tryRemoveFile(upgradePath);
-
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
