@@ -21,6 +21,11 @@ interface GithubWorkflowOptions {
    * The versions of the actions
    */
   readonly actions: ActionVersions;
+
+  /**
+   * The with property in the actions/checkout
+   */
+  readonly checkoutToken: Element;
 }
 
 export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
@@ -75,8 +80,10 @@ export class JsiiProjectPatch extends JsiiProject {
       },
     };
 
+    const checkoutToken: Element = { value: this.github!.projenCredentials.tokenRef };
+
     const buildWorkflowPath = '.github/workflows/build.yml';
-    const buildFile = this.configureBuild({ path: buildWorkflowPath, runner, actions });
+    const buildFile = this.configureBuild({ path: buildWorkflowPath, runner, actions, checkoutToken });
     buildFile.synthesize();
 
     const releaseWorkflowPath = '.github/workflows/release.yml';
@@ -87,7 +94,7 @@ export class JsiiProjectPatch extends JsiiProject {
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
     // releaseWorkflow?.synthesize();
 
-    const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, actions });
+    const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, actions, checkoutToken });
     releaseFile.synthesize();
   }
 
@@ -122,6 +129,10 @@ export class JsiiProjectPatch extends JsiiProject {
     const buildJobTree = new YamlTree({ path: ['jobs', 'build'] });
     const buildJobVersions = buildJobTree
       .addChildren([
+        {
+          path: ['steps', 0, 'with', 'token'],
+          element: options.checkoutToken,
+        },
         {
           path: ['runs-on'],
           element: options.runner,
@@ -205,6 +216,10 @@ export class JsiiProjectPatch extends JsiiProject {
     const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
     const releaseJobVersions = releaseJobTree
       .addChildren([
+        {
+          path: ['steps', 0, 'with', 'token'],
+          element: options.checkoutToken,
+        },
         {
           path: ['runs-on'],
           element: options.runner,
