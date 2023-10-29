@@ -1,3 +1,4 @@
+import { RenovatebotOptions } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
 import { JestReporter, NodePackageManager, TrailingComma, Transform, UpdateSnapshot } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
@@ -72,11 +73,24 @@ const bundledDeps = ([] as string[]).concat(projenDeps, jestDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat('projen');
 
-const dependencyOptions: Pick<TypeScriptProjectOptions, 'devDeps' | 'peerDeps' | 'bundledDeps'> = {
-  bundledDeps,
-  devDeps,
-  peerDeps,
+const renovatebotOptions: RenovatebotOptions = {
+  overrideConfig: {
+    customManagers: {
+      customType: 'regex',
+      fileMatch: ['^version\\.json$'],
+      matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentValue>.*)"'],
+      versioningTemplate: 'docker',
+    },
+  },
 };
+
+const dependencyOptions: Pick<TypeScriptProjectOptions, 'bundledDeps' | 'devDeps' | 'peerDeps' | 'renovatebotOptions'> =
+  {
+    bundledDeps,
+    devDeps,
+    peerDeps,
+    renovatebotOptions,
+  };
 
 const releaseOptions: Pick<
   TypeScriptProjectOptions,

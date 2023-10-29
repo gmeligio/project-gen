@@ -31,5 +31,16 @@
     "jsii",
     "standard-version",
     "projen"
-  ]
+  ],
+  "customManagers": {
+    "customType": "regex",
+    "fileMatch": [
+      "^version\\.json$"
+    ],
+    "matchStrings": [
+      "\"(?<datasource>.*?)\":\\s*{[^}]*}",
+      "\"(?<depName>.*?)\":\\s*\"(?<currentValue>.*)\""
+    ],
+    "versioningTemplate": "docker"
+  }
 }
