@@ -41,8 +41,7 @@
       "matchStrings": [
         "\"(?<datasource>.*?)\":\\s*{[^}]*}",
         "\"(?<depName>.*?)\":\\s*\"(?<currentValue>.*)\""
-      ],
-      "versioningTemplate": "docker"
+      ]
     }
   ]
 }
