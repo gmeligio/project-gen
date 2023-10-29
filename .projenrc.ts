@@ -75,12 +75,14 @@ const peerDeps = ([] as string[]).concat('projen');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
-    customManagers: {
-      customType: 'regex',
-      fileMatch: ['^version\\.json$'],
-      matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentValue>.*)"'],
-      versioningTemplate: 'docker',
-    },
+    customManagers: [
+      {
+        customType: 'regex',
+        fileMatch: ['^version\\.json$'],
+        matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentValue>.*)"'],
+        versioningTemplate: 'docker',
+      },
+    ],
   },
 };
 
