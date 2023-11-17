@@ -1,22 +1,9 @@
 import * as path from 'path';
-import mock from 'mock-fs';
-
-mock({
-  // projen tries to load a license file that needs to be present
-  'node_modules/projen/license-text/Apache-2.0.txt': mock.load(
-    path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
-  ),
-  'cdktf.json': mock.load(path.resolve(__dirname, 'cdktf.fixture.json')),
-});
-
+import mockfs from 'mock-fs';
 import { TestProject } from './TestProject';
 import { CdktfConfig, Language, RequirementDefinition } from '../CdktfConfig';
 
 describe('CdktfConfig', () => {
-  afterAll(() => {
-    mock.restore();
-  });
-
   describe('cdktfVersion', () => {
     test('should throw an error if app is not specified', () => {
       const createCdktfConfig = () =>
@@ -51,6 +38,10 @@ describe('CdktfConfig', () => {
   });
 
   describe('projectId', () => {
+    afterEach(() => {
+      mockfs.restore();
+    });
+
     test('should be `UUID`', () => {
       const command = 'npx ts-node --swc src/main.ts';
 
@@ -63,6 +54,14 @@ describe('CdktfConfig', () => {
     });
 
     test('should reuse existing `projectId` when `cdktf.json` exists', () => {
+      mockfs({
+        // projen tries to load a license file that needs to be present
+        'node_modules/projen/license-text/Apache-2.0.txt': mockfs.load(
+          path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
+        ),
+        'cdktf.json': mockfs.load(path.resolve(__dirname, 'cdktf.fixture.json')),
+      });
+
       const projectId = '12345678-1234-1234-1234-123456789012';
 
       const cdktfConfig = new CdktfConfig(
