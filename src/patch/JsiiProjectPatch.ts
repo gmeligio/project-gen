@@ -47,6 +47,10 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const versionFilePath = 'version.json';
 
+    const renovateFilePath = 'renovate.json5';
+    const renovate = this.tryFindObjectFile(renovateFilePath);
+    renovate?.addToArray('extends', 'helpers:pinGitHubActionDigests');
+
     // Create .npmrc that is not being created by default by projen.
     options.npmrcOptions.forEach((o) => this.npmrc.addConfig(o.name, o.value));
 
