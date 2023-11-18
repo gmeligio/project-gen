@@ -78,7 +78,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     renovate?.addToArray('packageRules', {
       matchFileNames: ['.github/workflows/*.yml'],
-      excludeDepsNames: excludeDepNames,
+      excludeDepNames,
     });
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
