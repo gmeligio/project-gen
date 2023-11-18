@@ -21,6 +21,17 @@
         "minor"
       ],
       "groupName": "devDependencies (non-major)"
+    },
+    {
+      "matchFileNames": [
+        ".github/workflows/*.yml"
+      ],
+      "excludeDepsNames": [
+        "actions/checkout",
+        "actions/download-artifact",
+        "actions/setup-node",
+        "actions/upload-artifact"
+      ]
     }
   ],
   "ignoreDeps": [

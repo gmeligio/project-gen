@@ -67,13 +67,18 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const versions = JSON.parse(rawData) as Record<string, Version>;
 
-    Object.entries(versions).forEach(([dep, state]) => {
-      if (state.manager !== renovateGithubActionsManager) {
-        return;
-      }
+    const excludeDepNames = Object.entries(versions)
+      .filter(([_, state]) => state.manager === renovateGithubActionsManager)
+      .map(([depName, state]) => {
+        const override = `${depName}@${state.digest}`;
+        this.github?.actions.set(depName, override);
 
-      const override = `${dep}@${state.digest}`;
-      this.github?.actions.set(dep, override);
+        return depName;
+      });
+
+    renovate?.addToArray('packageRules', {
+      matchFileNames: ['.github/workflows/*.yml'],
+      excludeDepsNames: excludeDepNames,
     });
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
