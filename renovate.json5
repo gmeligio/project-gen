@@ -41,7 +41,7 @@
       ],
       "matchStrings": [
         "\"(?<datasource>.*?)\":\\s*{[^}]*}",
-        "\"(?<depName>.*?)\":\\s*\"(?<currentValue>.*)\""
+        "\"(?<depName>.*?)\":\\s*\"(?<currentDigest>.*)\""
       ],
       "matchStringsStrategy": "recursive"
     }
