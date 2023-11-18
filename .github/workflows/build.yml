@@ -19,7 +19,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.17.0
       - name: Install dependencies
@@ -88,7 +88,7 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.17.0
       - name: Download build artifacts
