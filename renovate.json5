@@ -52,7 +52,7 @@
       ],
       "matchStrings": [
         "\"(?<depName>.*?)\":\\s*{[^}]*}",
-        "\"datasource\":\\s*\"(?<datasource>.*)\",\\s*\"digest\":\\s*\"(?<currentDigest>.*)\",\\s*\"version\":\\s*\"(?<currentValue>.*)\""
+        "\"datasource\":\\s*\"(?<datasource>.*)\",\\s*\"digest\":\\s*\"(?<currentDigest>.*)\",\\s*\"manager\":\\s*\".*?\",\\s*\"version\":\\s(?<currentValue>.*)"
       ],
       "matchStringsStrategy": "recursive"
     }
