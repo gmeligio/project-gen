@@ -40,8 +40,8 @@
         "^version\\.json$"
       ],
       "matchStrings": [
-        "\"(?<datasource>.*?)\":\\s*{[^}]*}",
-        "\"(?<depName>.*?)\":\\s*\"(?<currentDigest>.*)\""
+        "\"(?<depName>.*?)\":\\s*{[^}]*}",
+        "\"datasource\":\\s*\"(?<datasource>.*)\",\\s*\"digest\":\\s*\"(?<currentDigest>.*)\",\\s*\"version\":\\s*\"(?<currentValue>.*)\""
       ],
       "matchStringsStrategy": "recursive"
     }

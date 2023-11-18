@@ -43,9 +43,18 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
 
 export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
+    interface Version {
+      datasource: string;
+      digest: string;
+      manager: string;
+      version: string;
+    }
+
     super(options);
 
     const versionFilePath = 'version.json';
+
+    const renovateGithubActionsManager = 'github-actions';
 
     const renovateFilePath = 'renovate.json5';
     const renovate = this.tryFindObjectFile(renovateFilePath);
@@ -55,11 +64,16 @@ export class JsiiProjectPatch extends JsiiProject {
     options.npmrcOptions.forEach((o) => this.npmrc.addConfig(o.name, o.value));
 
     const rawData = fs.readFileSync(versionFilePath, 'utf-8');
-    const versions = JSON.parse(rawData);
 
-    Object.entries(versions['github-tags']).forEach(([key, value]) => {
-      const override = `${key}@${value}`;
-      this.github?.actions.set(key, override);
+    const versions = JSON.parse(rawData) as Record<string, Version>;
+
+    Object.entries(versions).forEach(([dep, state]) => {
+      if (state.manager !== renovateGithubActionsManager) {
+        return;
+      }
+
+      const override = `${dep}@${state.digest}`;
+      this.github?.actions.set(dep, override);
     });
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';

@@ -79,7 +79,11 @@ const renovatebotOptions: RenovatebotOptions = {
       {
         customType: 'regex',
         fileMatch: ['^version\\.json$'],
-        matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentDigest>.*)"'],
+        // matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentDigest>.*)"'],
+        matchStrings: [
+          '"(?<depName>.*?)":\\s*{[^}]*}',
+          '"datasource":\\s*"(?<datasource>.*)",\\s*"digest":\\s*"(?<currentDigest>.*)",\\s*"version":\\s*"(?<currentValue>.*)"',
+        ],
         matchStringsStrategy: 'recursive',
       },
     ],
