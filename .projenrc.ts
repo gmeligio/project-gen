@@ -82,7 +82,7 @@ const renovatebotOptions: RenovatebotOptions = {
         // matchStrings: ['"(?<datasource>.*?)":\\s*{[^}]*}', '"(?<depName>.*?)":\\s*"(?<currentDigest>.*)"'],
         matchStrings: [
           '"(?<depName>.*?)":\\s*{[^}]*}',
-          '"datasource":\\s*"(?<datasource>.*)",\\s*"digest":\\s*"(?<currentDigest>.*)",\\s*"manager":\\s*".*?",\\s*"version":\\s(?<currentValue>.*)',
+          '"datasource":\\s*"(?<datasource>.*)",\\s*"digest":\\s*"(?<currentDigest>.*)",\\s*"manager":\\s*".*?",\\s*"version":\\s"(?<currentValue>.*)"',
         ],
         matchStringsStrategy: 'recursive',
       },
