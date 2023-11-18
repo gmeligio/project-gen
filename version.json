@@ -1,26 +1,30 @@
 {
     "actions/checkout": {
+        "currentDigest": "b4ffde65f46336ab88eb53be808477a3936bae11",
+        "currentValue": "v4.1.1",
         "datasource": "github-tags",
-        "digest": "b4ffde65f46336ab88eb53be808477a3936bae11",
-        "manager": "github-actions",
-        "version": "v4.1.1"
+        "depType": "action",
+        "manager": "github-actions"
     },
     "actions/download-artifact": {
+        "currentDigest": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a",
+        "currentValue": "v3.0.2",
         "datasource": "github-tags",
-        "digest": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a",
-        "manager": "github-actions",
-        "version": "v3.0.2"
+        "depType": "action",
+        "manager": "github-actions"
     },
     "actions/setup-node": {
+        "currentDigest": "8f152de45cc393bb48ce5d89d36b731f54556e65",
+        "currentValue": "v4.0.0",
         "datasource": "github-tags",
-        "digest": "8f152de45cc393bb48ce5d89d36b731f54556e65",
-        "manager": "github-actions",
-        "version": "v4.0.0"
+        "depType": "action",
+        "manager": "github-actions"
     },
     "actions/upload-artifact": {
+        "currentDigest": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32",
+        "currentValue": "v3.1.3",
         "datasource": "github-tags",
-        "digest": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32",
-        "manager": "github-actions",
-        "version": "v3.1.3"
+        "depType": "action",
+        "manager": "github-actions"
     }
 }

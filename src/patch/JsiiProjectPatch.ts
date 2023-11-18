@@ -43,11 +43,11 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
 
 export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
-    interface Version {
-      datasource: string;
-      digest: string;
+    interface Definition {
+      currentDigest: string;
+      currentVersion: string;
+      depType: string;
       manager: string;
-      version: string;
     }
 
     super(options);
@@ -65,12 +65,12 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const rawData = fs.readFileSync(versionFilePath, 'utf-8');
 
-    const versions = JSON.parse(rawData) as Record<string, Version>;
+    const versions = JSON.parse(rawData) as Record<string, Definition>;
 
     const excludeDepNames = Object.entries(versions)
-      .filter(([_, state]) => state.manager === renovateGithubActionsManager)
-      .map(([depName, state]) => {
-        const override = `${depName}@${state.digest}`;
+      .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
+      .map(([depName, definition]) => {
+        const override = `${depName}@${definition.currentDigest}`;
         this.github?.actions.set(depName, override);
 
         return depName;
