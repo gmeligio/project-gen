@@ -44,8 +44,9 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
 export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
     interface Definition {
-      currentDigest: string;
+      currentValue: string;
       currentVersion: string;
+      datasource: string;
       depType: string;
       manager: string;
     }
@@ -70,7 +71,7 @@ export class JsiiProjectPatch extends JsiiProject {
     const matchPackageNames = Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
       .map(([depName, definition]) => {
-        const override = `${depName}@${definition.currentDigest}`;
+        const override = `${depName}@${definition.currentValue}`;
         this.github?.actions.set(depName, override);
 
         return depName;
