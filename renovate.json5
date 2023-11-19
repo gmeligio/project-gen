@@ -23,10 +23,11 @@
       "groupName": "devDependencies (non-major)"
     },
     {
+      "enabled": false,
       "matchFileNames": [
         ".github/workflows/*.yml"
       ],
-      "excludeDepNames": [
+      "matchPackageNames": [
         "actions/checkout",
         "actions/download-artifact",
         "actions/setup-node",

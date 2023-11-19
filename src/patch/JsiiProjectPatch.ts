@@ -67,7 +67,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const versions = JSON.parse(rawData) as Record<string, Definition>;
 
-    const excludeDepNames = Object.entries(versions)
+    const matchPackageNames = Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
       .map(([depName, definition]) => {
         const override = `${depName}@${definition.currentDigest}`;
@@ -77,8 +77,9 @@ export class JsiiProjectPatch extends JsiiProject {
       });
 
     renovate?.addToArray('packageRules', {
+      enabled: false,
       matchFileNames: ['.github/workflows/*.yml'],
-      excludeDepNames,
+      matchPackageNames,
     });
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
