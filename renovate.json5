@@ -23,6 +23,15 @@
       "groupName": "devDependencies (non-major)"
     },
     {
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchFileNames": [
+        "version.json"
+      ],
+      "pinDigests": true
+    },
+    {
       "enabled": false,
       "matchFileNames": [
         ".github/workflows/*.yml"

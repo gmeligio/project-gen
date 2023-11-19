@@ -76,11 +76,19 @@ export class JsiiProjectPatch extends JsiiProject {
         return depName;
       });
 
-    renovate?.addToArray('packageRules', {
-      enabled: false,
-      matchFileNames: ['.github/workflows/*.yml'],
-      matchPackageNames,
-    });
+    renovate?.addToArray(
+      'packageRules',
+      {
+        matchDatasources: ['github-tags'],
+        matchFileNames: ['version.json'],
+        pinDigests: true,
+      },
+      {
+        enabled: false,
+        matchFileNames: ['.github/workflows/*.yml'],
+        matchPackageNames,
+      }
+    );
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
