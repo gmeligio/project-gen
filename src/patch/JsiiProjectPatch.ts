@@ -120,16 +120,15 @@ export class JsiiProjectPatch extends JsiiProject {
     const buildFile = this.configureBuild({ path: buildWorkflowPath, runner, /*actions, */ checkoutToken });
     buildFile.synthesize();
 
-    const releaseWorkflowPath = '.github/workflows/release.yml';
-
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
     // releaseWorkflow?.synthesize();
 
-    const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, /*actions, */ checkoutToken });
-    releaseFile.synthesize();
+    // const releaseWorkflowPath = '.github/workflows/release.yml';
+    // const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, /*actions, */ checkoutToken });
+    // releaseFile.synthesize();
   }
 
   /**
@@ -246,85 +245,85 @@ export class JsiiProjectPatch extends JsiiProject {
    * @param path The path to the workflow file
    * @param project The project to configure
    */
-  private configureRelease(options: GithubWorkflowOptions) {
-    const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
-    const releaseJobVersions = releaseJobTree
-      .addChildren([
-        {
-          path: ['steps', 0, 'with', 'token'],
-          element: options.checkoutToken,
-        },
-        {
-          path: ['runs-on'],
-          element: options.runner,
-        },
-      ])
-      .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsCheckout,
-      //   },
-      //   {
-      //     path: [2, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [7, 'uses'],
-      //     element: options.actions.actionsUploadArtifact,
-      //   },
-      // ])
-      .createTransformations();
+  // private configureRelease(options: GithubWorkflowOptions) {
+  //   const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
+  //   const releaseJobVersions = releaseJobTree
+  //     .addChildren([
+  //       {
+  //         path: ['steps', 0, 'with', 'token'],
+  //         element: options.checkoutToken,
+  //       },
+  //       {
+  //         path: ['runs-on'],
+  //         element: options.runner,
+  //       },
+  //     ])
+  //     .descendTo(['steps'])
+  //     // .addChildren([
+  //     //   {
+  //     //     path: [0, 'uses'],
+  //     //     element: options.actions.actionsCheckout,
+  //     //   },
+  //     //   {
+  //     //     path: [2, 'uses'],
+  //     //     element: options.actions.actionsSetupNode,
+  //     //   },
+  //     //   {
+  //     //     path: [7, 'uses'],
+  //     //     element: options.actions.actionsUploadArtifact,
+  //     //   },
+  //     // ])
+  //     .createTransformations();
 
-    const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
-    const releaseGithubJobVersions = releaseGithubJobTree
-      .addChildren([
-        {
-          path: ['runs-on'],
-          element: options.runner,
-        },
-      ])
-      .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [1, 'uses'],
-      //     element: options.actions.actionsDownloadArtifact,
-      //   },
-      // ])
-      .createTransformations();
+  //   const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
+  //   const releaseGithubJobVersions = releaseGithubJobTree
+  //     .addChildren([
+  //       {
+  //         path: ['runs-on'],
+  //         element: options.runner,
+  //       },
+  //     ])
+  //     .descendTo(['steps'])
+  //     // .addChildren([
+  //     //   {
+  //     //     path: [0, 'uses'],
+  //     //     element: options.actions.actionsSetupNode,
+  //     //   },
+  //     //   {
+  //     //     path: [1, 'uses'],
+  //     //     element: options.actions.actionsDownloadArtifact,
+  //     //   },
+  //     // ])
+  //     .createTransformations();
 
-    const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
-    const releaseNpmJobVersions = releaseNpmJobTree
-      .addChildren([
-        {
-          path: ['runs-on'],
-          element: options.runner,
-        },
-      ])
-      .descendTo(['steps'])
-      .addChildren([
-        // {
-        //   path: [0, 'uses'],
-        //   element: options.actions.actionsSetupNode,
-        // },
-        // {
-        //   path: [1, 'uses'],
-        //   element: options.actions.actionsDownloadArtifact,
-        // },
-        {
-          path: [7, 'env', 'NPM_ACCESS_LEVEL'],
-          element: { value: 'public' },
-        },
-      ])
-      .createTransformations();
+  //   const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
+  //   const releaseNpmJobVersions = releaseNpmJobTree
+  //     .addChildren([
+  //       {
+  //         path: ['runs-on'],
+  //         element: options.runner,
+  //       },
+  //     ])
+  //     .descendTo(['steps'])
+  //     .addChildren([
+  //       // {
+  //       //   path: [0, 'uses'],
+  //       //   element: options.actions.actionsSetupNode,
+  //       // },
+  //       // {
+  //       //   path: [1, 'uses'],
+  //       //   element: options.actions.actionsDownloadArtifact,
+  //       // },
+  //       {
+  //         path: [7, 'env', 'NPM_ACCESS_LEVEL'],
+  //         element: { value: 'public' },
+  //       },
+  //     ])
+  //     .createTransformations();
 
-    return this.configure({
-      path: options.path,
-      transformations: [...releaseJobVersions, ...releaseGithubJobVersions, ...releaseNpmJobVersions],
-    });
-  }
+  //   return this.configure({
+  //     path: options.path,
+  //     transformations: [...releaseJobVersions, ...releaseGithubJobVersions, ...releaseNpmJobVersions],
+  //   });
+  // }
 }
