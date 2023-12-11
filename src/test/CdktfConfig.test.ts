@@ -55,6 +55,10 @@ describe('CdktfConfig', () => {
 
     test('should reuse existing `projectId` when `cdktf.json` exists', () => {
       const licenseRelativePath = 'license-text/Apache-2.0.txt';
+      // Resolve dynamically the path to the license file because of how the PNPM package manager stores the packages.
+      // The package folders are not actually in `node_modules`.
+      // They are symlinked from node_modules to .pnpm folder and use the format `.pnpm/<package>@<version>/node_modules`.
+      // Then the projen path need to be resolved independently from the version installed.
       const projenPath = path.dirname(require.resolve('projen/package.json'));
       const licenseFilePath = path.join(projenPath, licenseRelativePath);
 

@@ -67,7 +67,7 @@ const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
 const projenDeps = ['uuid', 'cdktf', 'yaml'];
 
 const jestDeps = ['mock-fs'];
-const jestDevDeps = ['@swc/jest', 'jest-junit', '@types/mock-fs'];
+const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps, jestDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
