@@ -55,7 +55,9 @@ describe('CdktfApp', () => {
           },
         });
 
-      expect(createCdktfApp).toThrowError('The specified language must be typescript.');
+      expect(createCdktfApp).toThrowError(
+        'TypeScript is the only supported language at this moment. The specified language must be Language.TYPESCRIPT.'
+      );
     });
   });
 

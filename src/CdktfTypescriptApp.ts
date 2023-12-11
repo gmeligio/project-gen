@@ -31,7 +31,7 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
   public readonly cdktfConfig: CdktfConfig;
 
   /**
-   *
+   * The tasks for this project
    */
   public readonly cdktfTasks: CdktfTasks;
 
@@ -45,21 +45,18 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
     }
 
     if (options.cdktfConfig && options.cdktfConfig.language && options.cdktfConfig.language !== Language.TYPESCRIPT) {
-      throw new Error('The specified language must be typescript.');
+      throw new Error(
+        'TypeScript is the only supported language at this moment. The specified language must be Language.TYPESCRIPT.'
+      );
     }
 
     super(options);
 
-    // Metadata
     this.addKeywords('cdktf');
 
-    // Dependency
     this.addDeps(`cdktf@${options.cdktfVersion}`, `constructs@${options.constructsVersion}`);
 
-    // CLI
     this.addDevDeps(`cdktf-cli@${options.cdktfVersion}`);
-
-    // Task
 
     // No compile step because we do all of it in typescript directly
     this.compileTask.reset();
@@ -71,5 +68,7 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
     });
 
     this.cdktfTasks = new CdktfTasks(this);
+
+    this.gitignore.exclude('.gen', 'cdktf.out');
   }
 }
