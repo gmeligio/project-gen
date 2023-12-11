@@ -56,7 +56,7 @@ const buildOptions: Pick<
     },
   ],
   package: true,
-  packageManager: NodePackageManager.NPM,
+  packageManager: NodePackageManager.PNPM,
   projenrcTs: true,
   //   projenrcTsOptions: {
   //     swc: true,

@@ -54,11 +54,16 @@ describe('CdktfConfig', () => {
     });
 
     test('should reuse existing `projectId` when `cdktf.json` exists', () => {
+      const licenseRelativePath = 'license-text/Apache-2.0.txt';
+      const projenPath = path.dirname(require.resolve('projen/package.json'));
+      const licenseFilePath = path.join(projenPath, licenseRelativePath);
+
       mockfs({
         // projen tries to load a license file that needs to be present
-        'node_modules/projen/license-text/Apache-2.0.txt': mockfs.load(
-          path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
-        ),
+        // 'node_modules/.pnpm/projen@0.72.23/node_modules/projen/license-text/Apache-2.0.txt': mockfs.load(
+        //   path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
+        // ),
+        [licenseFilePath]: mockfs.load(path.resolve(__dirname, `../../node_modules/projen/${licenseRelativePath}`)),
         'cdktf.json': mockfs.load(path.resolve(__dirname, 'cdktf.fixture.json')),
       });
 
@@ -75,6 +80,8 @@ describe('CdktfConfig', () => {
       );
 
       expect(cdktfConfig.projectId).toStrictEqual(projectId);
+
+      mockfs.restore();
     });
   });
 

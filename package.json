@@ -73,6 +73,7 @@
     "uuid",
     "yaml"
   ],
+  "pnpm": {},
   "engines": {
     "node": ">= 18.17.0"
   },
