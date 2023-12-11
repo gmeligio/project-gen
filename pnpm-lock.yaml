@@ -8,6 +8,9 @@ dependencies:
   cdktf:
     specifier: ^0.19.0
     version: 0.19.2(constructs@10.3.0)
+  constructs:
+    specifier: ^10.3.0
+    version: 10.3.0
   mock-fs:
     specifier: ^5.2.0
     version: 5.2.0

@@ -119,6 +119,10 @@
       "type": "bundled"
     },
     {
+      "name": "constructs",
+      "type": "bundled"
+    },
+    {
       "name": "mock-fs",
       "type": "bundled"
     },

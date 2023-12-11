@@ -64,7 +64,7 @@ const buildOptions: Pick<
 };
 
 const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
-const projenDeps = ['uuid', 'cdktf', 'yaml'];
+const projenDeps = ['uuid', 'cdktf', 'constructs', 'yaml'];
 
 const jestDeps = ['mock-fs'];
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs'];
