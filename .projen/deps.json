@@ -1,6 +1,10 @@
 {
   "dependencies": [
     {
+      "name": "@swc/core",
+      "type": "build"
+    },
+    {
       "name": "@swc/jest",
       "type": "build"
     },
@@ -112,6 +116,10 @@
     },
     {
       "name": "cdktf",
+      "type": "bundled"
+    },
+    {
+      "name": "constructs",
       "type": "bundled"
     },
     {

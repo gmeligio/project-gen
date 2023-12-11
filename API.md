@@ -3495,7 +3495,7 @@ The command to execute.
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.tsconfigEslint">tsconfigEslint</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfConfig">cdktfConfig</a></code> | <code><a href="#@gmeligio/project-gen.CdktfConfig">CdktfConfig</a></code> | The CDKTF CLI options. |
-| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfTasks">cdktfTasks</a></code> | <code><a href="#@gmeligio/project-gen.CdktfTasks">CdktfTasks</a></code> | *No description.* |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfTasks">cdktfTasks</a></code> | <code><a href="#@gmeligio/project-gen.CdktfTasks">CdktfTasks</a></code> | The tasks for this project. |
 
 ---
 
@@ -4252,6 +4252,8 @@ public readonly cdktfTasks: CdktfTasks;
 ```
 
 - *Type:* <a href="#@gmeligio/project-gen.CdktfTasks">CdktfTasks</a>
+
+The tasks for this project.
 
 ---
 
