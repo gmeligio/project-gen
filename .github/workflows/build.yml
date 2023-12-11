@@ -19,7 +19,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Setup pnpm
-        uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: "7"
       - name: Setup Node.js
@@ -104,7 +104,7 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - name: Setup pnpm
-        uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: "7"
       - name: Prepare Repository
