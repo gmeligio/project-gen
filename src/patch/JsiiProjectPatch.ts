@@ -41,16 +41,16 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
   }[];
 }
 
+interface VersionDefinition {
+  currentValue: string;
+  currentVersion: string;
+  datasource: string;
+  depType: string;
+  manager: string;
+}
+
 export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
-    interface Definition {
-      currentValue: string;
-      currentVersion: string;
-      datasource: string;
-      depType: string;
-      manager: string;
-    }
-
     super(options);
 
     const versionFilePath = 'version.json';
@@ -66,15 +66,14 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const rawData = fs.readFileSync(versionFilePath, 'utf-8');
 
-    const versions = JSON.parse(rawData) as Record<string, Definition>;
+    const versions = JSON.parse(rawData) as Record<string, VersionDefinition>;
 
-    const matchPackageNames = Object.entries(versions)
+    // const matchPackageNames = Object.entries(versions)
+    Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
-      .map(([depName, definition]) => {
+      .forEach(([depName, definition]) => {
         const override = `${depName}@${definition.currentValue}`;
         this.github?.actions.set(depName, override);
-
-        return depName;
       });
 
     renovate?.addToArray(
@@ -83,12 +82,12 @@ export class JsiiProjectPatch extends JsiiProject {
         matchDatasources: ['github-tags'],
         matchFileNames: ['version.json'],
         pinDigests: true,
-      },
-      {
-        enabled: false,
-        matchFileNames: ['.github/workflows/*.yml'],
-        matchPackageNames,
       }
+      // {
+      //   enabled: false,
+      //   matchFileNames: ['.github/workflows/*.yml'],
+      //   matchPackageNames,
+      // }
     );
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';

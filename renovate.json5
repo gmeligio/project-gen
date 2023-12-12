@@ -30,18 +30,6 @@
         "version.json"
       ],
       "pinDigests": true
-    },
-    {
-      "enabled": false,
-      "matchFileNames": [
-        ".github/workflows/*.yml"
-      ],
-      "matchPackageNames": [
-        "actions/checkout",
-        "actions/download-artifact",
-        "actions/setup-node",
-        "actions/upload-artifact"
-      ]
     }
   ],
   "ignoreDeps": [
