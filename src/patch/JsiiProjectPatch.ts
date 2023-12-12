@@ -42,6 +42,7 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
 }
 
 interface VersionDefinition {
+  currentDigest: string;
   currentValue: string;
   currentVersion: string;
   datasource: string;
@@ -72,7 +73,7 @@ export class JsiiProjectPatch extends JsiiProject {
     Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
       .forEach(([depName, definition]) => {
-        const override = `${depName}@${definition.currentValue}`;
+        const override = `${depName}@${definition.currentDigest}`;
         this.github?.actions.set(depName, override);
       });
 
