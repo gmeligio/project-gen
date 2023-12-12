@@ -26,5 +26,12 @@
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
+    },
+    "pnpm/action-setup": {
+        "currentValue": "d882d12c64e032187b2edb46d3a0d003b7a43598",
+        "currentVersion": "v2.4.0",
+        "datasource": "github-tags",
+        "depType": "action",
+        "manager": "github-actions"
     }
 }
