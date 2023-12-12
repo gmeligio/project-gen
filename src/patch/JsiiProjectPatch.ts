@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { TextFile } from 'projen';
+import { JsonPatch, TextFile } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
 import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
 
@@ -69,7 +69,6 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const versions = JSON.parse(rawData) as Record<string, VersionDefinition>;
 
-    // const matchPackageNames = Object.entries(versions)
     Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
       .forEach(([depName, definition]) => {
@@ -77,19 +76,13 @@ export class JsiiProjectPatch extends JsiiProject {
         this.github?.actions.set(depName, override);
       });
 
-    renovate?.addToArray(
-      'packageRules',
-      {
-        matchDatasources: ['github-tags'],
-        matchFileNames: ['version.json'],
-        pinDigests: true,
-      }
-      // {
-      //   enabled: false,
-      //   matchFileNames: ['.github/workflows/*.yml'],
-      //   matchPackageNames,
-      // }
-    );
+    renovate?.patch(JsonPatch.add('/ignorePaths', ['.github/workflows/*.yml']));
+
+    renovate?.addToArray('packageRules', {
+      enabled: true,
+      matchFileNames: ['version.json'],
+      pinDigests: true,
+    });
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);

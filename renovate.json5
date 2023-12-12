@@ -23,9 +23,7 @@
       "groupName": "devDependencies (non-major)"
     },
     {
-      "matchDatasources": [
-        "github-tags"
-      ],
+      "enabled": true,
       "matchFileNames": [
         "version.json"
       ],
@@ -54,5 +52,8 @@
       "matchStringsStrategy": "recursive",
       "versioningTemplate": "docker"
     }
+  ],
+  "ignorePaths": [
+    ".github/workflows/*.yml"
   ]
 }
