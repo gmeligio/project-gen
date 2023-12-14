@@ -8,9 +8,9 @@
         "manager": "github-actions"
     },
     "actions/download-artifact": {
-        "currentDigest": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a",
-        "currentValue": "v3.0.2",
-        "currentVersion": "v3.0.2",
+        "currentDigest": "7a1cd3216ca9260cd8022db641d960b1db4d1be4",
+        "currentValue": "v4.0.0",
+        "currentVersion": "v4.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
@@ -24,9 +24,9 @@
         "manager": "github-actions"
     },
     "actions/upload-artifact": {
-        "currentDigest": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32",
-        "currentValue": "v3.1.3",
-        "currentVersion": "v3.1.3",
+        "currentDigest": "c7d193f32edcb7bfad88892161225aeda64e9392",
+        "currentValue": "v4.0.0",
+        "currentVersion": "v4.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
