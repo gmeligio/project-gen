@@ -61,6 +61,10 @@ const buildOptions: Pick<
       value: 'hoisted',
     },
     {
+      name: 'symlink',
+      value: 'false',
+    },
+    {
       name: `//registry.npmjs.org/:_authToken`,
       value: '${NPM_TOKEN}',
     },
@@ -73,14 +77,16 @@ const buildOptions: Pick<
   //   },
 };
 
-const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
-const projenDeps = ['uuid', 'cdktf', 'constructs', 'yaml'];
+const projenDep = 'projen@0.78.4';
+const constructDep = 'constructs@10.3.0';
+const projenDevDeps = ([] as string[]).concat(projenDep, '@types/uuid', constructDep, 'publib');
+const projenDeps = ['uuid', 'yaml'];
 
-const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs', 'mock-fs'];
+const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs', 'cdktf', 'mock-fs'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat('projen');
+const peerDeps = ([] as string[]).concat(projenDep, 'constructs');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
