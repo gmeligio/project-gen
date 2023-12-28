@@ -42,11 +42,12 @@
     "@types/mock-fs": "^4.13.1",
     "@types/node": "^18",
     "@types/uuid": "^9.0.2",
-    "@typescript-eslint/eslint-plugin": "^5",
-    "@typescript-eslint/parser": "^5",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "cdktf": "^0.19.2",
+    "constructs": "10.3.0",
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-prettier": "^5.0.0",
@@ -59,7 +60,7 @@
     "jsii-rosetta": "~5.0.0",
     "mock-fs": "^5.2.0",
     "prettier": "^3.0.2",
-    "projen": "0.72.23",
+    "projen": "0.78.4",
     "publib": "^0.2.737",
     "standard-version": "^9",
     "ts-jest": "^29.1.1",
@@ -67,17 +68,14 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "projen": "^0.72.23"
+    "constructs": "^10.3.0",
+    "projen": "0.78.4"
   },
   "dependencies": {
-    "cdktf": "^0.19.0",
-    "constructs": "^10.3.0",
     "uuid": "^9.0.0",
     "yaml": "^2.3.2"
   },
   "bundledDependencies": [
-    "cdktf",
-    "constructs",
     "uuid",
     "yaml"
   ],
@@ -112,6 +110,12 @@
       ".js"
     ],
     "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ],
       "\\.[jt]sx?$": "@swc/jest"
     },
     "reporters": [
@@ -146,13 +150,7 @@
     ],
     "watchPathIgnorePatterns": [
       "/node_modules/"
-    ],
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json"
-      }
-    }
+    ]
   },
   "types": "lib/index.d.ts",
   "stability": "stable",
