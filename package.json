@@ -99,11 +99,11 @@
       "node"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupJest.js"
+      "<rootDir>/test/setupJest.js"
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "src/**/test/*.ts",
+      "test/**/*.test.ts",
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/(test|src)/**/*(*.)@(spec|test).ts?(x)"
     ],

@@ -160,9 +160,9 @@ const testOptions: TestOptions = {
       clearMocks: true,
       coverageProvider: 'v8',
       moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-      setupFilesAfterEnv: ['<rootDir>/src/setupJest.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/setupJest.js'],
       testEnvironment: 'node',
-      testMatch: ['src/**/test/*.ts'],
+      testMatch: ['test/**/*.test.ts'],
       testPathIgnorePatterns: ['/node_modules/', '.d.ts', '.js'],
       transform: {
         '\\.[jt]sx?$': new Transform('@swc/jest'),

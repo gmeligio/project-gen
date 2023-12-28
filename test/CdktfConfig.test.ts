@@ -1,7 +1,7 @@
 import * as path from 'path';
 import mockfs from 'mock-fs';
 import { TestProject } from './TestProject';
-import { CdktfConfig, Language, RequirementDefinition } from '../CdktfConfig';
+import { CdktfConfig, Language, RequirementDefinition } from '../src/CdktfConfig';
 
 describe('CdktfConfig', () => {
   describe('cdktfVersion', () => {
@@ -67,7 +67,7 @@ describe('CdktfConfig', () => {
         // 'node_modules/.pnpm/projen@0.72.23/node_modules/projen/license-text/Apache-2.0.txt': mockfs.load(
         //   path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
         // ),
-        [licenseFilePath]: mockfs.load(path.resolve(__dirname, `../../node_modules/projen/${licenseRelativePath}`)),
+        [licenseFilePath]: mockfs.load(path.resolve(__dirname, `../node_modules/projen/${licenseRelativePath}`)),
         'cdktf.json': mockfs.load(path.resolve(__dirname, 'cdktf.fixture.json')),
       });
 
