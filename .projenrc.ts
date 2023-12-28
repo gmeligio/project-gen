@@ -34,6 +34,7 @@ const buildOptions: Pick<
   | 'excludeTypescript'
   | 'gitignore'
   | 'minNodeVersion'
+  | 'npmignore'
   | 'npmrcOptions'
   | 'jsiiVersion'
   | 'package'
@@ -42,13 +43,22 @@ const buildOptions: Pick<
   | 'projenrcTsOptions'
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
-  gitignore: [reportsDirectory, '.vscode', '.env'],
+  gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env'],
   jsiiVersion: '~5.0.0',
   minNodeVersion: '18.17.0',
+  npmignore: [coverageDirectory, reportsDirectory, '.pnpm'],
   npmrcOptions: [
     {
       name: 'engine-strict',
       value: 'true',
+    },
+    // TODO: Remove when this issue is solved
+    // https://github.com/cdklabs/publib/issues/969
+    // Currently, the bundledDependencies add hard links including .pnpm folder and other folders, making the publishing the fail with error 415
+    // https://github.com/gmeligio/project-gen/actions/runs/7351465607/job/20015330761
+    {
+      name: 'node-linker',
+      value: 'hoisted',
     },
     {
       name: `//registry.npmjs.org/:_authToken`,
