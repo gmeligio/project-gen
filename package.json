@@ -57,6 +57,7 @@
     "jsii-docgen": "^10.0.0",
     "jsii-pacmak": "^1.87.0",
     "jsii-rosetta": "~5.0.0",
+    "mock-fs": "^5.2.0",
     "prettier": "^3.0.2",
     "projen": "0.72.23",
     "publib": "^0.2.737",
@@ -71,14 +72,12 @@
   "dependencies": {
     "cdktf": "^0.19.0",
     "constructs": "^10.3.0",
-    "mock-fs": "^5.2.0",
     "uuid": "^9.0.0",
     "yaml": "^2.3.2"
   },
   "bundledDependencies": [
     "cdktf",
     "constructs",
-    "mock-fs",
     "uuid",
     "yaml"
   ],

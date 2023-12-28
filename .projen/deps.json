@@ -91,6 +91,10 @@
       "type": "build"
     },
     {
+      "name": "mock-fs",
+      "type": "build"
+    },
+    {
       "name": "prettier",
       "type": "build"
     },
@@ -125,10 +129,6 @@
     },
     {
       "name": "constructs",
-      "type": "bundled"
-    },
-    {
-      "name": "mock-fs",
       "type": "bundled"
     },
     {
