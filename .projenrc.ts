@@ -104,7 +104,7 @@ const releaseOptions: Pick<
 > = {
   defaultReleaseBranch: 'main',
   publishTasks: true,
-  release: false,
+  release: true,
   releaseToNpm: true,
 };
 
