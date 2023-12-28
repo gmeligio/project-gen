@@ -37,6 +37,7 @@
     "eslint",
     "jsii-rosetta",
     "jsii",
+    "standard-version",
     "projen"
   ],
   "customManagers": [
