@@ -1,5 +1,5 @@
-import { Language } from '../CdktfConfig';
-import { CdktfTypeScriptApp } from '../CdktfTypescriptApp';
+import { Language } from '../src/CdktfConfig';
+import { CdktfTypeScriptApp } from '../src/CdktfTypescriptApp';
 
 describe('CdktfApp', () => {
   describe('app', () => {

@@ -76,10 +76,9 @@ const buildOptions: Pick<
 const projenDevDeps = ['projen@0.72.23', 'publib', '@types/uuid'];
 const projenDeps = ['uuid', 'cdktf', 'constructs', 'yaml'];
 
-const jestDeps = ['mock-fs'];
-const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs'];
+const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs', 'mock-fs'];
 
-const bundledDeps = ([] as string[]).concat(projenDeps, jestDeps);
+const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat('projen');
 
@@ -160,9 +159,9 @@ const testOptions: TestOptions = {
       clearMocks: true,
       coverageProvider: 'v8',
       moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-      setupFilesAfterEnv: ['<rootDir>/src/setupJest.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/setupJest.js'],
       testEnvironment: 'node',
-      testMatch: ['src/**/test/*.ts'],
+      testMatch: ['test/**/*.test.ts'],
       testPathIgnorePatterns: ['/node_modules/', '.d.ts', '.js'],
       transform: {
         '\\.[jt]sx?$': new Transform('@swc/jest'),
