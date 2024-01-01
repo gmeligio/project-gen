@@ -56,14 +56,14 @@ const buildOptions: Pick<
     // https://github.com/cdklabs/publib/issues/969
     // Currently, the bundledDependencies add hard links including .pnpm folder and other folders, making the publishing the fail with error 415
     // https://github.com/gmeligio/project-gen/actions/runs/7351465607/job/20015330761
-    {
-      name: 'node-linker',
-      value: 'hoisted',
-    },
-    {
-      name: 'symlink',
-      value: 'false',
-    },
+    // {
+    //   name: 'node-linker',
+    //   value: 'hoisted',
+    // },
+    // {
+    //   name: 'symlink',
+    //   value: 'false',
+    // },
     {
       name: `//registry.npmjs.org/:_authToken`,
       value: '${NPM_TOKEN}',
@@ -77,7 +77,7 @@ const buildOptions: Pick<
   //   },
 };
 
-const projenDep = 'projen@0.78.4';
+const projenDep = 'projen@0.78.5';
 const constructDep = 'constructs@10.3.0';
 const projenDevDeps = ([] as string[]).concat(projenDep, '@types/uuid', constructDep, 'publib');
 const projenDeps = ['uuid', 'yaml'];
