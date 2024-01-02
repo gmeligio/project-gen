@@ -1,6 +1,13 @@
 import { RenovatebotOptions } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
-import { JestReporter, NodePackageManager, TrailingComma, Transform, UpdateSnapshot } from 'projen/lib/javascript';
+import {
+  JestReporter,
+  NodePackageManager,
+  NpmAccess,
+  TrailingComma,
+  Transform,
+  UpdateSnapshot,
+} from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { JsiiProjectPatch, JsiiProjectPatchOptions } from './src/patch';
 
@@ -39,6 +46,7 @@ const buildOptions: Pick<
   | 'jsiiVersion'
   | 'package'
   | 'packageManager'
+  | 'pnpmVersion'
   | 'projenrcTs'
   | 'projenrcTsOptions'
 > = {
@@ -56,10 +64,11 @@ const buildOptions: Pick<
     // https://github.com/cdklabs/publib/issues/969
     // Currently, the bundledDependencies add hard links including .pnpm folder and other folders, making the publishing the fail with error 415
     // https://github.com/gmeligio/project-gen/actions/runs/7351465607/job/20015330761
-    // {
-    //   name: 'node-linker',
-    //   value: 'hoisted',
-    // },
+    // TODO: https://github.com/winglang/wing/pull/3187
+    {
+      name: 'node-linker',
+      value: 'hoisted',
+    },
     // {
     //   name: 'symlink',
     //   value: 'false',
@@ -71,6 +80,7 @@ const buildOptions: Pick<
   ],
   package: true,
   packageManager: NodePackageManager.PNPM,
+  pnpmVersion: '8',
   projenrcTs: true,
   //   projenrcTsOptions: {
   //     swc: true,
@@ -115,9 +125,10 @@ const dependencyOptions: Pick<TypeScriptProjectOptions, 'bundledDeps' | 'devDeps
 
 const releaseOptions: Pick<
   TypeScriptProjectOptions,
-  'defaultReleaseBranch' | 'publishTasks' | 'release' | 'releaseToNpm'
+  'defaultReleaseBranch' | 'npmAccess' | 'publishTasks' | 'release' | 'releaseToNpm'
 > = {
   defaultReleaseBranch: 'main',
+  npmAccess: NpmAccess.PUBLIC,
   publishTasks: true,
   release: true,
   releaseToNpm: true,
