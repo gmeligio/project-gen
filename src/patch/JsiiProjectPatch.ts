@@ -317,10 +317,10 @@ export class JsiiProjectPatch extends JsiiProject {
         //   path: [1, 'uses'],
         //   element: options.actions.actionsDownloadArtifact,
         // },
-        {
-          path: [7, 'env', 'NPM_ACCESS_LEVEL'],
-          element: { value: 'public' },
-        },
+        // {
+        //   path: [8, 'env', 'NPM_ACCESS_LEVEL'],
+        //   element: { value: 'public' },
+        // },
       ])
       .createTransformations();
 
