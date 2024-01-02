@@ -52,9 +52,9 @@ const buildOptions: Pick<
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
   gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env'],
-  jsiiVersion: '~5.0.0',
+  jsiiVersion: '~5.3.0',
   minNodeVersion: '18.17.0',
-  npmignore: [coverageDirectory, reportsDirectory, '.pnpm'],
+  npmignore: [coverageDirectory, reportsDirectory],
   npmrcOptions: [
     {
       name: 'engine-strict',
