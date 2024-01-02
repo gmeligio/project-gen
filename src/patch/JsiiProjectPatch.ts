@@ -86,7 +86,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
-    // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
+    // releaseWorkflow?.addOverride('jobs.release_npm.steps.8.env.run', 'asdas');
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
   }
 
