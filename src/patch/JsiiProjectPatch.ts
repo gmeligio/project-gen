@@ -95,7 +95,7 @@ export class JsiiProjectPatch extends JsiiProject {
     releaseWorkflow?.patch(
       JsonPatch.replace('/jobs/release_npm/steps/8', {
         name: 'Upload artifact',
-        uses: 'actions/upload-artifact',
+        uses: 'actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392',
         with: {
           name: 'npm-package',
           path: 'dist',
