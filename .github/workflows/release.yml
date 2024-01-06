@@ -109,6 +109,11 @@ jobs:
         run: cd .repo && npx projen package:js
       - name: Collect js Artifact
         run: mv .repo/dist dist
+      - name: Upload artifact
+        uses: actions/upload-artifact
+        with:
+          name: npm-package
+          path: dist
       - name: Release
         env:
           NPM_DIST_TAG: latest

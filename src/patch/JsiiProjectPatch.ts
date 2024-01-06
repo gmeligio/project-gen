@@ -88,6 +88,53 @@ export class JsiiProjectPatch extends JsiiProject {
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.8.env.run', 'asdas');
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
+
+    const releaseWorkflowPath = '.github/workflows/release.yml';
+    const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
+
+    releaseWorkflow?.patch(
+      JsonPatch.replace('/jobs/release_npm/steps/8', {
+        name: 'Upload artifact',
+        uses: 'actions/upload-artifact',
+        with: {
+          name: 'npm-package',
+          path: 'dist',
+        },
+      }),
+      JsonPatch.add('/jobs/release_npm/steps/9', {
+        name: 'Release',
+        env: {
+          NPM_DIST_TAG: 'latest',
+          NPM_REGISTRY: 'registry.npmjs.org',
+          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}',
+        },
+        run: 'npx -p publib@latest publib-npm',
+      })
+    );
+
+    // releaseWorkflow?.addToArray('jobs.release_npm.steps', {
+    //   name: 'Release',
+    //   env: {
+    //     NPM_DIST_TAG: 'latest',
+    //     NPM_REGISTRY: 'registry.npmjs.org',
+    //     NPM_TOKEN: '${{ secrets.NPM_TOKEN }}',
+    //   },
+    //   run: 'npx -p publib@latest publib-npm',
+    // });
+
+    //           name: 'Upload artifact',
+    //           uses: 'actions/upload-artifact',
+    //           with: {
+    //             name: 'npm-package',
+    //             path: 'dist',
+    //           },
+
+    //     - name: Release
+    // env:
+    //   NPM_DIST_TAG: latest
+    //   NPM_REGISTRY: registry.npmjs.org
+    //   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    // run: npx -p publib@latest publib-npm
   }
 
   /**
@@ -261,7 +308,7 @@ export class JsiiProjectPatch extends JsiiProject {
           element: options.runner,
         },
       ])
-      .descendTo(['steps'])
+      // .descendTo(['steps'])
       // .addChildren([
       //   {
       //     path: [0, 'uses'],
