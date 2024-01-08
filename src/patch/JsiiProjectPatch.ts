@@ -57,6 +57,11 @@ export class JsiiProjectPatch extends JsiiProject {
     // Dependency overrides
     this.package.addPackageResolutions('jsii-rosetta@~5.3.0');
 
+    // JSII tasks
+    // TODO: Contribute to upstream projen packCommand to be able to override it when calling jsii-packmak
+    const packageJsTask = this.tasks.tryFind('package:js');
+    packageJsTask?.reset("jsii-pacmak -v --pack-command 'pnpm pack' --target js");
+
     const versionFilePath = 'version.json';
 
     const renovateGithubActionsManager = 'github-actions';
