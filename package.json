@@ -79,7 +79,11 @@
     "uuid",
     "yaml"
   ],
-  "pnpm": {},
+  "pnpm": {
+    "overrides": {
+      "jsii-rosetta": "~5.3.0"
+    }
+  },
   "engines": {
     "node": ">= 18.17.0"
   },

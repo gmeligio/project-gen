@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  jsii-rosetta: ~5.3.0
+
 dependencies:
   uuid:
     specifier: ^9.0.0
@@ -3235,7 +3238,7 @@ packages:
     dependencies:
       semver: 7.5.4
       shelljs: 0.8.5
-      typescript: 5.4.0-dev.20240106
+      typescript: 5.4.0-dev.20240108
     dev: true
 
   /electron-to-chromium@1.4.610:
@@ -4884,7 +4887,7 @@ packages:
     resolution: {integrity: sha512-BG52Tq8+t6w8vTYHszC88L1iJiiNJDyTME5V+ZTVkm2U+EVkMLk3Cm3ynL/ZNj7+0f32sQPqwKGJJOVaasaZMw==}
     hasBin: true
     peerDependencies:
-      jsii-rosetta: ~v1.85.0 || ~5.0.14 || ~5.1.2 || ~5.2.0 || ~5.3.0
+      jsii-rosetta: ~5.3.0
     dependencies:
       '@jsii/spec': 1.93.0
       case: 1.6.3
@@ -4910,7 +4913,7 @@ packages:
       escape-string-regexp: 4.0.0
       fs-extra: 10.1.0
       jsii-reflect: 1.93.0
-      jsii-rosetta: 1.93.0
+      jsii-rosetta: 5.3.2
       semver: 7.5.4
       spdx-license-list: 6.8.0
       xmlbuilder: 15.1.1
@@ -4932,27 +4935,6 @@ packages:
       yargs: 16.2.0
     dev: true
 
-  /jsii-rosetta@1.93.0:
-    resolution: {integrity: sha512-5HFoC6Cp3Y3usCGuTRDTL/ovgz9MxI6/kY4Re8agVShXR6MPSX6F6Sc1qGMUjf3ynFfPz+DMsBY0Z164cxVKBA==}
-    engines: {node: '>= 14.17.0'}
-    hasBin: true
-    dependencies:
-      '@jsii/check-node': 1.93.0
-      '@jsii/spec': 1.93.0
-      '@xmldom/xmldom': 0.8.10
-      commonmark: 0.30.0
-      fast-glob: 3.3.2
-      jsii: 1.93.0
-      semver: 7.5.4
-      semver-intersect: 1.5.0
-      stream-json: 1.8.0
-      typescript: 3.9.10
-      workerpool: 6.5.1
-      yargs: 16.2.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /jsii-rosetta@5.3.2:
     resolution: {integrity: sha512-pY5wm72XcT9RdTWh/UpIVnyLScz381GtmlW4ey9ojJdHUoxvtni0vdGdSl+ZaojqEQR7TLdUM+ocLgB8Xnujxw==}
     engines: {node: '>= 18.12.0'}
@@ -4971,28 +4953,6 @@ packages:
       typescript: 5.3.3
       workerpool: 6.5.1
       yargs: 17.7.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /jsii@1.93.0:
-    resolution: {integrity: sha512-J6In5MDWcmVosOwZxdwcW+NisQZ2p9g2zWFwCO3RpMoHmpzYasChZSvRvpgR5iFB7m10QRebU+45R2WCGsadfg==}
-    engines: {node: '>= 14.17.0'}
-    hasBin: true
-    dependencies:
-      '@jsii/check-node': 1.93.0
-      '@jsii/spec': 1.93.0
-      case: 1.6.3
-      chalk: 4.1.2
-      fast-deep-equal: 3.1.3
-      fs-extra: 10.1.0
-      log4js: 6.9.1
-      semver: 7.5.4
-      semver-intersect: 1.5.0
-      sort-json: 2.0.1
-      spdx-license-list: 6.8.0
-      typescript: 3.9.10
-      yargs: 16.2.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6629,20 +6589,14 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typescript@3.9.10:
-    resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
   /typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 
-  /typescript@5.4.0-dev.20240106:
-    resolution: {integrity: sha512-6QrXfZ24bd5drgl7W3lNn+l/uvh8BkS9cwDf2AIlgASAEJZhrh/fEbNm0mCvUJV95/x5o5kjs6fEp4wBeX7SMQ==}
+  /typescript@5.4.0-dev.20240108:
+    resolution: {integrity: sha512-flXeU+FYwW3mL6zcOz1lNX0juSolUIeIRs4nO8j77jB+N/3lrqWNOSz05dzRC4eYJcjFIIOvv5y9u8MQ5nTtzg==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
