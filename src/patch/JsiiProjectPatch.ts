@@ -54,6 +54,9 @@ export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
     super(options);
 
+    // Dependency overrides
+    this.package.addPackageResolutions('jsii-rosetta@~5.3.0');
+
     const versionFilePath = 'version.json';
 
     const renovateGithubActionsManager = 'github-actions';
