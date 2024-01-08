@@ -171,7 +171,7 @@
       "description": "Create js language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target js"
+          "exec": "jsii-pacmak -v --pack-command 'pnpm pack' --target js"
         }
       ]
     },
