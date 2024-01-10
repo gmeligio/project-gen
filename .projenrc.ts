@@ -36,6 +36,8 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
   },
 };
 
+const typescriptVersion = '~5.3.0';
+
 const buildOptions: Pick<
   JsiiProjectPatchOptions,
   | 'excludeTypescript'
@@ -49,10 +51,13 @@ const buildOptions: Pick<
   | 'pnpmVersion'
   | 'projenrcTs'
   | 'projenrcTsOptions'
+  | 'typescriptVersion'
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
   gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env'],
-  jsiiVersion: '~5.3.0',
+  // JSII follows TypeScript versioning schema and should always be the same major/minor as TypeScript
+  jsiiVersion: typescriptVersion,
+  typescriptVersion,
   minNodeVersion: '18.17.0',
   npmignore: [coverageDirectory, reportsDirectory],
   npmrcOptions: [
