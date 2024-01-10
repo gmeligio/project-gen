@@ -74,9 +74,9 @@ const buildOptions: Pick<
   packageManager: NodePackageManager.PNPM,
   pnpmVersion: '8',
   projenrcTs: true,
-  //   projenrcTsOptions: {
-  //     swc: true,
-  //   },
+  projenrcTsOptions: {
+    swc: true,
+  },
 };
 
 const projenDevDeps = ['@types/uuid'];

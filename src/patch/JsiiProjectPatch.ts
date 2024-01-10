@@ -54,6 +54,10 @@ export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
     super(options);
 
+    // TODO: Remove dependency after ts-node@11 is published
+    // https://github.com/TypeStrong/ts-node/issues/2077
+    this.addDevDeps('ts-node@github:TypeStrong/ts-node#semver:v11.0.0-beta.1');
+
     const versionFilePath = 'version.json';
 
     const renovateGithubActionsManager = 'github-actions';
@@ -112,29 +116,10 @@ export class JsiiProjectPatch extends JsiiProject {
       })
     );
 
-    // releaseWorkflow?.addToArray('jobs.release_npm.steps', {
-    //   name: 'Release',
-    //   env: {
-    //     NPM_DIST_TAG: 'latest',
-    //     NPM_REGISTRY: 'registry.npmjs.org',
-    //     NPM_TOKEN: '${{ secrets.NPM_TOKEN }}',
-    //   },
-    //   run: 'npx -p publib@latest publib-npm',
-    // });
-
-    //           name: 'Upload artifact',
-    //           uses: 'actions/upload-artifact',
-    //           with: {
-    //             name: 'npm-package',
-    //             path: 'dist',
-    //           },
-
-    //     - name: Release
-    // env:
-    //   NPM_DIST_TAG: latest
-    //   NPM_REGISTRY: registry.npmjs.org
-    //   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    // run: npx -p publib@latest publib-npm
+    releaseWorkflow?.addOverride('on.push.paths-ignore', [
+      // don't do a release if the change was only to these files/directories
+      '.github/**/*.md',
+    ]);
   }
 
   /**

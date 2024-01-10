@@ -39,6 +39,7 @@
     "jsii-rosetta",
     "jsii",
     "standard-version",
+    "ts-node",
     "typescript",
     "projen"
   ],
