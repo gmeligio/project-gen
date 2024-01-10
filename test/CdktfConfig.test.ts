@@ -1,7 +1,16 @@
-import * as path from 'path';
-import mockfs from 'mock-fs';
+import * as fs from 'fs';
 import { TestProject } from './TestProject';
 import { CdktfConfig, Language, RequirementDefinition } from '../src/CdktfConfig';
+
+jest.mock('fs', () => {
+  return {
+    // __esModule: true is important to solve error "TypeError: Cannot redefine property: existsSync"
+    // https://github.com/aelbore/esbuild-jest/issues/26
+    // https://stackoverflow.com/a/72885576/5405601
+    __esModule: true,
+    ...jest.requireActual('fs'),
+  };
+});
 
 describe('CdktfConfig', () => {
   describe('cdktfVersion', () => {
@@ -39,7 +48,8 @@ describe('CdktfConfig', () => {
 
   describe('projectId', () => {
     afterEach(() => {
-      mockfs.restore();
+      jest.resetModules();
+      jest.clearAllMocks();
     });
 
     test('should be `UUID`', () => {
@@ -54,24 +64,31 @@ describe('CdktfConfig', () => {
     });
 
     test('should reuse existing `projectId` when `cdktf.json` exists', () => {
-      const licenseRelativePath = 'license-text/Apache-2.0.txt';
-      // Resolve dynamically the path to the license file because of how the PNPM package manager stores the packages.
-      // The package folders are not actually in `node_modules`.
-      // They are symlinked from node_modules to .pnpm folder and use the format `.pnpm/<package>@<version>/node_modules`.
-      // Then the projen path need to be resolved independently from the version installed.
-      const projenPath = path.dirname(require.resolve('projen/package.json'));
-      const licenseFilePath = path.join(projenPath, licenseRelativePath);
+      const existingProjectId = '12345678-1234-1234-1234-123456789012';
 
-      mockfs({
-        // projen tries to load a license file that needs to be present
-        // 'node_modules/.pnpm/projen@0.72.23/node_modules/projen/license-text/Apache-2.0.txt': mockfs.load(
-        //   path.resolve(__dirname, '../../node_modules/projen/license-text/Apache-2.0.txt')
-        // ),
-        [licenseFilePath]: mockfs.load(path.resolve(__dirname, `../node_modules/projen/${licenseRelativePath}`)),
-        'cdktf.json': mockfs.load(path.resolve(__dirname, 'cdktf.fixture.json')),
+      // Mock the fs.existsSync function to return true for 'cdktf.json'
+      jest.spyOn(fs, 'existsSync').mockImplementation((p: fs.PathLike) => {
+        // cdktf.json path has the form /tmp/random-string/cdktf.json when testing because of how projen output is created when testing
+        // Then we need to check if the path contains cdktf.json
+        if (p.toString().includes('cdktf.json')) {
+          return true;
+        }
+
+        return false;
       });
 
-      const projectId = '12345678-1234-1234-1234-123456789012';
+      // Mock the fs.readFileSync function to return a JSON with the existing projectId
+      jest.spyOn(fs, 'readFileSync').mockImplementation((p: fs.PathOrFileDescriptor) => {
+        // cdktf.json path has the form /tmp/random-string/cdktf.json when testing because of how projen output is created when testing
+        // Then we need to check if the path contains cdktf.json
+        if (p.toString().includes('cdktf.json')) {
+          return JSON.stringify({
+            projectId: '12345678-1234-1234-1234-123456789012',
+          });
+        }
+
+        return '';
+      });
 
       const cdktfConfig = new CdktfConfig(
         new TestProject({
@@ -83,9 +100,7 @@ describe('CdktfConfig', () => {
         }
       );
 
-      expect(cdktfConfig.projectId).toStrictEqual(projectId);
-
-      mockfs.restore();
+      expect(cdktfConfig.projectId).toStrictEqual(existingProjectId);
     });
   });
 

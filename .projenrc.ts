@@ -87,16 +87,14 @@ const buildOptions: Pick<
   //   },
 };
 
-const projenDep = 'projen@0.78.5';
-const constructDep = 'constructs@10.3.0';
-const projenDevDeps = ([] as string[]).concat(projenDep, '@types/uuid', constructDep, 'publib');
+const projenDevDeps = ['@types/uuid'];
 const projenDeps = ['uuid', 'yaml'];
 
-const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', '@types/mock-fs', 'cdktf', 'mock-fs'];
+const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat(projenDep, 'constructs');
+const peerDeps = ([] as string[]).concat('projen@^0.78.13', 'constructs@^10.3.0');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {

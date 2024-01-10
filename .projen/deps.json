@@ -13,10 +13,6 @@
       "type": "build"
     },
     {
-      "name": "@types/mock-fs",
-      "type": "build"
-    },
-    {
       "name": "@types/node",
       "version": "^18",
       "type": "build"
@@ -96,19 +92,11 @@
       "type": "build"
     },
     {
-      "name": "mock-fs",
-      "type": "build"
-    },
-    {
       "name": "prettier",
       "type": "build"
     },
     {
       "name": "projen",
-      "type": "build"
-    },
-    {
-      "name": "publib",
       "type": "build"
     },
     {
@@ -137,17 +125,13 @@
       "type": "bundled"
     },
     {
-      "name": "jsii-rosetta",
-      "version": "~5.3.0",
-      "type": "override"
-    },
-    {
       "name": "constructs",
+      "version": "^10.3.0",
       "type": "peer"
     },
     {
       "name": "projen",
-      "version": "0.78.5",
+      "version": "^0.78.13",
       "type": "peer"
     }
   ],
