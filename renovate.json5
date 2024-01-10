@@ -39,6 +39,7 @@
     "jsii-rosetta",
     "jsii",
     "standard-version",
+    "typescript",
     "projen"
   ],
   "customManagers": [
