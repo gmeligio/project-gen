@@ -34,7 +34,6 @@ coverage_report
 test_report
 .vscode
 .env
-!/.projenrc.js
 /coverage_report/
 !/.github/workflows/build.yml
 /dist/changelog.md
@@ -54,3 +53,4 @@ test_report
 .jsii
 tsconfig.json
 !/API.md
+!/.projenrc.ts
