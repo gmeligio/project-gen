@@ -60,19 +60,6 @@ const buildOptions: Pick<
       name: 'engine-strict',
       value: 'true',
     },
-    // TODO: Remove when this issue is solved
-    // https://github.com/cdklabs/publib/issues/969
-    // Currently, the bundledDependencies add hard links including .pnpm folder and other folders, making the publishing the fail with error 415
-    // https://github.com/gmeligio/project-gen/actions/runs/7351465607/job/20015330761
-    // TODO: https://github.com/winglang/wing/pull/3187
-    {
-      name: 'node-linker',
-      value: 'hoisted',
-    },
-    // {
-    //   name: 'symlink',
-    //   value: 'false',
-    // },
     {
       name: `//registry.npmjs.org/:_authToken`,
       value: '${NPM_TOKEN}',
