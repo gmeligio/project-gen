@@ -2300,6 +2300,7 @@ const cdktfTypeScriptAppOptions: CdktfTypeScriptAppOptions = { ... }
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfVersion">cdktfVersion</a></code> | <code>string</code> | Minimum target version this app can be run against. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.constructsVersion">constructsVersion</a></code> | <code>string</code> | Construct version to use. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfAppFile">cdktfAppFile</a></code> | <code>string</code> | The file containing the CDKTF app. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfConfig">cdktfConfig</a></code> | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions">CdktfConfigOptions</a></code> | The CDKTF cli configuration. |
 
 ---
@@ -4347,6 +4348,19 @@ public readonly constructsVersion: string;
 - *Default:* "latest"
 
 Construct version to use.
+
+---
+
+##### `cdktfAppFile`<sup>Optional</sup> <a name="cdktfAppFile" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfAppFile"></a>
+
+```typescript
+public readonly cdktfAppFile: string;
+```
+
+- *Type:* string
+- *Default:* "main.ts"
+
+The file containing the CDKTF app.
 
 ---
 
