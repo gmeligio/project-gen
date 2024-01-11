@@ -32,7 +32,6 @@ export interface TerraformDependencyConstraint {
 
 export type RequirementDefinition = string | TerraformDependencyConstraint;
 
-// TODO: Use `type ObjectValues<T> = T[keyof T];` instead of enum
 export enum Language {
   TYPESCRIPT = 'typescript',
   PYTHON = 'python',
@@ -142,7 +141,7 @@ export class CdktfConfig extends Component {
     }
 
     const filename = 'cdktf.json';
-    const key = 'projectId';
+    const projectIdKey = 'projectId';
     const filePath = path.join(project.outdir, filename);
 
     let projectId: string | undefined;
@@ -150,7 +149,7 @@ export class CdktfConfig extends Component {
       const optionsFile = fs.readFileSync(filePath, 'utf8');
       const optionsObject = JSON.parse(optionsFile);
 
-      projectId = optionsObject[key];
+      projectId = optionsObject[projectIdKey];
     }
 
     this.app = options.app;

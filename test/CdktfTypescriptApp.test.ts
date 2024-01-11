@@ -1,7 +1,34 @@
 import { Language } from '../src/CdktfConfig';
 import { CdktfTypeScriptApp } from '../src/CdktfTypescriptApp';
 
-describe('CdktfApp', () => {
+describe('CdktfTypeScriptApp', () => {
+  describe('cdktfAppFile', () => {
+    test('should use `main.ts` by default', () => {
+      const app = new CdktfTypeScriptApp({
+        name: 'test_project',
+        defaultReleaseBranch: 'main',
+        cdktfVersion: '0.0.0',
+        constructsVersion: '0.0.0',
+      });
+
+      expect(app.cdktfConfig.app).toStrictEqual('npx ts-node main.ts');
+    });
+
+    test('can be overridden with custom file', () => {
+      const appFile = 'src/main.ts';
+
+      const app = new CdktfTypeScriptApp({
+        name: 'test_project',
+        defaultReleaseBranch: 'main',
+        cdktfVersion: '0.0.0',
+        constructsVersion: '0.0.0',
+        cdktfAppFile: appFile,
+      });
+
+      expect(app.cdktfConfig.app).toStrictEqual(`npx ts-node ${appFile}`);
+    });
+  });
+
   describe('app', () => {
     test('should use `ts-node` by default', () => {
       const app = new CdktfTypeScriptApp({
