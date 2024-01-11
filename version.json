@@ -8,9 +8,9 @@
         "manager": "github-actions"
     },
     "actions/download-artifact": {
-        "currentDigest": "f44cd7b40bfd40b6aa1cc1b9b5b7bf03d3c67110",
-        "currentValue": "v4.1.0",
-        "currentVersion": "v4.1.0",
+        "currentDigest": "6b208ae046db98c579e8a3aa621ab581ff575935",
+        "currentValue": "v4.1.1",
+        "currentVersion": "v4.1.1",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
