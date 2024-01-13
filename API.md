@@ -139,8 +139,8 @@ Test whether the given construct is a component.
 | --- | --- | --- |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
-| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.app">app</a></code> | <code>string</code> | The command to run in order to synthesize the code to Terraform compatible JSON (language specific). |
-| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.json">json</a></code> | <code>projen.JsonFile</code> | The command to run in order to synthesize the code to Terraform compatible JSON. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.app">app</a></code> | <code>string</code> | The command to run in order to synthesize the CDKTF application (language specific). |
+| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.json">json</a></code> | <code>projen.JsonFile</code> | The command to run in order to synthesize the CDKTF application. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.language">language</a></code> | <code>string</code> | Target language for building provider or module bindings. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.projectId">projectId</a></code> | <code>string</code> | Unique identifier for the project used to differentiate projects. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.sendCrashReports">sendCrashReports</a></code> | <code>string</code> | Whether to send crash reports to the CDKTF team. |
@@ -179,7 +179,7 @@ public readonly app: string;
 
 - *Type:* string
 
-The command to run in order to synthesize the code to Terraform compatible JSON (language specific).
+The command to run in order to synthesize the CDKTF application (language specific).
 
 ---
 
@@ -191,7 +191,7 @@ public readonly json: JsonFile;
 
 - *Type:* projen.JsonFile
 
-The command to run in order to synthesize the code to Terraform compatible JSON.
+The command to run in order to synthesize the CDKTF application.
 
 ---
 
@@ -1199,6 +1199,7 @@ When given a project, this it the project itself.
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.eslint">eslint</a></code> | <code>projen.javascript.Eslint</code> | *No description.* |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.tsconfigEslint">tsconfigEslint</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.appEntrypoint">appEntrypoint</a></code> | <code>string</code> | The file containing the CDKTF app. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfConfig">cdktfConfig</a></code> | <code><a href="#@gmeligio/project-gen.CdktfConfig">CdktfConfig</a></code> | The CDKTF CLI options. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfTasks">cdktfTasks</a></code> | <code><a href="#@gmeligio/project-gen.CdktfTasks">CdktfTasks</a></code> | The tasks for this project. |
 
@@ -1950,6 +1951,18 @@ public readonly tsconfigEslint: TypescriptConfig;
 
 ---
 
+##### `appEntrypoint`<sup>Required</sup> <a name="appEntrypoint" id="@gmeligio/project-gen.CdktfTypeScriptApp.property.appEntrypoint"></a>
+
+```typescript
+public readonly appEntrypoint: string;
+```
+
+- *Type:* string
+
+The file containing the CDKTF app.
+
+---
+
 ##### `cdktfConfig`<sup>Required</sup> <a name="cdktfConfig" id="@gmeligio/project-gen.CdktfTypeScriptApp.property.cdktfConfig"></a>
 
 ```typescript
@@ -2010,6 +2023,107 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### CdktfConfigCommonOptions <a name="CdktfConfigCommonOptions" id="@gmeligio/project-gen.CdktfConfigCommonOptions"></a>
+
+#### Initializer <a name="Initializer" id="@gmeligio/project-gen.CdktfConfigCommonOptions.Initializer"></a>
+
+```typescript
+import { CdktfConfigCommonOptions } from '@gmeligio/project-gen'
+
+const cdktfConfigCommonOptions: CdktfConfigCommonOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.codeMakerOutput">codeMakerOutput</a></code> | <code>string</code> | Default: '.gen'. Path where generated provider bindings will be rendered to. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.output">output</a></code> | <code>string</code> | Where the synthesized JSON should go. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.projectId">projectId</a></code> | <code>string</code> | Unique identifier for the project used to differentiate projects. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.sendCrashReports">sendCrashReports</a></code> | <code>string</code> | Whether to send crash reports to the CDKTF team. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformModules">terraformModules</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Modules to build. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformProviders">terraformProviders</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Providers to build. |
+
+---
+
+##### `codeMakerOutput`<sup>Optional</sup> <a name="codeMakerOutput" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.codeMakerOutput"></a>
+
+```typescript
+public readonly codeMakerOutput: string;
+```
+
+- *Type:* string
+- *Default:* ".gen"
+
+Default: '.gen'. Path where generated provider bindings will be rendered to.
+
+---
+
+##### `output`<sup>Optional</sup> <a name="output" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.output"></a>
+
+```typescript
+public readonly output: string;
+```
+
+- *Type:* string
+- *Default:* "cdktf.out"
+
+Where the synthesized JSON should go.
+
+Also will be the working directory for CDKTF cli
+
+---
+
+##### `projectId`<sup>Optional</sup> <a name="projectId" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+- *Default:* "generated UUID"
+
+Unique identifier for the project used to differentiate projects.
+
+---
+
+##### `sendCrashReports`<sup>Optional</sup> <a name="sendCrashReports" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.sendCrashReports"></a>
+
+```typescript
+public readonly sendCrashReports: string;
+```
+
+- *Type:* string
+- *Default:* "false"
+
+Whether to send crash reports to the CDKTF team.
+
+---
+
+##### `terraformModules`<sup>Optional</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformModules"></a>
+
+```typescript
+public readonly terraformModules: string | TerraformDependencyConstraint[];
+```
+
+- *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
+
+Terraform Modules to build.
+
+---
+
+##### `terraformProviders`<sup>Optional</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformProviders"></a>
+
+```typescript
+public readonly terraformProviders: string | TerraformDependencyConstraint[];
+```
+
+- *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
+
+Terraform Providers to build.
+
+---
+
 ### CdktfConfigOptions <a name="CdktfConfigOptions" id="@gmeligio/project-gen.CdktfConfigOptions"></a>
 
 Options for CdktfConfig.
@@ -2026,26 +2140,14 @@ const cdktfConfigOptions: CdktfConfigOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.app">app</a></code> | <code>string</code> | The command to run in order to synthesize the code to Terraform compatible JSON (language specific). |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.codeMakerOutput">codeMakerOutput</a></code> | <code>string</code> | Default: '.gen'. Path where generated provider bindings will be rendered to. |
-| <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.language">language</a></code> | <code><a href="#@gmeligio/project-gen.Language">Language</a></code> | Target language for building provider or module bindings. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.output">output</a></code> | <code>string</code> | Where the synthesized JSON should go. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.projectId">projectId</a></code> | <code>string</code> | Unique identifier for the project used to differentiate projects. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.sendCrashReports">sendCrashReports</a></code> | <code>string</code> | Whether to send crash reports to the CDKTF team. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.terraformModules">terraformModules</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Modules to build. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.terraformProviders">terraformProviders</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Providers to build. |
-
----
-
-##### `app`<sup>Optional</sup> <a name="app" id="@gmeligio/project-gen.CdktfConfigOptions.property.app"></a>
-
-```typescript
-public readonly app: string;
-```
-
-- *Type:* string
-
-The command to run in order to synthesize the code to Terraform compatible JSON (language specific).
+| <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.app">app</a></code> | <code>string</code> | The command to run in order to synthesize the CDKTF application (language specific). |
+| <code><a href="#@gmeligio/project-gen.CdktfConfigOptions.property.language">language</a></code> | <code><a href="#@gmeligio/project-gen.Language">Language</a></code> | Target language for building provider or module bindings. |
 
 ---
 
@@ -2059,20 +2161,6 @@ public readonly codeMakerOutput: string;
 - *Default:* ".gen"
 
 Default: '.gen'. Path where generated provider bindings will be rendered to.
-
----
-
-##### `language`<sup>Optional</sup> <a name="language" id="@gmeligio/project-gen.CdktfConfigOptions.property.language"></a>
-
-```typescript
-public readonly language: Language;
-```
-
-- *Type:* <a href="#@gmeligio/project-gen.Language">Language</a>
-
-Target language for building provider or module bindings.
-
-Currently supported: `typescript`, `python`, `java`, `csharp`, and `go`
 
 ---
 
@@ -2138,6 +2226,32 @@ public readonly terraformProviders: string | TerraformDependencyConstraint[];
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
 
 Terraform Providers to build.
+
+---
+
+##### `app`<sup>Required</sup> <a name="app" id="@gmeligio/project-gen.CdktfConfigOptions.property.app"></a>
+
+```typescript
+public readonly app: string;
+```
+
+- *Type:* string
+
+The command to run in order to synthesize the CDKTF application (language specific).
+
+---
+
+##### `language`<sup>Required</sup> <a name="language" id="@gmeligio/project-gen.CdktfConfigOptions.property.language"></a>
+
+```typescript
+public readonly language: Language;
+```
+
+- *Type:* <a href="#@gmeligio/project-gen.Language">Language</a>
+
+Target language for building provider or module bindings.
+
+Currently supported: `typescript`, `python`, `java`, `csharp`, and `go`
 
 ---
 
@@ -2298,10 +2412,15 @@ const cdktfTypeScriptAppOptions: CdktfTypeScriptAppOptions = { ... }
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.codeMakerOutput">codeMakerOutput</a></code> | <code>string</code> | Default: '.gen'. Path where generated provider bindings will be rendered to. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.output">output</a></code> | <code>string</code> | Where the synthesized JSON should go. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.projectId">projectId</a></code> | <code>string</code> | Unique identifier for the project used to differentiate projects. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.sendCrashReports">sendCrashReports</a></code> | <code>string</code> | Whether to send crash reports to the CDKTF team. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformModules">terraformModules</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Modules to build. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformProviders">terraformProviders</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Providers to build. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfVersion">cdktfVersion</a></code> | <code>string</code> | Minimum target version this app can be run against. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.constructsVersion">constructsVersion</a></code> | <code>string</code> | Construct version to use. |
-| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfAppFile">cdktfAppFile</a></code> | <code>string</code> | The file containing the CDKTF app. |
-| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfConfig">cdktfConfig</a></code> | <code><a href="#@gmeligio/project-gen.CdktfConfigOptions">CdktfConfigOptions</a></code> | The CDKTF cli configuration. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.appEntrypoint">appEntrypoint</a></code> | <code>string</code> | The file containing the CDKTF app. |
 
 ---
 
@@ -4325,6 +4444,84 @@ same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
+##### `codeMakerOutput`<sup>Optional</sup> <a name="codeMakerOutput" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.codeMakerOutput"></a>
+
+```typescript
+public readonly codeMakerOutput: string;
+```
+
+- *Type:* string
+- *Default:* ".gen"
+
+Default: '.gen'. Path where generated provider bindings will be rendered to.
+
+---
+
+##### `output`<sup>Optional</sup> <a name="output" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.output"></a>
+
+```typescript
+public readonly output: string;
+```
+
+- *Type:* string
+- *Default:* "cdktf.out"
+
+Where the synthesized JSON should go.
+
+Also will be the working directory for CDKTF cli
+
+---
+
+##### `projectId`<sup>Optional</sup> <a name="projectId" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+- *Default:* "generated UUID"
+
+Unique identifier for the project used to differentiate projects.
+
+---
+
+##### `sendCrashReports`<sup>Optional</sup> <a name="sendCrashReports" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.sendCrashReports"></a>
+
+```typescript
+public readonly sendCrashReports: string;
+```
+
+- *Type:* string
+- *Default:* "false"
+
+Whether to send crash reports to the CDKTF team.
+
+---
+
+##### `terraformModules`<sup>Optional</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformModules"></a>
+
+```typescript
+public readonly terraformModules: string | TerraformDependencyConstraint[];
+```
+
+- *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
+
+Terraform Modules to build.
+
+---
+
+##### `terraformProviders`<sup>Optional</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformProviders"></a>
+
+```typescript
+public readonly terraformProviders: string | TerraformDependencyConstraint[];
+```
+
+- *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
+
+Terraform Providers to build.
+
+---
+
 ##### `cdktfVersion`<sup>Required</sup> <a name="cdktfVersion" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfVersion"></a>
 
 ```typescript
@@ -4351,28 +4548,16 @@ Construct version to use.
 
 ---
 
-##### `cdktfAppFile`<sup>Optional</sup> <a name="cdktfAppFile" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfAppFile"></a>
+##### `appEntrypoint`<sup>Optional</sup> <a name="appEntrypoint" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.appEntrypoint"></a>
 
 ```typescript
-public readonly cdktfAppFile: string;
+public readonly appEntrypoint: string;
 ```
 
 - *Type:* string
 - *Default:* "main.ts"
 
 The file containing the CDKTF app.
-
----
-
-##### `cdktfConfig`<sup>Optional</sup> <a name="cdktfConfig" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.cdktfConfig"></a>
-
-```typescript
-public readonly cdktfConfig: CdktfConfigOptions;
-```
-
-- *Type:* <a href="#@gmeligio/project-gen.CdktfConfigOptions">CdktfConfigOptions</a>
-
-The CDKTF cli configuration.
 
 ---
 

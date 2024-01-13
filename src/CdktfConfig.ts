@@ -40,20 +40,7 @@ export enum Language {
   GO = 'go',
 }
 
-/**
- * Options for CdktfConfig
- */
-export interface CdktfConfigOptions {
-  /**
-   * The command to run in order to synthesize the code to Terraform compatible JSON (language specific)
-   */
-  readonly app?: string;
-
-  /**
-   * Target language for building provider or module bindings. Currently supported: `typescript`, `python`, `java`, `csharp`, and `go`
-   */
-  readonly language?: Language;
-
+export interface CdktfConfigCommonOptions {
   /**
    * Default: '.gen'. Path where generated provider bindings will be rendered to.
    *
@@ -93,14 +80,29 @@ export interface CdktfConfigOptions {
   readonly terraformModules?: RequirementDefinition[];
 }
 
+/**
+ * Options for CdktfConfig
+ */
+export interface CdktfConfigOptions extends CdktfConfigCommonOptions {
+  /**
+   * The command to run in order to synthesize the CDKTF application (language specific)
+   */
+  readonly app: string;
+
+  /**
+   * Target language for building provider or module bindings. Currently supported: `typescript`, `python`, `java`, `csharp`, and `go`
+   */
+  readonly language: Language;
+}
+
 export class CdktfConfig extends Component {
   /**
-   * The command to run in order to synthesize the code to Terraform compatible JSON
+   * The command to run in order to synthesize the CDKTF application
    */
   public readonly json: JsonFile;
 
   /**
-   * The command to run in order to synthesize the code to Terraform compatible JSON (language specific)
+   * The command to run in order to synthesize the CDKTF application (language specific)
    */
   public readonly app: string;
 
@@ -132,14 +134,6 @@ export class CdktfConfig extends Component {
   constructor(project: Project, options: CdktfConfigOptions) {
     super(project);
 
-    if (!options.app) {
-      throw new Error('Required option app is not specified.');
-    }
-
-    if (!options.language) {
-      throw new Error('Required option language is not specified.');
-    }
-
     const filename = 'cdktf.json';
     const projectIdKey = 'projectId';
     const filePath = path.join(project.outdir, filename);
@@ -160,8 +154,6 @@ export class CdktfConfig extends Component {
     this.terraformModules = options.terraformModules ?? [];
 
     const cdktfOptions = {
-      app: this.app,
-      language: this.language,
       projectId: this.projectId,
       sendCrashReports: this.sendCrashReports,
       terraformProviders: this.terraformProviders,

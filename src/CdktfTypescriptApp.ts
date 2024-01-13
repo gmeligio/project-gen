@@ -1,14 +1,10 @@
+import * as path from 'path';
 import { typescript } from 'projen';
 import { TypeScriptAppProject } from 'projen/lib/typescript';
-import { CdktfConfig, CdktfConfigOptions, Language } from './CdktfConfig';
+import { CdktfConfig, CdktfConfigCommonOptions, Language } from './CdktfConfig';
 import { CdktfTasks } from './CdktfTasks';
 
-export interface CdktfTypeScriptAppOptions extends typescript.TypeScriptProjectOptions {
-  /**
-   * The CDKTF cli configuration
-   */
-  readonly cdktfConfig?: CdktfConfigOptions;
-
+export interface CdktfTypeScriptAppOptions extends typescript.TypeScriptProjectOptions, CdktfConfigCommonOptions {
   /**
    * Minimum target version this app can be run against
    *
@@ -28,7 +24,7 @@ export interface CdktfTypeScriptAppOptions extends typescript.TypeScriptProjectO
    *
    * @default "main.ts"
    */
-  readonly cdktfAppFile?: string;
+  readonly appEntrypoint?: string;
 }
 
 export class CdktfTypeScriptApp extends TypeScriptAppProject {
@@ -42,6 +38,11 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
    */
   public readonly cdktfTasks: CdktfTasks;
 
+  /**
+   * The file containing the CDKTF app
+   */
+  public readonly appEntrypoint: string;
+
   constructor(options: CdktfTypeScriptAppOptions) {
     if (!options.cdktfVersion) {
       throw new Error('Required field cdktfVersion is not specified.');
@@ -49,12 +50,6 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
 
     if (!options.constructsVersion) {
       throw new Error('Required field constructsVersion is not specified.');
-    }
-
-    if (options.cdktfConfig && options.cdktfConfig.language && options.cdktfConfig.language !== Language.TYPESCRIPT) {
-      throw new Error(
-        'TypeScript is the only supported language at this moment. The specified language must be Language.TYPESCRIPT.'
-      );
     }
 
     super(options);
@@ -68,12 +63,14 @@ export class CdktfTypeScriptApp extends TypeScriptAppProject {
     // No compile step because we do all of it in typescript directly
     this.compileTask.reset();
 
-    const appFile = options.cdktfAppFile ?? 'main.ts';
+    this.appEntrypoint = options.appEntrypoint ?? 'main.ts';
+
+    const appFile = `${path.posix.join(this.srcdir, this.appEntrypoint)}`;
 
     this.cdktfConfig = new CdktfConfig(this, {
       app: `npx ts-node ${appFile}`,
       language: Language.TYPESCRIPT,
-      ...options.cdktfConfig,
+      ...options,
     });
 
     this.cdktfTasks = new CdktfTasks(this);
