@@ -141,7 +141,7 @@ Test whether the given construct is a component.
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.app">app</a></code> | <code>string</code> | The command to run in order to synthesize the CDKTF application (language specific). |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.json">json</a></code> | <code>projen.JsonFile</code> | The command to run in order to synthesize the CDKTF application. |
-| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.language">language</a></code> | <code>string</code> | Target language for building provider or module bindings. |
+| <code><a href="#@gmeligio/project-gen.CdktfConfig.property.language">language</a></code> | <code><a href="#@gmeligio/project-gen.Language">Language</a></code> | Target language for building provider or module bindings. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.projectId">projectId</a></code> | <code>string</code> | Unique identifier for the project used to differentiate projects. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.sendCrashReports">sendCrashReports</a></code> | <code>string</code> | Whether to send crash reports to the CDKTF team. |
 | <code><a href="#@gmeligio/project-gen.CdktfConfig.property.terraformModules">terraformModules</a></code> | <code>string \| <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]</code> | Terraform Modules to build. |
@@ -198,10 +198,10 @@ The command to run in order to synthesize the CDKTF application.
 ##### `language`<sup>Required</sup> <a name="language" id="@gmeligio/project-gen.CdktfConfig.property.language"></a>
 
 ```typescript
-public readonly language: string;
+public readonly language: Language;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@gmeligio/project-gen.Language">Language</a>
 
 Target language for building provider or module bindings.
 
