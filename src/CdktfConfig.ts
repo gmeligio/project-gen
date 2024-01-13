@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Component, JsonFile, Project } from 'projen';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate } from 'uuid';
 
 export interface TerraformDependencyConstraint {
   /**
@@ -109,7 +109,7 @@ export class CdktfConfig extends Component {
   /**
    * Target language for building provider or module bindings. Currently supported: `typescript`, `python`, `java`, `csharp`, and `go`
    */
-  public readonly language: string;
+  public readonly language: Language;
 
   /**
    * Unique identifier for the project used to differentiate projects
@@ -138,8 +138,13 @@ export class CdktfConfig extends Component {
     const projectIdKey = 'projectId';
     const filePath = path.join(project.outdir, filename);
 
-    let projectId: string | undefined;
-    if (fs.existsSync(filePath)) {
+    let projectId = options.projectId;
+    // Validate is UUID
+    if (projectId !== undefined && !validate(projectId)) {
+      throw new Error(`Invalid UUID: ${projectId}. CDKTF projectID should be a valid UUID v4.`);
+    }
+
+    if (projectId === undefined && fs.existsSync(filePath)) {
       const optionsFile = fs.readFileSync(filePath, 'utf8');
       const optionsObject = JSON.parse(optionsFile);
 
@@ -153,12 +158,15 @@ export class CdktfConfig extends Component {
     this.terraformProviders = options.terraformProviders ?? [];
     this.terraformModules = options.terraformModules ?? [];
 
-    const cdktfOptions = {
+    const cdktfOptions: CdktfConfigOptions = {
+      app: this.app,
+      codeMakerOutput: options.codeMakerOutput,
+      language: this.language,
       projectId: this.projectId,
       sendCrashReports: this.sendCrashReports,
       terraformProviders: this.terraformProviders,
       terraformModules: this.terraformModules,
-      ...options,
+      output: options.output,
     };
 
     this.json = new JsonFile(project, filename, {
