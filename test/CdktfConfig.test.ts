@@ -13,26 +13,6 @@ jest.mock('fs', () => {
 });
 
 describe('CdktfConfig', () => {
-  describe('cdktfVersion', () => {
-    test('should throw an error if app is not specified', () => {
-      const createCdktfConfig = () =>
-        // @ts-ignore
-        new CdktfConfig(new TestProject(), {
-          language: Language.TYPESCRIPT,
-        });
-      expect(createCdktfConfig).toThrowError(new Error('Required option app is not specified.'));
-    });
-
-    test('should throw an error if language is not specified', () => {
-      const createCdktfConfig = () =>
-        // @ts-ignore
-        new CdktfConfig(new TestProject(), {
-          app: 'npx ts-node main.ts',
-        });
-      expect(createCdktfConfig).toThrowError(new Error('Required option language is not specified.'));
-    });
-  });
-
   describe('app', () => {
     test('can be overriden with custom command', () => {
       const command = 'npx ts-node --swc src/main.ts';

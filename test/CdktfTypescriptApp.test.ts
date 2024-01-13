@@ -1,9 +1,8 @@
-import { Language } from '../src/CdktfConfig';
 import { CdktfTypeScriptApp } from '../src/CdktfTypescriptApp';
 
-describe('CdktfApp', () => {
-  describe('app', () => {
-    test('should use `ts-node` by default', () => {
+describe('CdktfTypeScriptApp', () => {
+  describe('appEntrypoint', () => {
+    test('should use `main.ts` by default', () => {
       const app = new CdktfTypeScriptApp({
         name: 'test_project',
         defaultReleaseBranch: 'main',
@@ -11,53 +10,23 @@ describe('CdktfApp', () => {
         constructsVersion: '0.0.0',
       });
 
-      expect(app.cdktfConfig.app).toStrictEqual('npx ts-node main.ts');
+      expect(app.cdktfConfig.app).toStrictEqual('npx ts-node src/main.ts');
     });
 
-    test('can be overriden with custom command', () => {
-      const command = 'npx ts-node --swc src/main.ts';
+    test('can be overridden with custom file', () => {
+      const appEntrypoint = 'index.ts';
 
       const app = new CdktfTypeScriptApp({
         name: 'test_project',
         defaultReleaseBranch: 'main',
         cdktfVersion: '0.0.0',
         constructsVersion: '0.0.0',
-        cdktfConfig: {
-          app: command,
-        },
+        appEntrypoint,
       });
 
-      expect(app.cdktfConfig.app).toStrictEqual(command);
-    });
-  });
+      const appFile = `${app.srcdir}/${appEntrypoint}`;
 
-  describe('language', () => {
-    test('should use `typescript` language', () => {
-      const app = new CdktfTypeScriptApp({
-        name: 'test_project',
-        defaultReleaseBranch: 'main',
-        cdktfVersion: '0.0.0',
-        constructsVersion: '0.0.0',
-      });
-
-      expect(app.cdktfConfig.language).toStrictEqual('typescript');
-    });
-
-    test('should throw if not using `typescript`', () => {
-      const createCdktfApp = () =>
-        new CdktfTypeScriptApp({
-          name: 'test_project',
-          defaultReleaseBranch: 'main',
-          cdktfVersion: '0.0.0',
-          constructsVersion: '0.0.0',
-          cdktfConfig: {
-            language: Language.GO,
-          },
-        });
-
-      expect(createCdktfApp).toThrowError(
-        'TypeScript is the only supported language at this moment. The specified language must be Language.TYPESCRIPT.'
-      );
+      expect(app.cdktfConfig.app).toStrictEqual(`npx ts-node ${appFile}`);
     });
   });
 
@@ -70,7 +39,7 @@ describe('CdktfApp', () => {
           defaultReleaseBranch: 'main',
           constructsVersion: '0.0.0',
         });
-      expect(createCdktfApp).toThrowError(new Error('Required field cdktfVersion is not specified.'));
+      expect(createCdktfApp).toThrow(new Error('Required field cdktfVersion is not specified.'));
     });
 
     test('should throw an error if cdktfVersion is not specified', () => {
@@ -81,7 +50,7 @@ describe('CdktfApp', () => {
           defaultReleaseBranch: 'main',
           cdktfVersion: '0.0.0',
         });
-      expect(createCdktfApp).toThrowError(new Error('Required field constructsVersion is not specified.'));
+      expect(createCdktfApp).toThrow(new Error('Required field constructsVersion is not specified.'));
     });
   });
 });
