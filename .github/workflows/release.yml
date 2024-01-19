@@ -86,6 +86,7 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
+      id-token: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8
@@ -111,11 +112,6 @@ jobs:
         run: cd .repo && npx projen package:js
       - name: Collect js Artifact
         run: mv .repo/dist dist
-      - name: Upload artifact
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
-        with:
-          name: npm-package
-          path: dist
       - name: Release
         env:
           NPM_DIST_TAG: latest

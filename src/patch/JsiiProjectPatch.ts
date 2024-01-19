@@ -58,6 +58,10 @@ export class JsiiProjectPatch extends JsiiProject {
     // https://github.com/TypeStrong/ts-node/issues/2077
     this.addDevDeps('ts-node@github:TypeStrong/ts-node#semver:v11.0.0-beta.1');
 
+    // .npmrc
+    // TODO: Submit to upstream projen with some sort of logic like `npmProvenance`
+    this.npmrc.addConfig('provenance', 'true');
+
     const versionFilePath = 'version.json';
 
     const renovateGithubActionsManager = 'github-actions';
@@ -97,23 +101,8 @@ export class JsiiProjectPatch extends JsiiProject {
     const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
 
     releaseWorkflow?.patch(
-      JsonPatch.replace('/jobs/release_npm/steps/8', {
-        name: 'Upload artifact',
-        uses: 'actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392',
-        with: {
-          name: 'npm-package',
-          path: 'dist',
-        },
-      }),
-      JsonPatch.add('/jobs/release_npm/steps/9', {
-        name: 'Release',
-        env: {
-          NPM_DIST_TAG: 'latest',
-          NPM_REGISTRY: 'registry.npmjs.org',
-          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}',
-        },
-        run: 'npx -p publib@latest publib-npm',
-      })
+      // Add id-token permission for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+      JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write')
     );
 
     releaseWorkflow?.addOverride('on.push.paths-ignore', [
@@ -160,6 +149,33 @@ export class JsiiProjectPatch extends JsiiProject {
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
     // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
     // releaseWorkflow?.synthesize();
+
+    // const releaseWorkflow = this.github?.tryFindWorkflow('release');
+
+    // if (releaseWorkflow) {
+    //   const releaseNpmJob = releaseWorkflow.getJob('release_npm');
+
+    //   if (releaseNpmJob) {
+    //     releaseWorkflow.updateJob('release_npm', {
+    //       ...releaseNpmJob,
+    //       steps: [
+    //         ...(releaseNpmJob as workflows.Job).steps,
+    //         {
+    //           name: 'Upload artifact',
+    //           uses: 'actions/upload-artifact',
+    //           with: {
+    //             name: 'npm-package',
+    //             path: 'dist',
+    //           },
+    //         },
+    //       ],
+    //     });
+    //   }
+
+    //   console.log('synthetizing');
+
+    //   releaseWorkflow.synthesize();
+    // }
 
     const releaseWorkflowPath = '.github/workflows/release.yml';
     const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, /*actions, */ checkoutToken });
