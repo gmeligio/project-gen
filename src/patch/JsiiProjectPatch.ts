@@ -58,9 +58,12 @@ export class JsiiProjectPatch extends JsiiProject {
     // https://github.com/TypeStrong/ts-node/issues/2077
     this.addDevDeps('ts-node@github:TypeStrong/ts-node#semver:v11.0.0-beta.1');
 
+    // NPM metadata
+    this.addKeywords('projen');
+
     // .npmrc
     // TODO: Submit to upstream projen with some sort of logic like `npmProvenance`
-    this.npmrc.addConfig('provenance', 'true');
+    this.tryFindObjectFile('package.json')?.patch(JsonPatch.add('/publishConfig/provenance', true));
 
     const versionFilePath = 'version.json';
 
