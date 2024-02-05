@@ -24,9 +24,9 @@
         "manager": "github-actions"
     },
     "actions/upload-artifact": {
-        "currentDigest": "26f96dfa697d77e81fd5907df203aa23a56210a8",
-        "currentValue": "v4.3.0",
-        "currentVersion": "v4.3.0",
+        "currentDigest": "5d5d22a31266ced268874388b861e4b58bb5c2f3",
+        "currentValue": "v4.3.1",
+        "currentVersion": "v4.3.1",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
