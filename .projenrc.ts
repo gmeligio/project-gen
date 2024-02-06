@@ -145,11 +145,15 @@ const formatOptions: Pick<TypeScriptProjectOptions, 'prettier' | 'prettierOption
   },
 };
 
-const pipelineOptions: Pick<TypeScriptProjectOptions, 'depsUpgrade' | 'github' | 'githubOptions' | 'renovatebot'> = {
+const pipelineOptions: Pick<
+  TypeScriptProjectOptions,
+  'depsUpgrade' | 'github' | 'githubOptions' | 'renovatebot' | 'workflowNodeVersion'
+> = {
   depsUpgrade: false,
   github: true,
   githubOptions: { pullRequestLint: false },
   renovatebot: true,
+  workflowNodeVersion: 'lts/*',
 };
 
 const jestJunitReporter = new JestReporter('jest-junit', {
