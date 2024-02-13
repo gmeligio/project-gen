@@ -94,7 +94,7 @@ export class JsiiProjectPatch extends JsiiProject {
       },
       {
         groupName: 'github-actions',
-        matchManagers: ['github-actions'],
+        matchDatasources: ['github-tags'],
       }
     );
 

@@ -31,8 +31,8 @@
     },
     {
       "groupName": "github-actions",
-      "matchManagers": [
-        "github-actions"
+      "matchDatasources": [
+        "github-tags"
       ]
     }
   ],
