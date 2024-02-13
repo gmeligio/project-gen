@@ -61,10 +61,6 @@ export class JsiiProjectPatch extends JsiiProject {
     // NPM metadata
     this.addKeywords('projen');
 
-    // .npmrc
-    // TODO: Submit to upstream projen with some sort of logic like `npmProvenance`
-    this.tryFindObjectFile('package.json')?.patch(JsonPatch.add('/publishConfig/provenance', true));
-
     const versionFilePath = 'version.json';
 
     const renovateGithubActionsManager = 'github-actions';
@@ -368,10 +364,10 @@ export class JsiiProjectPatch extends JsiiProject {
         //   path: [1, 'uses'],
         //   element: options.actions.actionsDownloadArtifact,
         // },
-        // {
-        //   path: [8, 'env', 'NPM_ACCESS_LEVEL'],
-        //   element: { value: 'public' },
-        // },
+        {
+          path: [8, 'env', 'NPM_CONFIG_PROVENANCE'],
+          element: { value: 'true' },
+        },
       ])
       .createTransformations();
 
