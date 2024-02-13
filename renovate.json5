@@ -28,6 +28,12 @@
         "version.json"
       ],
       "pinDigests": true
+    },
+    {
+      "groupName": "github-actions",
+      "matchManagers": [
+        "github-actions"
+      ]
     }
   ],
   "ignoreDeps": [

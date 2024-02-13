@@ -85,11 +85,18 @@ export class JsiiProjectPatch extends JsiiProject {
 
     renovate?.patch(JsonPatch.add('/ignorePaths', ['.github/workflows/*.yml']));
 
-    renovate?.addToArray('packageRules', {
-      enabled: true,
-      matchFileNames: ['version.json'],
-      pinDigests: true,
-    });
+    renovate?.addToArray(
+      'packageRules',
+      {
+        enabled: true,
+        matchFileNames: ['version.json'],
+        pinDigests: true,
+      },
+      {
+        groupName: 'github-actions',
+        matchManagers: ['github-actions'],
+      }
+    );
 
     // const releaseWorkflowPath = '.github/workflows/release.yml';
     // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
