@@ -1,4 +1,4 @@
-import { RenovatebotOptions } from 'projen';
+import { RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
 import {
   JestReporter,
@@ -103,6 +103,7 @@ const renovatebotOptions: RenovatebotOptions = {
       },
     ],
   },
+  scheduleInterval: [RenovatebotScheduleInterval.MONTHLY],
 };
 
 const dependencyOptions: Pick<TypeScriptProjectOptions, 'bundledDeps' | 'devDeps' | 'peerDeps' | 'renovatebotOptions'> =
