@@ -108,7 +108,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     releaseWorkflow?.patch(
       // Add id-token permission for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-      JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write')
+      JsonPatch.add('/jobs/release_npm/steps/8/env/NPM_CONFIG_PROVENANCE', 'true')
     );
 
     releaseWorkflow?.addOverride('on.push.paths-ignore', [
@@ -371,10 +371,10 @@ export class JsiiProjectPatch extends JsiiProject {
         //   path: [1, 'uses'],
         //   element: options.actions.actionsDownloadArtifact,
         // },
-        {
-          path: [8, 'env', 'NPM_CONFIG_PROVENANCE'],
-          element: { value: 'true' },
-        },
+        // {
+        //   path: [8, 'env', 'NPM_CONFIG_PROVENANCE'],
+        //   element: { value: 'true' },
+        // },
       ])
       .createTransformations();
 
