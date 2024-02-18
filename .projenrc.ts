@@ -86,7 +86,7 @@ const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat('projen@^0.78.13', 'constructs@^10.3.0');
+const peerDeps = ([] as string[]).concat('projen@^0.79.24', 'constructs@^10.3.0');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {

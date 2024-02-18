@@ -106,10 +106,10 @@ export class JsiiProjectPatch extends JsiiProject {
     const releaseWorkflowPath = '.github/workflows/release.yml';
     const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
 
-    releaseWorkflow?.patch(
-      // Add id-token permission for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-      JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write')
-    );
+    // releaseWorkflow?.patch(
+    //   // Add id-token permission for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+    //   JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write')
+    // );
 
     releaseWorkflow?.addOverride('on.push.paths-ignore', [
       // don't do a release if the change was only to these files/directories
@@ -371,10 +371,10 @@ export class JsiiProjectPatch extends JsiiProject {
         //   path: [1, 'uses'],
         //   element: options.actions.actionsDownloadArtifact,
         // },
-        {
-          path: [8, 'env', 'NPM_CONFIG_PROVENANCE'],
-          element: { value: 'true' },
-        },
+        // {
+        //   path: [8, 'env', 'NPM_CONFIG_PROVENANCE'],
+        //   element: { value: 'true' },
+        // },
       ])
       .createTransformations();
 
