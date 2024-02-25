@@ -16,6 +16,7 @@ const repositoryPath = `${repositoryOrg}/project-gen`;
 const name = `@${repositoryPath}`;
 const reportsDirectory = 'test_report';
 const coverageDirectory = 'coverage_report';
+const pnpmVersion = '8.15.4';
 
 const metadataOptions: Pick<
   JsiiProjectOptions,
@@ -72,7 +73,7 @@ const buildOptions: Pick<
   ],
   package: true,
   packageManager: NodePackageManager.PNPM,
-  pnpmVersion: '8.13',
+  pnpmVersion,
   projenrcTs: true,
   projenrcTsOptions: {
     swc: true,
@@ -202,6 +203,10 @@ const project = new JsiiProjectPatch({
   ...pipelineOptions,
   ...releaseOptions,
   ...testOptions,
+});
+
+project.addFields({
+  packageManager: `pnpm@${pnpmVersion}+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2`,
 });
 
 project.synth();
