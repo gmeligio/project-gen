@@ -72,7 +72,7 @@ const buildOptions: Pick<
   ],
   package: true,
   packageManager: NodePackageManager.PNPM,
-  pnpmVersion: '8.14',
+  pnpmVersion: '8.13',
   projenrcTs: true,
   projenrcTsOptions: {
     swc: true,
