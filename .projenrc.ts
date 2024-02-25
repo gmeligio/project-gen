@@ -25,7 +25,7 @@ const metadataOptions: Pick<
   author: 'Eligio Alejandro Mariño Garcés',
   authorAddress: '22875166+gmeligio@users.noreply.github.com',
   description: 'Project types for Projen',
-  license: 'MIT',
+  license: 'Apache-2.0',
   name,
   repositoryUrl: `https://github.com/${repositoryPath}.git`,
 };
