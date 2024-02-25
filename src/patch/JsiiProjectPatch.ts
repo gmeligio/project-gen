@@ -56,7 +56,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // TODO: Remove dependency after ts-node@11 is published
     // https://github.com/TypeStrong/ts-node/issues/2077
-    this.addDevDeps('ts-node@github:TypeStrong/ts-node#semver:v11.0.0-beta.1');
+    this.addDevDeps('ts-node@beta');
 
     // NPM metadata
     this.addKeywords('projen');
