@@ -1,4 +1,4 @@
-import { RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
+import { ReleasableCommits, RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
 import {
   JestReporter,
@@ -86,7 +86,7 @@ const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat('projen@^0.79.24', 'constructs@^10.3.0');
+const peerDeps = ([] as string[]).concat('projen@^0.80.1', 'constructs@^10.3.0');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
@@ -116,12 +116,13 @@ const dependencyOptions: Pick<TypeScriptProjectOptions, 'bundledDeps' | 'devDeps
 
 const releaseOptions: Pick<
   TypeScriptProjectOptions,
-  'defaultReleaseBranch' | 'npmAccess' | 'publishTasks' | 'release' | 'releaseToNpm'
+  'defaultReleaseBranch' | 'npmAccess' | 'publishTasks' | 'release' | 'releasableCommits' | 'releaseToNpm'
 > = {
   defaultReleaseBranch: 'main',
   npmAccess: NpmAccess.PUBLIC,
   publishTasks: true,
   release: true,
+  releasableCommits: ReleasableCommits.featuresAndFixes(),
   releaseToNpm: true,
 };
 
