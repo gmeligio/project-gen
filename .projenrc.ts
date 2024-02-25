@@ -1,4 +1,4 @@
-import { RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
+import { ReleasableCommits, RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
 import {
   JestReporter,
@@ -16,6 +16,7 @@ const repositoryPath = `${repositoryOrg}/project-gen`;
 const name = `@${repositoryPath}`;
 const reportsDirectory = 'test_report';
 const coverageDirectory = 'coverage_report';
+const pnpmVersion = '8.15.3';
 
 const metadataOptions: Pick<
   JsiiProjectOptions,
@@ -72,7 +73,7 @@ const buildOptions: Pick<
   ],
   package: true,
   packageManager: NodePackageManager.PNPM,
-  pnpmVersion: '8',
+  pnpmVersion,
   projenrcTs: true,
   projenrcTsOptions: {
     swc: true,
@@ -86,7 +87,7 @@ const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat('projen@^0.79.24', 'constructs@^10.3.0');
+const peerDeps = ([] as string[]).concat('projen@^0.80.1', 'constructs@^10.3.0');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
@@ -116,12 +117,13 @@ const dependencyOptions: Pick<TypeScriptProjectOptions, 'bundledDeps' | 'devDeps
 
 const releaseOptions: Pick<
   TypeScriptProjectOptions,
-  'defaultReleaseBranch' | 'npmAccess' | 'publishTasks' | 'release' | 'releaseToNpm'
+  'defaultReleaseBranch' | 'npmAccess' | 'publishTasks' | 'release' | 'releasableCommits' | 'releaseToNpm'
 > = {
   defaultReleaseBranch: 'main',
   npmAccess: NpmAccess.PUBLIC,
   publishTasks: true,
   release: true,
+  releasableCommits: ReleasableCommits.featuresAndFixes(),
   releaseToNpm: true,
 };
 
@@ -201,6 +203,10 @@ const project = new JsiiProjectPatch({
   ...pipelineOptions,
   ...releaseOptions,
   ...testOptions,
+});
+
+project.addFields({
+  packageManager: `pnpm@${pnpmVersion}+sha256.fc4a49bd609550a41e14d20efbce802a4b892aa4cac877322de2f0924f122991`,
 });
 
 project.synth();
