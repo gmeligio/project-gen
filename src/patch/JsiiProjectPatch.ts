@@ -111,6 +111,11 @@ export class JsiiProjectPatch extends JsiiProject {
       {
         groupName: 'github-actions',
         matchDatasources: ['github-tags'],
+      },
+      {
+        matchDatasources: ['npm'],
+        matchDepTypes: ['packageManager'],
+        enabled: false,
       }
     );
 
