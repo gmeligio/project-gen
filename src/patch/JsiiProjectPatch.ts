@@ -52,7 +52,29 @@ interface VersionDefinition {
 
 export class JsiiProjectPatch extends JsiiProject {
   constructor(options: JsiiProjectPatchOptions) {
-    super(options);
+    const versionFilePath = 'version.json';
+
+    const rawData = fs.readFileSync(versionFilePath, 'utf-8');
+
+    const versions = JSON.parse(rawData) as Record<string, VersionDefinition>;
+
+    const pnpmVersion = versions.pnpm.currentVersion;
+    const pnpmDigest = versions.pnpm.currentDigest;
+
+    const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion'> = {
+      pnpmVersion,
+    };
+
+    const projectOptions: JsiiProjectOptions = {
+      ...options,
+      ...patchOptions,
+    };
+
+    super(projectOptions);
+
+    this.addFields({
+      packageManager: `pnpm@${pnpmVersion}+${pnpmDigest}`,
+    });
 
     // TODO: Remove dependency after ts-node@11 is published
     // https://github.com/TypeStrong/ts-node/issues/2077
@@ -61,10 +83,6 @@ export class JsiiProjectPatch extends JsiiProject {
     // NPM metadata
     this.addKeywords('projen');
 
-    const versionFilePath = 'version.json';
-
-    const renovateGithubActionsManager = 'github-actions';
-
     const renovateFilePath = 'renovate.json5';
     const renovate = this.tryFindObjectFile(renovateFilePath);
     renovate?.addToArray('extends', 'helpers:pinGitHubActionDigests');
@@ -72,9 +90,7 @@ export class JsiiProjectPatch extends JsiiProject {
     // Create .npmrc that is not being created by default by projen.
     options.npmrcOptions.forEach((o) => this.npmrc.addConfig(o.name, o.value));
 
-    const rawData = fs.readFileSync(versionFilePath, 'utf-8');
-
-    const versions = JSON.parse(rawData) as Record<string, VersionDefinition>;
+    const renovateGithubActionsManager = 'github-actions';
 
     Object.entries(versions)
       .filter(([_, definition]) => definition.manager === renovateGithubActionsManager)
