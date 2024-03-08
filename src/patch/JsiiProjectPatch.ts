@@ -103,16 +103,20 @@ export class JsiiProjectPatch extends JsiiProject {
 
     renovate?.addToArray(
       'packageRules',
+      // Pin digests for dependencies in version.json
       {
         enabled: true,
         matchFileNames: ['version.json'],
         pinDigests: true,
       },
+      // Group Github Actions dependencies together
       {
         groupName: 'github-actions',
         matchDatasources: ['github-tags'],
       },
+      // Ignore the packageManager field in package.json, because it's being upgraded in version.json
       {
+        matchFileNames: ['package.json'],
         matchDatasources: ['npm'],
         matchDepTypes: ['packageManager'],
         enabled: false,

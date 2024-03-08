@@ -36,6 +36,9 @@
       ]
     },
     {
+      "matchFileNames": [
+        "package.json"
+      ],
       "matchDatasources": [
         "npm"
       ],
