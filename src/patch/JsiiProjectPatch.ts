@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import { JsonPatch, TextFile } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
-import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
 
 // type Action = 'actionsCheckout' | 'actionsSetupNode' | 'actionsUploadArtifact' | 'actionsDownloadArtifact';
