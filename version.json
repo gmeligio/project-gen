@@ -41,8 +41,8 @@
     },
     "pnpm": {
         "currentDigest": "sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2",
-        "currentValue": "8.15.4",
-        "currentVersion": "8.15.4",
+        "currentValue": "8.15.5",
+        "currentVersion": "8.15.5",
         "datasource": "npm",
         "depType": "packageManager",
         "manager": "js"
