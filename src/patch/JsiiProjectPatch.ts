@@ -1,27 +1,19 @@
 import * as fs from 'fs';
 import { JsonPatch, TextFile } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
+import { GithubWorkflow } from 'projen/lib/github';
 import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
-
-// type Action = 'actionsCheckout' | 'actionsSetupNode' | 'actionsUploadArtifact' | 'actionsDownloadArtifact';
-
-// type ActionVersions = Record<Action, Element>;
 
 interface GithubWorkflowOptions {
   /**
    * The path to the workflow file
    */
-  readonly path: string;
+  readonly workflow: GithubWorkflow;
 
   /**
    * The version of the runner OS
    */
   readonly runner: Element;
-
-  /**
-   * The versions of the actions
-   */
-  // readonly actions: ActionVersions;
 
   /**
    * The with property in the actions/checkout
@@ -123,15 +115,9 @@ export class JsiiProjectPatch extends JsiiProject {
       }
     );
 
-    // const releaseWorkflowPath = '.github/workflows/release.yml';
-    // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
-    // releaseWorkflow?.addOverride('jobs.release_npm.steps.8.env.run', 'asdas');
-    // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
+    const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
 
-    const releaseWorkflowPath = '.github/workflows/release.yml';
-    const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
-
-    releaseWorkflow?.addOverride('on.push.paths-ignore', [
+    releaseWorkflow?.file?.addOverride('on.push.paths-ignore', [
       // don't do a release if the change was only to these files/directories
       '.github/**/*.md',
     ]);
@@ -141,70 +127,16 @@ export class JsiiProjectPatch extends JsiiProject {
    * @todo Move the logic to a constructor using ObjectFile json and then parse it with yaml.parse and add the comments, to convert it to a TextFile before synthetizing it.
    */
   postSynthesize() {
-    // const buildWorkflow = project.tryFindObjectFile('.github/workflows/build.yml');
-    // buildWorkflow?.addOverride('jobs.build.runs-on', 'ubuntu-22.04');
-
     const runner: Element = { value: 'ubuntu-22.04' };
-    // const actions: ActionVersions = {
-    //   actionsCheckout: {
-    //     value: 'actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608',
-    //     comment: ' v4',
-    //   },
-    //   actionsSetupNode: {
-    //     value: 'actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d',
-    //     comment: ' v3',
-    //   },
-    //   actionsUploadArtifact: {
-    //     value: 'actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32',
-    //     comment: ' v3',
-    //   },
-    //   actionsDownloadArtifact: {
-    //     value: 'actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a',
-    //     comment: ' v3',
-    //   },
-    // };
 
     const checkoutToken: Element = { value: this.github!.projenCredentials.tokenRef };
 
-    const buildWorkflowPath = '.github/workflows/build.yml';
-    const buildFile = this.configureBuild({ path: buildWorkflowPath, runner, /*actions, */ checkoutToken });
+    const buildWorkflow = this.github!.tryFindWorkflow('build')!;
+    const buildFile = this.configureBuild({ workflow: buildWorkflow, runner, /*actions, */ checkoutToken });
     buildFile.synthesize();
 
-    // const releaseWorkflowPath = '.github/workflows/release.yml';
-    // const releaseWorkflow = this.tryFindObjectFile(releaseWorkflowPath);
-    // releaseWorkflow?.addOverride('jobs.release_npm.steps.7.env.NPM_DIST_TAG', 'asdas');
-    // releaseWorkflow?.addOverride('jobs.release_npm.steps.0.name', 'asdas');
-    // releaseWorkflow?.synthesize();
-
-    // const releaseWorkflow = this.github?.tryFindWorkflow('release');
-
-    // if (releaseWorkflow) {
-    //   const releaseNpmJob = releaseWorkflow.getJob('release_npm');
-
-    //   if (releaseNpmJob) {
-    //     releaseWorkflow.updateJob('release_npm', {
-    //       ...releaseNpmJob,
-    //       steps: [
-    //         ...(releaseNpmJob as workflows.Job).steps,
-    //         {
-    //           name: 'Upload artifact',
-    //           uses: 'actions/upload-artifact',
-    //           with: {
-    //             name: 'npm-package',
-    //             path: 'dist',
-    //           },
-    //         },
-    //       ],
-    //     });
-    //   }
-
-    //   console.log('synthetizing');
-
-    //   releaseWorkflow.synthesize();
-    // }
-
-    const releaseWorkflowPath = '.github/workflows/release.yml';
-    const releaseFile = this.configureRelease({ path: releaseWorkflowPath, runner, /*actions, */ checkoutToken });
+    const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
+    const releaseFile = this.configureRelease({ workflow: releaseWorkflow, runner, /*actions, */ checkoutToken });
     releaseFile.synthesize();
   }
 
@@ -213,18 +145,19 @@ export class JsiiProjectPatch extends JsiiProject {
    * @param project The project to configure
    * @param options The options to configure the workflow
    */
-  private configure(options: { path: string; transformations: YamlElement[] }) {
+  private configure(options: { workflow: GithubWorkflow; transformations: YamlElement[] }) {
     // TODO: Convert into RenovateAwareProject to format everything inside the project
     // TODO: Or add a formatter as an Aspect of the project
-    const transformer = new YamlTransformer({ path: options.path });
+    const workflowPath = options.workflow.file!.path;
+    const transformer = new YamlTransformer({ path: workflowPath });
 
     const transformed = transformer.apply(options.transformations);
 
-    this.tryRemoveFile(options.path);
+    this.tryRemoveFile(workflowPath);
 
     const lines = transformed.split('\n');
 
-    return new TextFile(this, options.path, {
+    return new TextFile(this, workflowPath, {
       marker: true,
       lines,
     });
@@ -249,24 +182,6 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsCheckout,
-      //   },
-      //   {
-      //     path: [1, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [5, 'uses'],
-      //     element: options.actions.actionsUploadArtifact,
-      //   },
-      //   {
-      //     path: [8, 'uses'],
-      //     element: options.actions.actionsUploadArtifact,
-      //   },
-      // ])
       .createTransformations();
 
     const selfMutationJobTree = new YamlTree({ path: ['jobs', 'self-mutation'] });
@@ -278,16 +193,6 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsCheckout,
-      //   },
-      //   {
-      //     path: [1, 'uses'],
-      //     element: options.actions.actionsDownloadArtifact,
-      //   },
-      // ])
       .createTransformations();
 
     const packageJsJobTree = new YamlTree({ path: ['jobs', 'package-js'] });
@@ -299,20 +204,10 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [1, 'uses'],
-      //     element: options.actions.actionsDownloadArtifact,
-      //   },
-      // ])
       .createTransformations();
 
     return this.configure({
-      path: options.path,
+      workflow: options.workflow,
       transformations: [...buildJobVersions, ...selfMutationJobVersions, ...packageJsJobVersions],
     });
   }
@@ -335,21 +230,6 @@ export class JsiiProjectPatch extends JsiiProject {
           element: options.runner,
         },
       ])
-      // .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsCheckout,
-      //   },
-      //   {
-      //     path: [2, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [7, 'uses'],
-      //     element: options.actions.actionsUploadArtifact,
-      //   },
-      // ])
       .createTransformations();
 
     const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
@@ -361,16 +241,6 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
-      // .addChildren([
-      //   {
-      //     path: [0, 'uses'],
-      //     element: options.actions.actionsSetupNode,
-      //   },
-      //   {
-      //     path: [1, 'uses'],
-      //     element: options.actions.actionsDownloadArtifact,
-      //   },
-      // ])
       .createTransformations();
 
     const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
@@ -382,20 +252,10 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
-      .addChildren([
-        // {
-        //   path: [0, 'uses'],
-        //   element: options.actions.actionsSetupNode,
-        // },
-        // {
-        //   path: [1, 'uses'],
-        //   element: options.actions.actionsDownloadArtifact,
-        // },
-      ])
       .createTransformations();
 
     return this.configure({
-      path: options.path,
+      workflow: options.workflow,
       transformations: [...releaseJobVersions, ...releaseGithubJobVersions, ...releaseNpmJobVersions],
     });
   }
