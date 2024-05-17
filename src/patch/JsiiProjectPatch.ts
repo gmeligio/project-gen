@@ -25,7 +25,7 @@ export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
   /**
    * The options to be passed to the .npmrc file.
    * @default - {}
-   * @see https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
+   * @see https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
    */
   npmrcOptions: {
     name: string;
