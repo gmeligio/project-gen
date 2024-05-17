@@ -65,6 +65,10 @@ const buildOptions: Pick<
       value: 'true',
     },
     {
+      name: 'node-linker',
+      value: 'hoisted',
+    },
+    {
       name: `//registry.npmjs.org/:_authToken`,
       value: '${NPM_TOKEN}',
     },
