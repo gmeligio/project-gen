@@ -2361,10 +2361,11 @@ const cdktfTypeScriptAppOptions: CdktfTypeScriptAppOptions = { ... }
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflow">buildWorkflow</a></code> | <code>boolean</code> | Define a GitHub workflow for building PRs. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v3 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
+| <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -3772,7 +3773,21 @@ Define a GitHub workflow for building PRs.
 
 ---
 
-##### `buildWorkflowTriggers`<sup>Optional</sup> <a name="buildWorkflowTriggers" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflowTriggers"></a>
+##### `buildWorkflowOptions`<sup>Optional</sup> <a name="buildWorkflowOptions" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflowOptions"></a>
+
+```typescript
+public readonly buildWorkflowOptions: BuildWorkflowOptions;
+```
+
+- *Type:* projen.javascript.BuildWorkflowOptions
+
+Options for PR build workflow.
+
+---
+
+##### ~~`buildWorkflowTriggers`~~<sup>Optional</sup> <a name="buildWorkflowTriggers" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.buildWorkflowTriggers"></a>
+
+- *Deprecated:* - Use `buildWorkflowOptions.workflowTriggers`
 
 ```typescript
 public readonly buildWorkflowTriggers: Triggers;
@@ -3821,7 +3836,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v3 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
 
 ---
 
@@ -3958,7 +3973,9 @@ Jest options.
 
 ---
 
-##### `mutableBuild`<sup>Optional</sup> <a name="mutableBuild" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.mutableBuild"></a>
+##### ~~`mutableBuild`~~<sup>Optional</sup> <a name="mutableBuild" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.mutableBuild"></a>
+
+- *Deprecated:* - Use `buildWorkflowOptions.mutableBuild`
 
 ```typescript
 public readonly mutableBuild: boolean;
@@ -4062,7 +4079,7 @@ public readonly projenDevDependency: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* true if not a subproject
 
 Indicates of "projen" should be installed as a devDependency.
 

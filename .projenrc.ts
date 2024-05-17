@@ -36,7 +36,7 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
   },
 };
 
-const typescriptVersion = '~5.3.0';
+const typescriptVersion = '~5.4.0';
 
 const buildOptions: Pick<
   JsiiProjectPatchOptions,
@@ -82,9 +82,10 @@ const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
+const projenVersion = '^0.81.13';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat('projen@^0.80.1', 'constructs@^10.3.0');
+const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
