@@ -124,12 +124,12 @@ export class JsiiProjectPatch extends JsiiProject {
       // don't do a release if the change was only to these files/directories
       '.github/**/*.md',
     ]);
-    releaseWorkflow?.file?.addDeletionOverride("jobs.release.steps.2.with");
-    releaseWorkflow?.file?.addDeletionOverride("jobs.release_npm.steps.3.with");
+    releaseWorkflow?.file?.addDeletionOverride('jobs.release.steps.2.with');
+    releaseWorkflow?.file?.addDeletionOverride('jobs.release_npm.steps.3.with');
 
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;
-    buildWorkflow?.file?.addDeletionOverride("jobs.build.steps.1.with");
-    buildWorkflow?.file?.addDeletionOverride("jobs.package-js.steps.3.with");
+    buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
+    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.with');
   }
 
   /**
