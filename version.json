@@ -32,9 +32,9 @@
         "manager": "github-actions"
     },
     "pnpm/action-setup": {
-        "currentDigest": "a3252b78c470c02df07e9d59298aecedc3ccdd6d",
-        "currentValue": "v3.0.0",
-        "currentVersion": "v3.0.0",
+        "currentDigest": "fe02b34f77f8bc703788d5817da081398fad5dd2",
+        "currentValue": "v4.0.0",
+        "currentVersion": "v4.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
