@@ -118,18 +118,35 @@ export class JsiiProjectPatch extends JsiiProject {
       }
     );
 
+    // Override release.yml
     const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
-
     releaseWorkflow?.file?.addOverride('on.push.paths-ignore', [
       // don't do a release if the change was only to these files/directories
       '.github/**/*.md',
     ]);
     releaseWorkflow?.file?.addDeletionOverride('jobs.release.steps.2.with');
     releaseWorkflow?.file?.addDeletionOverride('jobs.release_npm.steps.3.with');
-
+    
+    // Override build.yml
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;
+    
+    // Move pnpm/action-setup before actions/setup-node to fix error "No pnpm version is specified."
+    buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.name',"Setup pnpm");
+    buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.uses',this.github?.actions.get("pnpm/action-setup"));
+    // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.0.with');
+    
+    // Move actions/setup-node after pnpm/action-setup to fix error "No pnpm version is specified."
+    // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.name');
+    buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.uses',this.github?.actions.get("actions/setup-node"));
+    buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.with.node-version', "lts/*");
+
+    // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
     buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
-    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.with');
+    
+    // Delete `with: <pnpm-version>` and unnecessary fields in `package-js` job after moving actions in steps
+    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.0.with');
+    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.name');
+    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.with.version');
   }
 
   /**
