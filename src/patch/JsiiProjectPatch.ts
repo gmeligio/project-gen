@@ -125,7 +125,6 @@ export class JsiiProjectPatch extends JsiiProject {
       '.github/**/*.md',
     ]);
     releaseWorkflow?.file?.addDeletionOverride('jobs.release.steps.2.with');
-    releaseWorkflow?.file?.addDeletionOverride('jobs.release_npm.steps.3.with');
 
     // Override build.yml
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;

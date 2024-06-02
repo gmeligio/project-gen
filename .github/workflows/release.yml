@@ -112,6 +112,8 @@ jobs:
         continue-on-error: true
       - name: Setup pnpm
         uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+        with:
+          version: 9.1.4
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
