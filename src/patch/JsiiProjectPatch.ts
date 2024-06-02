@@ -129,8 +129,8 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // Override build.yml
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;
-    
-    buildWorkflow?.file?.addOverride('jobs.package-js.env.CI',"true");
+
+    buildWorkflow?.file?.addOverride('jobs.package-js.env.CI', 'true');
     // Move pnpm/action-setup before actions/setup-node to fix error "No pnpm version is specified."
     buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.name', 'Setup pnpm');
     buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.uses', this.github?.actions.get('pnpm/action-setup'));
