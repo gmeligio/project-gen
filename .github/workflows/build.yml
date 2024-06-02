@@ -114,3 +114,5 @@ jobs:
         run: cd .repo && npx projen package:js
       - name: Collect js Artifact
         run: mv .repo/dist dist
+    env:
+      CI: "true"
