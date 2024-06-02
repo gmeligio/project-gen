@@ -57,7 +57,7 @@ export class JsiiProjectPatch extends JsiiProject {
       // Removed because it's not being used in any place.
       // It used to be used in .github/workflows/build.yml > pnpm/action-setup > with
       // The PNPM version is currently set in package.json > packageManager
-      // pnpmVersion,
+      pnpmVersion,
     };
 
     const projectOptions: JsiiProjectOptions = {
@@ -130,24 +130,25 @@ export class JsiiProjectPatch extends JsiiProject {
     // Override build.yml
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;
 
-    buildWorkflow?.file?.addOverride('jobs.package-js.env.CI', 'true');
+    // buildWorkflow?.file?.addOverride('jobs.package-js.env.CI', 'true');
+
     // Move pnpm/action-setup before actions/setup-node to fix error "No pnpm version is specified."
-    buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.name', 'Setup pnpm');
-    buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.uses', this.github?.actions.get('pnpm/action-setup'));
+    // buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.name', 'Setup pnpm');
+    // buildWorkflow?.file?.addOverride('jobs.package-js.steps.0.uses', this.github?.actions.get('pnpm/action-setup'));
     // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.0.with');
 
     // Move actions/setup-node after pnpm/action-setup to fix error "No pnpm version is specified."
     // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.name');
-    buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.uses', this.github?.actions.get('actions/setup-node'));
-    buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.with.node-version', 'lts/*');
+    // buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.uses', this.github?.actions.get('actions/setup-node'));
+    // buildWorkflow?.file?.addOverride('jobs.package-js.steps.3.with.node-version', 'lts/*');
 
     // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
     buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
 
     // Delete `with: <pnpm-version>` and unnecessary fields in `package-js` job after moving actions in steps
-    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.0.with');
-    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.name');
-    buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.with.version');
+    // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.0.with');
+    // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.name');
+    // buildWorkflow?.file?.addDeletionOverride('jobs.package-js.steps.3.with.version');
   }
 
   /**
