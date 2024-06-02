@@ -54,6 +54,9 @@ export class JsiiProjectPatch extends JsiiProject {
     const pnpmDigest = versions.pnpm.currentDigest;
 
     const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion'> = {
+      // Removed because it's not being used in any place.
+      // It used to be used in .github/workflows/build.yml > pnpm/action-setup > with
+      // The PNPM version is currently set in package.json > packageManager
       pnpmVersion,
     };
 
@@ -115,12 +118,19 @@ export class JsiiProjectPatch extends JsiiProject {
       }
     );
 
+    // Override release.yml
     const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
-
     releaseWorkflow?.file?.addOverride('on.push.paths-ignore', [
       // don't do a release if the change was only to these files/directories
       '.github/**/*.md',
     ]);
+    releaseWorkflow?.file?.addDeletionOverride('jobs.release.steps.2.with');
+
+    // Override build.yml
+    const buildWorkflow = this.github!.tryFindWorkflow('build')!;
+
+    // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
+    buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
   }
 
   /**

@@ -36,3 +36,4 @@ then the security hash is `sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f131
         - Then it (maybe) can't automerge because of this.
     - Maybe submit feature to support pinned tags to upstream projen.
     - See example of workarounds in https://github.com/cdktf/cdktf-provider-project/blob/main/src/index.ts
+
