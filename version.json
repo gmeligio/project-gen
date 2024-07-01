@@ -1,8 +1,8 @@
 {
     "actions/checkout": {
-        "currentDigest": "a5ac7e51b41094c92402da3b24376905380afc29",
-        "currentValue": "v4.1.6",
-        "currentVersion": "v4.1.6",
+        "currentDigest": "692973e3d937129bcbf40652eb9f2f61becf3332",
+        "currentValue": "v4.1.7",
+        "currentVersion": "v4.1.7",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
