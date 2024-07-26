@@ -41,8 +41,8 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@types/uuid": "^9.0.8",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "cdktf": "^0.20.7",
     "constructs": "10.3.0",
     "eslint": "^8",
@@ -58,7 +58,7 @@
     "jsii-pacmak": "^1.98.0",
     "jsii-rosetta": "~5.4.0",
     "prettier": "^3.2.5",
-    "projen": "0.81.13",
+    "projen": "0.84.10",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "beta",
@@ -66,7 +66,7 @@
   },
   "peerDependencies": {
     "constructs": "^10.3.0",
-    "projen": "^0.81.13"
+    "projen": "^0.84.10"
   },
   "dependencies": {
     "uuid": "^9.0.1",
@@ -90,8 +90,8 @@
   },
   "version": "0.0.0",
   "jest": {
-    "clearMocks": true,
     "coverageProvider": "v8",
+    "clearMocks": true,
     "moduleFileExtensions": [
       "ts",
       "js",
@@ -104,8 +104,10 @@
     "testEnvironment": "node",
     "testMatch": [
       "test/**/*.test.ts",
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)"
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
