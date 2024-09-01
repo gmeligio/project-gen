@@ -8,25 +8,25 @@
         "manager": "github-actions"
     },
     "actions/download-artifact": {
-        "currentDigest": "65a9edc5881444af0b9093a5e628f2fe47ea3b2e",
-        "currentValue": "v4.1.7",
-        "currentVersion": "v4.1.7",
+        "currentDigest": "fa0a91b85d4f404e444e00e005971372dc801d16",
+        "currentValue": "v4.1.8",
+        "currentVersion": "v4.1.8",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
     },
     "actions/setup-node": {
-        "currentDigest": "60edb5dd545a775178f52524783378180af0d1f8",
-        "currentValue": "v4.0.2",
-        "currentVersion": "v4.0.2",
+        "currentDigest": "1e60f620b9541d16bece96c5465dc8ee9832be0b",
+        "currentValue": "v4.0.3",
+        "currentVersion": "v4.0.3",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
     },
     "actions/upload-artifact": {
-        "currentDigest": "65462800fd760344b1a7b4382951275a0abb4808",
-        "currentValue": "v4.3.3",
-        "currentVersion": "v4.3.3",
+        "currentDigest": "50769540e7f4bd5e21e526ee35c689e35e0d6874",
+        "currentValue": "v4.4.0",
+        "currentVersion": "v4.4.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
