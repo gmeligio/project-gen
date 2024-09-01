@@ -183,12 +183,24 @@ export class JsiiProjectPatch extends JsiiProject {
     const buildJobVersions = buildJobTree
       .addChildren([
         {
+          path: ['runs-on'],
+          element: options.runner,
+        },
+        {
           path: ['steps', 0, 'with', 'token'],
           element: options.checkoutToken,
         },
         {
-          path: ['runs-on'],
-          element: options.runner,
+          path: ['steps', 6, 'with', 'include-hidden-files'],
+          element: {
+            value: 'true',
+          },
+        },
+        {
+          path: ['steps', 9, 'with', 'include-hidden-files'],
+          element: {
+            value: 'true',
+          },
         },
       ])
       .descendTo(['steps'])

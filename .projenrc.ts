@@ -57,7 +57,7 @@ const buildOptions: Pick<
   // JSII follows TypeScript versioning schema and should always be the same major/minor as TypeScript
   jsiiVersion: typescriptVersion,
   typescriptVersion,
-  minNodeVersion: '18.17.0',
+  minNodeVersion: '20.17.0',
   npmignore: [coverageDirectory, reportsDirectory],
   npmrcOptions: [
     {
@@ -86,7 +86,7 @@ const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
-const projenVersion = '^0.84.10';
+const projenVersion = '^0.86.6';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
