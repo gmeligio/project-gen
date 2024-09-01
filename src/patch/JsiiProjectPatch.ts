@@ -131,18 +131,6 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
     buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
-
-    // TODO: Remove this debug in rsync-av
-    const prepareRepoForCI = [
-      `rsync -av . .repo --exclude .git --exclude node_modules`,
-      `rm -rf ${this.artifactsDirectory}`,
-      `mv .repo ${this.artifactsDirectory}`,
-    ].join(' && ');
-
-    this.packageTask.reset(prepareRepoForCI, {
-      // Only run in CI
-      condition: `node -e "if (!process.env.CI) process.exit(1)"`,
-    });
   }
 
   /**
@@ -195,12 +183,24 @@ export class JsiiProjectPatch extends JsiiProject {
     const buildJobVersions = buildJobTree
       .addChildren([
         {
+          path: ['runs-on'],
+          element: options.runner,
+        },
+        {
           path: ['steps', 0, 'with', 'token'],
           element: options.checkoutToken,
         },
         {
-          path: ['runs-on'],
-          element: options.runner,
+          path: ['steps', 6, 'with', 'include-hidden-files'],
+          element: {
+            value: 'true',
+          },
+        },
+        {
+          path: ['steps', 9, 'with', 'include-hidden-files'],
+          element: {
+            value: 'true',
+          },
         },
       ])
       .descendTo(['steps'])
