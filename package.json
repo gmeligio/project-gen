@@ -39,11 +39,12 @@
     "@swc/core": "^1.5.7",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.12",
-    "@types/node": "^18",
+    "@types/node": "^20",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
     "cdktf": "^0.20.7",
+    "commit-and-tag-version": "^12",
     "constructs": "10.3.0",
     "eslint": "^8",
     "eslint-config-prettier": "^9.1.0",
@@ -54,12 +55,11 @@
     "jest-junit": "^16.0.0",
     "jsii": "~5.4.0",
     "jsii-diff": "^1.98.0",
-    "jsii-docgen": "^10.4.9",
+    "jsii-docgen": "^10.5.0",
     "jsii-pacmak": "^1.98.0",
     "jsii-rosetta": "~5.4.0",
     "prettier": "^3.2.5",
     "projen": "0.86.6",
-    "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "beta",
     "typescript": "~5.4.0"
@@ -81,7 +81,7 @@
     "projen"
   ],
   "engines": {
-    "node": ">= 18.17.0"
+    "node": ">= 20.17.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",

@@ -57,7 +57,7 @@ const buildOptions: Pick<
   // JSII follows TypeScript versioning schema and should always be the same major/minor as TypeScript
   jsiiVersion: typescriptVersion,
   typescriptVersion,
-  minNodeVersion: '18.17.0',
+  minNodeVersion: '20.17.0',
   npmignore: [coverageDirectory, reportsDirectory],
   npmrcOptions: [
     {
