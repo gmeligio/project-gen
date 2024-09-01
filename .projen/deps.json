@@ -133,7 +133,7 @@
     },
     {
       "name": "projen",
-      "version": "^0.84.10",
+      "version": "^0.86.6",
       "type": "peer"
     }
   ],
