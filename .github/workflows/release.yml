@@ -29,7 +29,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: lts/*
       - name: Install dependencies
@@ -53,7 +53,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
         with:
           name: build-artifact
           path: dist
@@ -68,11 +68,11 @@ jobs:
       contents: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: lts/*
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -99,11 +99,11 @@ jobs:
       contents: read
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: lts/*
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
