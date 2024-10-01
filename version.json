@@ -1,8 +1,8 @@
 {
     "actions/checkout": {
-        "currentDigest": "692973e3d937129bcbf40652eb9f2f61becf3332",
-        "currentValue": "v4.1.7",
-        "currentVersion": "v4.1.7",
+        "currentDigest": "d632683dd7b4114ad314bca15554477dd762a938",
+        "currentValue": "v4.2.0",
+        "currentVersion": "v4.2.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
@@ -16,9 +16,9 @@
         "manager": "github-actions"
     },
     "actions/setup-node": {
-        "currentDigest": "1e60f620b9541d16bece96c5465dc8ee9832be0b",
-        "currentValue": "v4.0.3",
-        "currentVersion": "v4.0.3",
+        "currentDigest": "0a44ba7841725637a19e28fa30b79a866c81b0a6",
+        "currentValue": "v4.0.4",
+        "currentVersion": "v4.0.4",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
