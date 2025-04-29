@@ -10,6 +10,7 @@ import {
 } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { JsiiProjectPatch, JsiiProjectPatchOptions } from './src/patch';
+import { GithubCredentials } from 'projen/lib/github';
 
 const repositoryOrg = 'gmeligio';
 const repositoryPath = `${repositoryOrg}/project-gen`;
@@ -86,7 +87,7 @@ const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
-const projenVersion = '^0.86.6';
+const projenVersion = '^0.91.28';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
@@ -156,7 +157,7 @@ const pipelineOptions: Pick<
 > = {
   depsUpgrade: false,
   github: true,
-  githubOptions: { pullRequestLint: false },
+  githubOptions: { pullRequestLint: false, projenCredentials:  GithubCredentials.fromApp()},
   renovatebot: true,
   workflowNodeVersion: 'lts/*',
 };
