@@ -18,7 +18,7 @@ interface GithubWorkflowOptions {
   /**
    * The with property in the actions/checkout
    */
-  readonly checkoutToken: Element;
+  // readonly checkoutToken: Element;
 }
 
 export interface JsiiProjectPatchOptions extends JsiiProjectOptions {
@@ -53,11 +53,12 @@ export class JsiiProjectPatch extends JsiiProject {
     const pnpmVersion = versions.pnpm.currentVersion;
     const pnpmDigest = versions.pnpm.currentDigest;
 
-    const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion'> = {
+    const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion' | 'logging'> = {
       // Removed because it's not being used in any place.
       // It used to be used in .github/workflows/build.yml > pnpm/action-setup > with
       // The PNPM version is currently set in package.json > packageManager
       pnpmVersion,
+      // logging: { level: LogLevel.DEBUG },
     };
 
     const projectOptions: JsiiProjectOptions = {
@@ -118,19 +119,27 @@ export class JsiiProjectPatch extends JsiiProject {
       }
     );
 
-    // Override release.yml
+    // Workaround the override of build and release workflows properties that can't be modified through the usual project settings
+    this.configureRelease();
+    this.configureBuild();
+  }
+
+  private configureBuild() {
+    const buildWorkflow = this.github!.tryFindWorkflow('build')!;
+
+    // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
+    buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
+  }
+
+  private configureRelease() {
     const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
     releaseWorkflow?.file?.addOverride('on.push.paths-ignore', [
       // don't do a release if the change was only to these files/directories
       '.github/**/*.md',
     ]);
+
+    // Delete `with: <pnpm-version>` and unnecessary fields in `release` job after moving actions in steps
     releaseWorkflow?.file?.addDeletionOverride('jobs.release.steps.2.with');
-
-    // Override build.yml
-    const buildWorkflow = this.github!.tryFindWorkflow('build')!;
-
-    // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
-    buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
   }
 
   /**
@@ -139,14 +148,17 @@ export class JsiiProjectPatch extends JsiiProject {
   postSynthesize() {
     const runner: Element = { value: 'ubuntu-22.04' };
 
-    const checkoutToken: Element = { value: this.github!.projenCredentials.tokenRef };
+    // const checkoutToken: Element = { value: this.github!.projenCredentials.tokenRef };
 
     const buildWorkflow = this.github!.tryFindWorkflow('build')!;
-    const buildFile = this.configureBuild({ workflow: buildWorkflow, runner, /*actions, */ checkoutToken });
+    const buildFile = this.createBuildWithWorkarounds({ workflow: buildWorkflow, runner /*actions,  checkoutToken*/ });
     buildFile.synthesize();
 
     const releaseWorkflow = this.github!.tryFindWorkflow('release')!;
-    const releaseFile = this.configureRelease({ workflow: releaseWorkflow, runner, /*actions, */ checkoutToken });
+    const releaseFile = this.createReleaseWithWorkarounds({
+      workflow: releaseWorkflow,
+      runner /*actions,  checkoutToken*/,
+    });
     releaseFile.synthesize();
   }
 
@@ -163,12 +175,12 @@ export class JsiiProjectPatch extends JsiiProject {
 
     const transformed = transformer.apply(options.transformations);
 
+    // Doing tryRemoveFile here causes that the projen marker in the first line doesn't appear in the new TextFile
     this.tryRemoveFile(workflowPath);
 
     const lines = transformed.split('\n');
 
     return new TextFile(this, workflowPath, {
-      marker: true,
       lines,
     });
   }
@@ -178,7 +190,7 @@ export class JsiiProjectPatch extends JsiiProject {
    * @param project The project to configure
    * @param path The path to the workflow file
    */
-  private configureBuild(options: GithubWorkflowOptions) {
+  private createBuildWithWorkarounds(options: GithubWorkflowOptions) {
     const buildJobTree = new YamlTree({ path: ['jobs', 'build'] });
     const buildJobVersions = buildJobTree
       .addChildren([
@@ -186,22 +198,22 @@ export class JsiiProjectPatch extends JsiiProject {
           path: ['runs-on'],
           element: options.runner,
         },
-        {
-          path: ['steps', 0, 'with', 'token'],
-          element: options.checkoutToken,
-        },
-        {
-          path: ['steps', 6, 'with', 'include-hidden-files'],
-          element: {
-            value: 'true',
-          },
-        },
-        {
-          path: ['steps', 9, 'with', 'include-hidden-files'],
-          element: {
-            value: 'true',
-          },
-        },
+        // {
+        //   path: ['steps', 0, 'with', 'token'],
+        //   element: options.checkoutToken,
+        // },
+        // {
+        //   path: ['steps', 6, 'with', 'include-hidden-files'],
+        //   element: {
+        //     value: 'true',
+        //   },
+        // },
+        // {
+        //   path: ['steps', 9, 'with', 'include-hidden-files'],
+        //   element: {
+        //     value: 'true',
+        //   },
+        // },
       ])
       .descendTo(['steps'])
       .createTransformations();
@@ -239,18 +251,18 @@ export class JsiiProjectPatch extends JsiiProject {
    * @param path The path to the workflow file
    * @param project The project to configure
    */
-  private configureRelease(options: GithubWorkflowOptions) {
+  private createReleaseWithWorkarounds(options: GithubWorkflowOptions) {
     const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
     const releaseJobVersions = releaseJobTree
       .addChildren([
         {
-          path: ['steps', 0, 'with', 'token'],
-          element: options.checkoutToken,
-        },
-        {
           path: ['runs-on'],
           element: options.runner,
         },
+        // {
+        //   path: ['steps', 0, 'with', 'token'],
+        //   element: options.checkoutToken,
+        // },
       ])
       .createTransformations();
 
