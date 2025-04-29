@@ -37,7 +37,7 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
   },
 };
 
-const typescriptVersion = '~5.4.0';
+const typescriptVersion = '~5.7.0';
 
 const buildOptions: Pick<
   JsiiProjectPatchOptions,
