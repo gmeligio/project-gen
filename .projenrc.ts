@@ -1,5 +1,6 @@
 import { ReleasableCommits, RenovatebotOptions, RenovatebotScheduleInterval } from 'projen';
 import { JsiiProjectOptions } from 'projen/lib/cdk';
+import { GithubCredentials } from 'projen/lib/github';
 import {
   JestReporter,
   NodePackageManager,
@@ -10,7 +11,6 @@ import {
 } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { JsiiProjectPatch, JsiiProjectPatchOptions } from './src/patch';
-import { GithubCredentials } from 'projen/lib/github';
 
 const repositoryOrg = 'gmeligio';
 const repositoryPath = `${repositoryOrg}/project-gen`;
@@ -157,7 +157,7 @@ const pipelineOptions: Pick<
 > = {
   depsUpgrade: false,
   github: true,
-  githubOptions: { pullRequestLint: false, projenCredentials:  GithubCredentials.fromApp()},
+  githubOptions: { pullRequestLint: false, projenCredentials: GithubCredentials.fromApp() },
   renovatebot: true,
   workflowNodeVersion: 'lts/*',
 };

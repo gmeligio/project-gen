@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { JsonPatch, LogLevel, TextFile } from 'projen';
+import { JsonPatch, TextFile } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
 import { GithubWorkflow } from 'projen/lib/github';
 import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
