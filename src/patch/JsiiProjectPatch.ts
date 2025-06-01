@@ -215,7 +215,7 @@ export class JsiiProjectPatch extends JsiiProject {
         //   },
         // },
       ])
-      .descendTo(['steps'])
+      // .descendTo(['steps'])
       .createTransformations();
 
     const selfMutationJobTree = new YamlTree({ path: ['jobs', 'self-mutation'] });
@@ -227,6 +227,19 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
+      .addChildren([
+        {
+          path: ['5', 'run'],
+          element: {
+            // TODO: Remove the workaround below after upstream projen signs commits automatically
+            value: [
+              'git add .',
+              'git commit --gpg-sign --signoff -m "chore: self mutation"',
+              'git push origin HEAD:$PULL_REQUEST_REF',
+            ].join('\n'),
+          },
+        },
+      ])
       .createTransformations();
 
     const packageJsJobTree = new YamlTree({ path: ['jobs', 'package-js'] });
