@@ -37,8 +37,8 @@ importers:
         specifier: ^8
         version: 8.34.0(eslint@9.28.0)(typescript@5.7.3)
       cdktf:
-        specifier: ^0.20.7
-        version: 0.20.12(constructs@10.3.0)
+        specifier: ^0.21.0
+        version: 0.21.0(constructs@10.3.0)
       commit-and-tag-version:
         specifier: ^12
         version: 12.5.1
@@ -1046,10 +1046,10 @@ packages:
     resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
     engines: {node: '>= 0.8.0'}
 
-  cdktf@0.20.12:
-    resolution: {integrity: sha512-ZBg2gA3Uw0WvGFlgrY1uxo6QHWn+ZdHiDkZQyOsTBl68k62UlaV8K7RR51d0E/amQG/CjtKOJr5XPFFAcOq0VA==}
+  cdktf@0.21.0:
+    resolution: {integrity: sha512-bdTOOyrFSXw0p5d7/3dye7ZWYzrUatyMjWEAAwTGoqghjygRj6Q55y1QZnSB021NRDzYZ3BhFGsOkpmIjQMzNQ==}
     peerDependencies:
-      constructs: ^10.3.0
+      constructs: ^10.4.2
     bundledDependencies:
       - archiver
       - json-stable-stringify
@@ -4344,7 +4344,7 @@ snapshots:
 
   case@1.6.3: {}
 
-  cdktf@0.20.12(constructs@10.3.0):
+  cdktf@0.21.0(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
 
