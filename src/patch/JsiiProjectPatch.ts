@@ -192,7 +192,7 @@ export class JsiiProjectPatch extends JsiiProject {
    */
   private createBuildWithWorkarounds(options: GithubWorkflowOptions) {
     const buildJobTree = new YamlTree({ path: ['jobs', 'build'] });
-    const buildJobVersions = buildJobTree
+    const buildJobPatches = buildJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -215,11 +215,11 @@ export class JsiiProjectPatch extends JsiiProject {
         //   },
         // },
       ])
-      .descendTo(['steps'])
+      // .descendTo(['steps'])
       .createTransformations();
 
     const selfMutationJobTree = new YamlTree({ path: ['jobs', 'self-mutation'] });
-    const selfMutationJobVersions = selfMutationJobTree
+    const selfMutationJobPatches = selfMutationJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -227,10 +227,23 @@ export class JsiiProjectPatch extends JsiiProject {
         },
       ])
       .descendTo(['steps'])
+      .addChildren([
+        {
+          path: ['5', 'run'],
+          element: {
+            // TODO: Remove the workaround below after upstream projen signs commits automatically
+            value: [
+              'git add .',
+              'git commit --gpg-sign --signoff -m "chore: self mutation"',
+              'git push origin HEAD:$PULL_REQUEST_REF',
+            ].join('\n'),
+          },
+        },
+      ])
       .createTransformations();
 
     const packageJsJobTree = new YamlTree({ path: ['jobs', 'package-js'] });
-    const packageJsJobVersions = packageJsJobTree
+    const packageJsJobPatches = packageJsJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -242,7 +255,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     return this.configure({
       workflow: options.workflow,
-      transformations: [...buildJobVersions, ...selfMutationJobVersions, ...packageJsJobVersions],
+      transformations: [...buildJobPatches, ...selfMutationJobPatches, ...packageJsJobPatches],
     });
   }
 
@@ -253,7 +266,7 @@ export class JsiiProjectPatch extends JsiiProject {
    */
   private createReleaseWithWorkarounds(options: GithubWorkflowOptions) {
     const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
-    const releaseJobVersions = releaseJobTree
+    const releaseJobPatches = releaseJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -267,7 +280,7 @@ export class JsiiProjectPatch extends JsiiProject {
       .createTransformations();
 
     const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
-    const releaseGithubJobVersions = releaseGithubJobTree
+    const releaseGithubJobPatches = releaseGithubJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -278,7 +291,7 @@ export class JsiiProjectPatch extends JsiiProject {
       .createTransformations();
 
     const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
-    const releaseNpmJobVersions = releaseNpmJobTree
+    const releaseNpmJobPatches = releaseNpmJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -290,7 +303,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     return this.configure({
       workflow: options.workflow,
-      transformations: [...releaseJobVersions, ...releaseGithubJobVersions, ...releaseNpmJobVersions],
+      transformations: [...releaseJobPatches, ...releaseGithubJobPatches, ...releaseNpmJobPatches],
     });
   }
 }
