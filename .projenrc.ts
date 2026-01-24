@@ -87,7 +87,7 @@ const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
-const projenVersion = '^0.91.28';
+const projenVersion = '^0.99.7';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
@@ -183,6 +183,8 @@ const testOptions: TestOptions = {
       transform: {
         '\\.[jt]sx?$': new Transform('@swc/jest'),
       },
+      // uuid` v13 is a pure ESM package, and Jest by default doesn't transform files in `node_modules`. `transformIgnorePatterns` allows the `uuid` package to be transformed by `@swc/jest`.
+      transformIgnorePatterns: ['node_modules/(?!(\\.pnpm/uuid@[^/]+/node_modules/uuid|uuid)/)'],
       reporters: [jestJunitReporter],
       coverageDirectory,
       coverageReporters: ['cobertura'],

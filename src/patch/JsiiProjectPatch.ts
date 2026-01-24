@@ -53,12 +53,13 @@ export class JsiiProjectPatch extends JsiiProject {
     const pnpmVersion = versions.pnpm.currentVersion;
     const pnpmDigest = versions.pnpm.currentDigest;
 
-    const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion' | 'logging'> = {
+    const patchOptions: Pick<JsiiProjectOptions, 'pnpmVersion' | 'logging' | 'mergify'> = {
       // Removed because it's not being used in any place.
       // It used to be used in .github/workflows/build.yml > pnpm/action-setup > with
       // The PNPM version is currently set in package.json > packageManager
       pnpmVersion,
       // logging: { level: LogLevel.DEBUG },
+      mergify: false
     };
 
     const projectOptions: JsiiProjectOptions = {

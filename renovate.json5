@@ -60,7 +60,13 @@
     "jsii",
     "ts-node",
     "typescript",
-    "projen"
+    "projen",
+    "actions/create-github-app-token",
+    "actions/checkout",
+    "actions/download-artifact",
+    "pnpm/action-setup",
+    "actions/setup-node",
+    "actions/upload-artifact"
   ],
   "customManagers": [
     {

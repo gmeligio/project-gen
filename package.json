@@ -59,14 +59,14 @@
     "jsii-pacmak": "^1.98.0",
     "jsii-rosetta": "~5.7.0",
     "prettier": "^3.2.5",
-    "projen": "0.91.28",
+    "projen": "0.99.7",
     "ts-jest": "^29.1.2",
     "ts-node": "beta",
     "typescript": "~5.7.0"
   },
   "peerDependencies": {
     "constructs": "^10.3.0",
-    "projen": "^0.91.28"
+    "projen": "^0.99.7"
   },
   "dependencies": {
     "uuid": "^13.0.0",
@@ -123,6 +123,9 @@
       ],
       "\\.[jt]sx?$": "@swc/jest"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(\\.pnpm/uuid@[^/]+/node_modules/uuid|uuid)/)"
+    ],
     "reporters": [
       "default",
       [
