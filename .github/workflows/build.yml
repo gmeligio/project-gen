@@ -88,12 +88,15 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Push changes
-        env:
-          PULL_REQUEST_REF: ${{ github.event.pull_request.head.ref }}
-        run: |-
-          git add .
-          git commit -s -m "chore: self mutation"
-          git push origin HEAD:$PULL_REQUEST_REF
+        uses: grafana/github-api-commit-action@b1d81091e8480dd11fcea8bc1f0ab977a0376ca5
+        with:
+          commit-message: |-
+            chore: self mutation
+
+            Signed-off-by: github-actions <github-actions@github.com>
+          stage-all-files: true
+          success-if-no-changes: true
+          token: ${{ steps.generate_token.outputs.token }}
   package-js:
     needs: build
     runs-on: ubuntu-22.04
