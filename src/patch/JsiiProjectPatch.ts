@@ -59,7 +59,7 @@ export class JsiiProjectPatch extends JsiiProject {
       // The PNPM version is currently set in package.json > packageManager
       pnpmVersion,
       // logging: { level: LogLevel.DEBUG },
-      mergify: false
+      mergify: false,
     };
 
     const projectOptions: JsiiProjectOptions = {
