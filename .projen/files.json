@@ -6,7 +6,6 @@
     ".github/workflows/build.yml",
     ".github/workflows/release.yml",
     ".gitignore",
-    ".mergify.yml",
     ".npmrc",
     ".prettierignore",
     ".prettierrc.json",
