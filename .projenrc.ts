@@ -87,7 +87,7 @@ const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 
-const projenVersion = '^0.91.28';
+const projenVersion = '^0.92.8';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
 const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
