@@ -39,6 +39,14 @@
         "depType": "action",
         "manager": "github-actions"
     },
+    "grafana/github-api-commit-action": {
+        "currentDigest": "b1d81091e8480dd11fcea8bc1f0ab977a0376ca5",
+        "currentValue": "v1.0.0",
+        "currentVersion": "v1.0.0",
+        "datasource": "github-tags",
+        "depType": "action",
+        "manager": "github-actions"
+    },
     "pnpm": {
         "currentDigest": "sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
         "currentValue": "10.11.0",

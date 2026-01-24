@@ -129,6 +129,22 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
     buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
+
+    // Replace self-mutation step 5 (Push changes) with grafana/github-api-commit-action
+    // This creates signed commits via GitHub API without requiring GPG keys
+    // The Signed-off-by trailer is included in the commit message for DCO compliance
+    buildWorkflow?.file?.addDeletionOverride('jobs.self-mutation.steps.5.run');
+    buildWorkflow?.file?.addDeletionOverride('jobs.self-mutation.steps.5.env');
+    buildWorkflow?.file?.addOverride(
+      'jobs.self-mutation.steps.5.uses',
+      'grafana/github-api-commit-action@b1d81091e8480dd11fcea8bc1f0ab977a0376ca5'
+    );
+    buildWorkflow?.file?.addOverride('jobs.self-mutation.steps.5.with', {
+      'commit-message': 'chore: self mutation\n\nSigned-off-by: github-actions <github-actions@github.com>',
+      'stage-all-files': true,
+      'success-if-no-changes': true,
+      token: '${{ steps.generate_token.outputs.token }}',
+    });
   }
 
   private configureRelease() {
@@ -224,20 +240,6 @@ export class JsiiProjectPatch extends JsiiProject {
         {
           path: ['runs-on'],
           element: options.runner,
-        },
-      ])
-      .descendTo(['steps'])
-      .addChildren([
-        {
-          path: ['5', 'run'],
-          element: {
-            // TODO: Remove the workaround below after upstream projen signs commits automatically
-            value: [
-              'git add .',
-              'git commit --gpg-sign --signoff -m "chore: self mutation"',
-              'git push origin HEAD:$PULL_REQUEST_REF',
-            ].join('\n'),
-          },
         },
       ])
       .createTransformations();
