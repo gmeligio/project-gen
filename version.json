@@ -1,32 +1,32 @@
 {
     "actions/checkout": {
-        "currentDigest": "11bd71901bbe5b1630ceea73d27597364c9af683",
-        "currentValue": "v4.2.2",
-        "currentVersion": "v4.2.2",
+        "currentDigest": "08c6903cd8c0fde910a37f88322edcfb5dd907a8",
+        "currentValue": "v5.0.0",
+        "currentVersion": "v5.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
     },
     "actions/download-artifact": {
-        "currentDigest": "d3f86a106a0bac45b974a628896c90dbdf5c8093",
-        "currentValue": "v4.3.0",
-        "currentVersion": "v4.3.0",
+        "currentDigest": "018cc2cf5baa6db3ef3c5f8a56943fffe632ef53",
+        "currentValue": "v6.0.0",
+        "currentVersion": "v6.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
     },
     "actions/setup-node": {
-        "currentDigest": "49933ea5288caeca8642d1e84afbd3f7d6820020",
-        "currentValue": "v4.4.0",
-        "currentVersion": "v4.4.0",
+        "currentDigest": "2028fbc5c25fe9cf00d9f06a71cc4710d4507903",
+        "currentValue": "v6.0.0",
+        "currentVersion": "v6.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
     },
     "actions/upload-artifact": {
-        "currentDigest": "ea165f8d65b6e75b540449e92b4886f43607fa02",
-        "currentValue": "v4.6.2",
-        "currentVersion": "v4.6.2",
+        "currentDigest": "330a01c490aca151604b8cf639adc76d48f6c5d4",
+        "currentValue": "v5.0.0",
+        "currentVersion": "v5.0.0",
         "datasource": "github-tags",
         "depType": "action",
         "manager": "github-actions"
@@ -39,10 +39,18 @@
         "depType": "action",
         "manager": "github-actions"
     },
+    "grafana/github-api-commit-action": {
+        "currentDigest": "b1d81091e8480dd11fcea8bc1f0ab977a0376ca5",
+        "currentValue": "v1.0.0",
+        "currentVersion": "v1.0.0",
+        "datasource": "github-tags",
+        "depType": "action",
+        "manager": "github-actions"
+    },
     "pnpm": {
         "currentDigest": "sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
-        "currentValue": "10.11.0",
-        "currentVersion": "10.11.0",
+        "currentValue": "10.12.4",
+        "currentVersion": "10.12.4",
         "datasource": "npm",
         "depType": "packageManager",
         "manager": "js"

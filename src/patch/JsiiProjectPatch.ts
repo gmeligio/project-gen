@@ -130,6 +130,22 @@ export class JsiiProjectPatch extends JsiiProject {
 
     // Delete `with: <pnpm-version>` and unnecessary fields in `build` job after moving actions in steps
     buildWorkflow?.file?.addDeletionOverride('jobs.build.steps.1.with');
+
+    // Replace self-mutation step 5 (Push changes) with grafana/github-api-commit-action
+    // This creates signed commits via GitHub API without requiring GPG keys
+    // The Signed-off-by trailer is included in the commit message for DCO compliance
+    buildWorkflow?.file?.addDeletionOverride('jobs.self-mutation.steps.5.run');
+    buildWorkflow?.file?.addDeletionOverride('jobs.self-mutation.steps.5.env');
+    buildWorkflow?.file?.addOverride(
+      'jobs.self-mutation.steps.5.uses',
+      'grafana/github-api-commit-action@b1d81091e8480dd11fcea8bc1f0ab977a0376ca5'
+    );
+    buildWorkflow?.file?.addOverride('jobs.self-mutation.steps.5.with', {
+      'commit-message': 'chore: self mutation\n\nSigned-off-by: github-actions <github-actions@github.com>',
+      'stage-all-files': true,
+      'success-if-no-changes': true,
+      token: '${{ steps.generate_token.outputs.token }}',
+    });
   }
 
   private configureRelease() {
@@ -193,7 +209,7 @@ export class JsiiProjectPatch extends JsiiProject {
    */
   private createBuildWithWorkarounds(options: GithubWorkflowOptions) {
     const buildJobTree = new YamlTree({ path: ['jobs', 'build'] });
-    const buildJobVersions = buildJobTree
+    const buildJobPatches = buildJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -216,22 +232,21 @@ export class JsiiProjectPatch extends JsiiProject {
         //   },
         // },
       ])
-      .descendTo(['steps'])
+      // .descendTo(['steps'])
       .createTransformations();
 
     const selfMutationJobTree = new YamlTree({ path: ['jobs', 'self-mutation'] });
-    const selfMutationJobVersions = selfMutationJobTree
+    const selfMutationJobPatches = selfMutationJobTree
       .addChildren([
         {
           path: ['runs-on'],
           element: options.runner,
         },
       ])
-      .descendTo(['steps'])
       .createTransformations();
 
     const packageJsJobTree = new YamlTree({ path: ['jobs', 'package-js'] });
-    const packageJsJobVersions = packageJsJobTree
+    const packageJsJobPatches = packageJsJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -243,7 +258,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     return this.configure({
       workflow: options.workflow,
-      transformations: [...buildJobVersions, ...selfMutationJobVersions, ...packageJsJobVersions],
+      transformations: [...buildJobPatches, ...selfMutationJobPatches, ...packageJsJobPatches],
     });
   }
 
@@ -254,7 +269,7 @@ export class JsiiProjectPatch extends JsiiProject {
    */
   private createReleaseWithWorkarounds(options: GithubWorkflowOptions) {
     const releaseJobTree = new YamlTree({ path: ['jobs', 'release'] });
-    const releaseJobVersions = releaseJobTree
+    const releaseJobPatches = releaseJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -268,7 +283,7 @@ export class JsiiProjectPatch extends JsiiProject {
       .createTransformations();
 
     const releaseGithubJobTree = new YamlTree({ path: ['jobs', 'release_github'] });
-    const releaseGithubJobVersions = releaseGithubJobTree
+    const releaseGithubJobPatches = releaseGithubJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -279,7 +294,7 @@ export class JsiiProjectPatch extends JsiiProject {
       .createTransformations();
 
     const releaseNpmJobTree = new YamlTree({ path: ['jobs', 'release_npm'] });
-    const releaseNpmJobVersions = releaseNpmJobTree
+    const releaseNpmJobPatches = releaseNpmJobTree
       .addChildren([
         {
           path: ['runs-on'],
@@ -291,7 +306,7 @@ export class JsiiProjectPatch extends JsiiProject {
 
     return this.configure({
       workflow: options.workflow,
-      transformations: [...releaseJobVersions, ...releaseGithubJobVersions, ...releaseNpmJobVersions],
+      transformations: [...releaseJobPatches, ...releaseGithubJobPatches, ...releaseNpmJobPatches],
     });
   }
 }
