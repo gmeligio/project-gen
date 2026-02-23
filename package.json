@@ -1,180 +1,180 @@
 {
-    "name": "@gmeligio/project-gen",
-    "description": "Project types for Projen",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/gmeligio/project-gen.git"
-    },
-    "scripts": {
-        "build": "npx projen build",
-        "bump": "npx projen bump",
-        "clobber": "npx projen clobber",
-        "compat": "npx projen compat",
-        "compile": "npx projen compile",
-        "default": "npx projen default",
-        "docgen": "npx projen docgen",
-        "eject": "npx projen eject",
-        "eslint": "npx projen eslint",
-        "package": "npx projen package",
-        "package-all": "npx projen package-all",
-        "package:js": "npx projen package:js",
-        "post-compile": "npx projen post-compile",
-        "post-upgrade": "npx projen post-upgrade",
-        "pre-compile": "npx projen pre-compile",
-        "publish:github": "npx projen publish:github",
-        "publish:npm": "npx projen publish:npm",
-        "release": "npx projen release",
-        "test": "npx projen test",
-        "test:update": "npx projen test:update",
-        "test:watch": "npx projen test:watch",
-        "unbump": "npx projen unbump",
-        "upgrade": "npx projen upgrade",
-        "watch": "npx projen watch",
-        "projen": "npx projen"
-    },
-    "author": {
-        "name": "Eligio Alejandro Mariño Garcés",
-        "email": "22875166+gmeligio@users.noreply.github.com",
-        "organization": false
-    },
-    "devDependencies": {
-        "@swc/core": "^1.15.13",
-        "@swc/jest": "^0.2.39",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^20",
-        "@types/uuid": "^11.0.0",
-        "@typescript-eslint/eslint-plugin": "^8",
-        "@typescript-eslint/parser": "^8",
-        "cdktf": "^0.21.0",
-        "commit-and-tag-version": "^12",
-        "constructs": "10.4.2",
-        "eslint": "^9",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-import-resolver-typescript": "^4.4.4",
-        "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-prettier": "^5.5.5",
-        "jest": "^30.0.0",
-        "jest-junit": "^16.0.0",
-        "jsii": "~5.9.0",
-        "jsii-diff": "^1.126.0",
-        "jsii-docgen": "^10.5.0",
-        "jsii-pacmak": "^1.126.0",
-        "jsii-rosetta": "~5.9.0",
-        "prettier": "^3.8.1",
-        "projen": "0.99.7",
-        "ts-jest": "^29.4.6",
-        "ts-node": "beta",
-        "typescript": "~5.9.0"
-    },
-    "peerDependencies": {
-        "constructs": "^10.4.2",
-        "projen": "^0.99.7"
-    },
-    "dependencies": {
-        "uuid": "^13.0.0",
-        "yaml": "^2.8.2"
-    },
-    "bundledDependencies": [
-        "uuid",
-        "yaml"
+  "name": "@gmeligio/project-gen",
+  "description": "Project types for Projen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmeligio/project-gen.git"
+  },
+  "scripts": {
+    "build": "npx projen build",
+    "bump": "npx projen bump",
+    "clobber": "npx projen clobber",
+    "compat": "npx projen compat",
+    "compile": "npx projen compile",
+    "default": "npx projen default",
+    "docgen": "npx projen docgen",
+    "eject": "npx projen eject",
+    "eslint": "npx projen eslint",
+    "package": "npx projen package",
+    "package-all": "npx projen package-all",
+    "package:js": "npx projen package:js",
+    "post-compile": "npx projen post-compile",
+    "post-upgrade": "npx projen post-upgrade",
+    "pre-compile": "npx projen pre-compile",
+    "publish:github": "npx projen publish:github",
+    "publish:npm": "npx projen publish:npm",
+    "release": "npx projen release",
+    "test": "npx projen test",
+    "test:update": "npx projen test:update",
+    "test:watch": "npx projen test:watch",
+    "unbump": "npx projen unbump",
+    "upgrade": "npx projen upgrade",
+    "watch": "npx projen watch",
+    "projen": "npx projen"
+  },
+  "author": {
+    "name": "Eligio Alejandro Mariño Garcés",
+    "email": "22875166+gmeligio@users.noreply.github.com",
+    "organization": false
+  },
+  "devDependencies": {
+    "@swc/core": "^1.15.13",
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20",
+    "@types/uuid": "^11.0.0",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8",
+    "cdktf": "^0.21.0",
+    "commit-and-tag-version": "^12",
+    "constructs": "10.4.2",
+    "eslint": "^9",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "jest": "^30.0.0",
+    "jest-junit": "^16.0.0",
+    "jsii": "~5.9.0",
+    "jsii-diff": "^1.126.0",
+    "jsii-docgen": "^10.5.0",
+    "jsii-pacmak": "^1.126.0",
+    "jsii-rosetta": "~5.9.0",
+    "prettier": "^3.8.1",
+    "projen": "0.99.7",
+    "ts-jest": "^29.4.6",
+    "ts-node": "beta",
+    "typescript": "~5.9.0"
+  },
+  "peerDependencies": {
+    "constructs": "^10.4.2",
+    "projen": "^0.99.7"
+  },
+  "dependencies": {
+    "uuid": "^13.0.0",
+    "yaml": "^2.8.2"
+  },
+  "bundledDependencies": [
+    "uuid",
+    "yaml"
+  ],
+  "pnpm": {},
+  "keywords": [
+    "projen"
+  ],
+  "engines": {
+    "node": ">= 20.17.0"
+  },
+  "main": "lib/index.js",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.0",
+  "jest": {
+    "coverageProvider": "v8",
+    "clearMocks": true,
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "node"
     ],
-    "pnpm": {},
-    "keywords": [
-        "projen"
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setupJest.js"
     ],
-    "engines": {
-        "node": ">= 20.17.0"
+    "testEnvironment": "node",
+    "testMatch": [
+      "test/**/*.test.ts",
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      ".d.ts",
+      ".js"
+    ],
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ],
+      "\\.[jt]sx?$": "@swc/jest"
     },
-    "main": "lib/index.js",
-    "license": "Apache-2.0",
-    "publishConfig": {
-        "access": "public"
+    "transformIgnorePatterns": [
+      "node_modules/(?!(\\.pnpm/uuid@[^/]+/node_modules/uuid|uuid)/)"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test_report",
+          "addFileAttribute": "true"
+        }
+      ]
+    ],
+    "coverageDirectory": "coverage_report",
+    "coverageReporters": [
+      "cobertura",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
     },
-    "version": "0.0.0",
-    "jest": {
-        "coverageProvider": "v8",
-        "clearMocks": true,
-        "moduleFileExtensions": [
-            "ts",
-            "js",
-            "json",
-            "node"
-        ],
-        "setupFilesAfterEnv": [
-            "<rootDir>/test/setupJest.js"
-        ],
-        "testEnvironment": "node",
-        "testMatch": [
-            "test/**/*.test.ts",
-            "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
-            "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
-            "<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
-            "<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
-        ],
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            ".d.ts",
-            ".js"
-        ],
-        "transform": {
-            "^.+\\.[t]sx?$": [
-                "ts-jest",
-                {
-                    "tsconfig": "tsconfig.dev.json"
-                }
-            ],
-            "\\.[jt]sx?$": "@swc/jest"
-        },
-        "transformIgnorePatterns": [
-            "node_modules/(?!(\\.pnpm/uuid@[^/]+/node_modules/uuid|uuid)/)"
-        ],
-        "reporters": [
-            "default",
-            [
-                "jest-junit",
-                {
-                    "outputDirectory": "test_report",
-                    "addFileAttribute": "true"
-                }
-            ]
-        ],
-        "coverageDirectory": "coverage_report",
-        "coverageReporters": [
-            "cobertura",
-            "text"
-        ],
-        "coverageThreshold": {
-            "global": {
-                "branches": 100,
-                "functions": 100,
-                "lines": 100,
-                "statements": 100
-            }
-        },
-        "errorOnDeprecated": true,
-        "collectCoverage": true,
-        "coveragePathIgnorePatterns": [
-            "/node_modules/",
-            ".d.ts",
-            ".js"
-        ],
-        "watchPathIgnorePatterns": [
-            "/node_modules/"
-        ]
+    "errorOnDeprecated": true,
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      ".d.ts",
+      ".js"
+    ],
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "types": "lib/index.d.ts",
+  "stability": "stable",
+  "jsii": {
+    "outdir": "dist",
+    "targets": {},
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
     },
-    "types": "lib/index.d.ts",
-    "stability": "stable",
-    "jsii": {
-        "outdir": "dist",
-        "targets": {},
-        "tsc": {
-            "outDir": "lib",
-            "rootDir": "src"
-        },
-        "excludeTypescript": [
-            "src/**/*.test.ts"
-        ]
-    },
-    "packageManager": "pnpm@10.28.2+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
-    "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
+    "excludeTypescript": [
+      "src/**/*.test.ts"
+    ]
+  },
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264",
+  "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
 }

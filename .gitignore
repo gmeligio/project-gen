@@ -34,6 +34,7 @@ coverage_report
 test_report
 .vscode
 .env
+.zed
 /coverage_report/
 !/.github/workflows/build.yml
 /dist/changelog.md

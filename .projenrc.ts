@@ -54,7 +54,7 @@ const buildOptions: Pick<
   | 'typescriptVersion'
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
-  gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env'],
+  gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env', '.zed'],
   // JSII follows TypeScript versioning schema and should always be the same major/minor as TypeScript
   jsiiVersion: typescriptVersion,
   typescriptVersion,
