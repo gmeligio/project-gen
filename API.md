@@ -236,7 +236,7 @@ Whether to send crash reports to the CDKTF team.
 ##### `terraformModules`<sup>Required</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfConfig.property.terraformModules"></a>
 
 ```typescript
-public readonly terraformModules: string | TerraformDependencyConstraint[];
+public readonly terraformModules: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -248,7 +248,7 @@ Terraform Modules to build.
 ##### `terraformProviders`<sup>Required</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfConfig.property.terraformProviders"></a>
 
 ```typescript
-public readonly terraformProviders: string | TerraformDependencyConstraint[];
+public readonly terraformProviders: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -2118,7 +2118,7 @@ Whether to send crash reports to the CDKTF team.
 ##### `terraformModules`<sup>Optional</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformModules"></a>
 
 ```typescript
-public readonly terraformModules: string | TerraformDependencyConstraint[];
+public readonly terraformModules: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -2130,7 +2130,7 @@ Terraform Modules to build.
 ##### `terraformProviders`<sup>Optional</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfConfigCommonOptions.property.terraformProviders"></a>
 
 ```typescript
-public readonly terraformProviders: string | TerraformDependencyConstraint[];
+public readonly terraformProviders: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -2223,7 +2223,7 @@ Whether to send crash reports to the CDKTF team.
 ##### `terraformModules`<sup>Optional</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfConfigOptions.property.terraformModules"></a>
 
 ```typescript
-public readonly terraformModules: string | TerraformDependencyConstraint[];
+public readonly terraformModules: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -2235,7 +2235,7 @@ Terraform Modules to build.
 ##### `terraformProviders`<sup>Optional</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfConfigOptions.property.terraformProviders"></a>
 
 ```typescript
-public readonly terraformProviders: string | TerraformDependencyConstraint[];
+public readonly terraformProviders: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -4758,7 +4758,7 @@ Whether to send crash reports to the CDKTF team.
 ##### `terraformModules`<sup>Optional</sup> <a name="terraformModules" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformModules"></a>
 
 ```typescript
-public readonly terraformModules: string | TerraformDependencyConstraint[];
+public readonly terraformModules: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -4770,7 +4770,7 @@ Terraform Modules to build.
 ##### `terraformProviders`<sup>Optional</sup> <a name="terraformProviders" id="@gmeligio/project-gen.CdktfTypeScriptAppOptions.property.terraformProviders"></a>
 
 ```typescript
-public readonly terraformProviders: string | TerraformDependencyConstraint[];
+public readonly terraformProviders: (string | TerraformDependencyConstraint)[];
 ```
 
 - *Type:* string | <a href="#@gmeligio/project-gen.TerraformDependencyConstraint">TerraformDependencyConstraint</a>[]
@@ -4981,7 +4981,7 @@ The new element to set.
 ##### `path`<sup>Required</sup> <a name="path" id="@gmeligio/project-gen.YamlElement.property.path"></a>
 
 ```typescript
-public readonly path: string | number[];
+public readonly path: (string | number)[];
 ```
 
 - *Type:* string | number[]
@@ -5045,7 +5045,7 @@ const yamlTreeOptions: YamlTreeOptions = { ... }
 ##### `path`<sup>Required</sup> <a name="path" id="@gmeligio/project-gen.YamlTreeOptions.property.path"></a>
 
 ```typescript
-public readonly path: string | number[];
+public readonly path: (string | number)[];
 ```
 
 - *Type:* string | number[]
@@ -5168,7 +5168,7 @@ Get the transformations from the tree.
 ##### `descendTo` <a name="descendTo" id="@gmeligio/project-gen.YamlTree.descendTo"></a>
 
 ```typescript
-public descendTo(path: string | number[]): YamlTree
+public descendTo(path: (string | number)[]): YamlTree
 ```
 
 Jump to a child path.
