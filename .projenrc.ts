@@ -37,7 +37,7 @@ const documentationOptions: Pick<TypeScriptProjectOptions, 'sampleCode' | 'readm
   },
 };
 
-const typescriptVersion = '~5.7.0';
+const typescriptVersion = '~5.9.0';
 
 const buildOptions: Pick<
   JsiiProjectPatchOptions,
@@ -90,7 +90,7 @@ const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
 const projenVersion = '^0.99.7';
 const bundledDeps = ([] as string[]).concat(projenDeps);
 const devDeps = ([] as string[]).concat(projenDevDeps, jestDevDeps);
-const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.3.0');
+const peerDeps = ([] as string[]).concat(`projen@${projenVersion}`, 'constructs@^10.4.2');
 
 const renovatebotOptions: RenovatebotOptions = {
   overrideConfig: {
@@ -155,7 +155,7 @@ const pipelineOptions: Pick<
   TypeScriptProjectOptions,
   'depsUpgrade' | 'github' | 'githubOptions' | 'renovatebot' | 'workflowNodeVersion'
 > = {
-  depsUpgrade: false,
+  depsUpgrade: true,
   github: true,
   githubOptions: { pullRequestLint: false, projenCredentials: GithubCredentials.fromApp() },
   renovatebot: true,
