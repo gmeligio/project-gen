@@ -32,8 +32,9 @@ jspm_packages/
 .cache
 coverage_report
 test_report
-.vscode
+.claude
 .env
+.vscode
 .zed
 /coverage_report/
 !/.github/workflows/build.yml
