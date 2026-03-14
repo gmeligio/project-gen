@@ -103,7 +103,7 @@ const renovatebotOptions: RenovatebotOptions = {
           '"currentDigest":\\s*"(?<currentDigest>.*)",\\s*"currentValue":\\s"(?<currentValue>.*)",\\s*"currentVersion":\\s"(?<currentVersion>.*)",\\s*"datasource":\\s*"(?<datasource>.*)",\\s*"depType":\\s*"(?<depType>.*)",\\s*"manager":\\s*".*?"',
         ],
         matchStringsStrategy: 'recursive',
-        versioningTemplate: 'docker',
+        versioningTemplate: 'semver',
       },
     ],
   },

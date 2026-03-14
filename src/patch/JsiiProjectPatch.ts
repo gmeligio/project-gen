@@ -117,6 +117,13 @@ export class JsiiProjectPatch extends JsiiProject {
         matchDatasources: ['npm'],
         matchDepTypes: ['packageManager'],
         enabled: false,
+      },
+      // Automerge minor and patch pnpm updates, only create PRs for major
+      {
+        matchFileNames: ['version.json'],
+        matchDepNames: ['pnpm'],
+        matchUpdateTypes: ['minor', 'patch'],
+        automerge: true,
       }
     );
 
