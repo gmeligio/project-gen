@@ -91,8 +91,11 @@ export class JsiiProjectPatch extends JsiiProject {
 
     super(projectOptions);
 
+    // Convert SRI digest (sha512-<base64>) to corepack hex format (sha512.<hex>).
+    // version.json stores SRI format for Renovate npm datasource compatibility.
+    const corepackDigest = sriToHexDigest(pnpmDigest);
     this.addFields({
-      packageManager: `pnpm@${pnpmVersion}+${pnpmDigest}`,
+      packageManager: `pnpm@${pnpmVersion}+${corepackDigest}`,
     });
 
     // TODO: Remove dependency after ts-node@11 is published
