@@ -3,6 +3,7 @@ import { JsonPatch, TextFile } from 'projen';
 import { JsiiProject, JsiiProjectOptions } from 'projen/lib/cdk';
 import { GithubWorkflow } from 'projen/lib/github';
 import { YamlTransformer, Element, YamlElement, YamlTree } from '../yaml';
+import { sriToHexDigest } from './sriToHexDigest';
 
 interface GithubWorkflowOptions {
   /**
@@ -69,8 +70,11 @@ export class JsiiProjectPatch extends JsiiProject {
 
     super(projectOptions);
 
+    // Convert SRI digest (sha512-<base64>) to corepack hex format (sha512.<hex>).
+    // version.json stores SRI format for Renovate npm datasource compatibility.
+    const corepackDigest = sriToHexDigest(pnpmDigest);
     this.addFields({
-      packageManager: `pnpm@${pnpmVersion}+${pnpmDigest}`,
+      packageManager: `pnpm@${pnpmVersion}+${corepackDigest}`,
     });
 
     // TODO: Remove dependency after ts-node@11 is published
@@ -117,6 +121,13 @@ export class JsiiProjectPatch extends JsiiProject {
         matchDatasources: ['npm'],
         matchDepTypes: ['packageManager'],
         enabled: false,
+      },
+      // Automerge minor and patch pnpm updates, only create PRs for major
+      {
+        matchFileNames: ['version.json'],
+        matchDepNames: ['pnpm'],
+        matchUpdateTypes: ['minor', 'patch'],
+        automerge: true,
       }
     );
 

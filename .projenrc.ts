@@ -54,7 +54,7 @@ const buildOptions: Pick<
   | 'typescriptVersion'
 > = {
   excludeTypescript: ['src/**/*.test.ts'],
-  gitignore: [coverageDirectory, reportsDirectory, '.vscode', '.env', '.zed'],
+  gitignore: [coverageDirectory, reportsDirectory, '.claude', '.env', '.vscode', '.zed'],
   // JSII follows TypeScript versioning schema and should always be the same major/minor as TypeScript
   jsiiVersion: typescriptVersion,
   typescriptVersion,
@@ -103,7 +103,7 @@ const renovatebotOptions: RenovatebotOptions = {
           '"currentDigest":\\s*"(?<currentDigest>.*)",\\s*"currentValue":\\s"(?<currentValue>.*)",\\s*"currentVersion":\\s"(?<currentVersion>.*)",\\s*"datasource":\\s*"(?<datasource>.*)",\\s*"depType":\\s*"(?<depType>.*)",\\s*"manager":\\s*".*?"',
         ],
         matchStringsStrategy: 'recursive',
-        versioningTemplate: 'docker',
+        versioningTemplate: 'semver',
       },
     ],
   },
