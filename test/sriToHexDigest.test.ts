@@ -1,4 +1,4 @@
-import { sriToHexDigest } from '../src/patch';
+import { sriToHexDigest } from '../src/patch/sriToHexDigest';
 
 describe('sriToHexDigest', () => {
   test('converts SRI sha512 digest to corepack hex format', () => {
