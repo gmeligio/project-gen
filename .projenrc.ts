@@ -82,7 +82,7 @@ const buildOptions: Pick<
   },
 };
 
-const projenDevDeps = ['@types/uuid'];
+const projenDevDeps: string[] = [];
 const projenDeps = ['uuid', 'yaml'];
 
 const jestDevDeps = ['@swc/jest', '@swc/core', 'jest-junit', 'cdktf'];
