@@ -49,8 +49,8 @@
     },
     "pnpm": {
         "currentDigest": "sha512-QYcvA3rSL3NI47Heu69+hnz9RI8nJtnPdMCPGVB8MdLI56EVJbmD/rwt9kC1Q43uYCPrsfhO1DzC1lTSvDJiZA==",
-        "currentValue": "10.32.1",
-        "currentVersion": "10.32.1",
+        "currentValue": "10.33.0",
+        "currentVersion": "10.33.0",
         "datasource": "npm",
         "depType": "packageManager",
         "manager": "js"
